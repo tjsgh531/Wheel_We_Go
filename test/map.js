@@ -1,18 +1,20 @@
-
 // 지도 API의 변수들
 class Map{
     constructor(){
-        var map;
-        var marker_s, marker_e, marker_p1, marker_p2;
-        var totalMarkerArr = [];
-        var drawInfoArr = [];
-        var resultdrawArr = [];
+        this.map;
+        this.marker_s; 
+        this.marker_e;
+
+        this.drawInfoArr = [];
+        this.resultdrawArr = [];
+
+        
     }
 
     // 초기 맵을 띄워준다.
     initTmap() {
     // 1. 지도 띄우기
-    map = new Tmapv2.Map("map_div", {
+    this.map = new Tmapv2.Map("map_div", {
       center: new Tmapv2.LatLng("<%-curLat %>", "<%-curLng%>"), //장고 템플릿언어로 갑 치환
       width: "100%", // 맵의 가로
       height: "100vh", //맵의 세로
@@ -23,19 +25,19 @@ class Map{
   
     // 2. 시작, 도착 심볼찍기
     // 시작
-    marker_s = new Tmapv2.Marker({
+    this.marker_s = new Tmapv2.Marker({
       position: new Tmapv2.LatLng("<%-curLat %>", "<%-curLng%>"),
       icon: "http://tmapapi.sktelecom.com/upload/tmap/marker/pin_r_m_s.png",
       iconSize: new Tmapv2.Size(24, 38),
-      map: map,
+      map: this.map,
     });
   
     // 도착
-    marker_e = new Tmapv2.Marker({
+    this.marker_e = new Tmapv2.Marker({
       position: new Tmapv2.LatLng("<%-destLat %>", "<%-destLng%>"),
       icon: "http://tmapapi.sktelecom.com/upload/tmap/marker/pin_r_m_e.png",
       iconSize: new Tmapv2.Size(24, 38),
-      map: map,
+      map: this.map,
     });
   
     // 3. 경로탐색 API 사용요청
@@ -68,14 +70,14 @@ class Map{
         $("#distance").text(tDistance);
   
         //기존 그려진 라인 & 마커가 있다면 초기화
-        if (resultdrawArr.length > 0) {
-          for (var i in resultdrawArr) {
-            resultdrawArr[i].setMap(null);
+        if (this.resultdrawArr.length > 0) {
+          for (var i in this.resultdrawArr) {
+            this.resultdrawArr[i].setMap(null);
           }
-          resultdrawArr = [];
+          this.resultdrawArr = [];
         }
   
-        drawInfoArr = [];
+        this.drawInfoArr = [];
   
         for (var i in resultData) {
           //for문 [S]
@@ -99,7 +101,7 @@ class Map{
                 convertPoint._lng
               );
               // 배열에 담기
-              drawInfoArr.push(convertChange);
+              this.drawInfoArr.push(convertChange);
             }
           } else {
             var markerImg = "";
@@ -150,11 +152,11 @@ class Map{
               ),
               icon: routeInfoObj.markerImage,
               iconSize: size,
-              map: map,
+              map: this.map,
             });
           }
         } //for문 [E]
-        drawLine(drawInfoArr);
+        drawLine(this.drawInfoArr);
       },
       error: function (request, status, error) {
         console.log(
@@ -183,9 +185,9 @@ class Map{
         path: arrPoint,
         strokeColor: "#DD0000",
         strokeWeight: 6,
-        map: map,
+        map: this.map,
         });
-        resultdrawArr.push(polyline_);
+        this.resultdrawArr.push(polyline_);
     }
   
 }
