@@ -21,10 +21,11 @@ export class InitMap {
     }
     
     updateMap(map, lat, lon){
-        console.log(map.getCenter());
+
+        console.log("맵의 중심 : ", map.getCenter());
 
         const newcenter = new Tmapv3.LatLng(lat, lon);
-        map[center] = newcenter;
+        map.setCenter(newcenter);
 
         return map;
     }
