@@ -7,11 +7,13 @@ class App{
         this.currentLon;
 
         this.map;
+        this.maptool;
         this.drawTools;
 
         this.currentPosCircle;
 
         this.init();
+        
     }
 
     async init(){
@@ -21,30 +23,34 @@ class App{
 
         this.maptool = new InitMap();
 
-        this.map = this.maptool.createTmap(this.currentLat, this.currentLon);
-
-        this.map.on("ConfigLoad",()=>{
+        this.map = await this.maptool.createTmap(this.currentLat, this.currentLon);
+            
+        this.map.on("ConfigLoad",function(){
             this.drawTools = new DrawShape(this.map);
             this.currentPosCircle = this.drawTools.addCircle(this.currentLat, this.currentLon, 2, 2, "#FFC573");
-            this.update();
-        });
-
+                     
+        }.bind(this));
         
     }
 
     //프래임마다 반복하는 함수
     update(){
+        console.log("update 실행중 ...");
         // 현재 위치 업데이트
         this.updateCurrentPos();
         
         //자기 위치 표현하는 원 움직이기
-        this.drawTools.moveCircle(this.currentPosCircle, this.currentLat, this.currentLon);
+    
+        console.log("되는 거지?");
+        this.currentPosCircle = this.drawTools.moveCircle(this.currentPosCircle, this.currentLat, this.currentLon);
 
+        console.log("되는 거지?");
         //맵을 현재 위치에 중앙 맞추기
-        this.maptool.updateMap(this.map, this.currentLat, this.currentLon);
+        this.map = this.maptool.updateMap(this.map, this.currentLat, this.currentLon);
 
-
-        requestAnimationFrame(this.update.bind(this));
+        console.log("되는 거지?");
+        this.update();
+        requestAnimationFrame(this.update());
     }
 
     drawCurrentPos(){

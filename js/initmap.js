@@ -21,6 +21,8 @@ export class InitMap {
     }
     
     updateMap(map, lat, lon){
+        console.log(map.getCenter());
+
         const newcenter = new Tmapv3.LatLng(lat, lon);
         map[center] = newcenter;
 

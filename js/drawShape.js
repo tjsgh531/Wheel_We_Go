@@ -13,13 +13,16 @@ export class DrawShape{
 			map: this.map
 		});
 
+        
+
         return circle;
     }
 
     //원 위치 변경
     moveCircle(circle, lat, lon){
-        const newPos = new Tmapv3.LatLng(lat, lon);
-        circle[center] = newPos;
+        console.log(circle._shape_data.center._lat);
+        circle._shape_data.center._lat = lat;
+        circle._shape_data.center._lng = lon;
 
         return circle;
     }
