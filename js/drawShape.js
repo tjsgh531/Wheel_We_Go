@@ -83,9 +83,3 @@ export class DrawShape{
         return polygon
 	}
 }
-
-	
-	
-	
-	
-	
