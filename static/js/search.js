@@ -26,7 +26,6 @@ class Search {
         ];
     }
 
-
     createSearchBlock(word, date) {
         const searchBlock = document.createElement('div');
         searchBlock.classList.add("searchblock");
@@ -41,7 +40,7 @@ class Search {
 
         const cancle = document.createElement('div');
         cancle.classList.add("cancle");
-        cancle.textContent = "Delete"; // 삭제 버튼 등으로 변경 가능
+        cancle.textContent = "Delete";
 
         searchBlock.appendChild(wordBlock);
         searchBlock.appendChild(dateBlock);
@@ -50,6 +49,17 @@ class Search {
         return searchBlock;
     }
 }
+
+// Wait for the DOM to fully load
+document.addEventListener("DOMContentLoaded", () => {
+    const cancelButton = document.querySelector('.cancleBtn'); // 취소 버튼
+    const searchBox = document.querySelector('.searchBox'); // 검색 입력 필드
+
+    cancelButton.addEventListener('click', () => {
+        searchBox.value = ''; // 검색 입력 필드 내용 초기화
+    });
+});
+
 
 window.onload = () => {
     new Search();
