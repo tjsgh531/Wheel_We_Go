@@ -51,6 +51,15 @@ class Search {
     }
 }
 
+// JavaScript (search.js)
+const cancelButton = document.querySelector('.cancleBtn'); // 취소 버튼
+const searchBox = document.querySelector('.searchBox'); // 검색 입력 필드
+
+cancelButton.addEventListener('click', () => {
+    searchBox.value = ''; // 검색 입력 필드 내용 초기화
+});
+
+
 window.onload = () => {
     new Search();
 };
