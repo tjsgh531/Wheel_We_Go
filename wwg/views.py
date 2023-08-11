@@ -17,21 +17,19 @@ from rest_framework.pagination import LimitOffsetPagination
 
 ### 페이지-html 매핑 views ###
 def index(request):
-    return render(request,"index.html")
+    return render(request,"01index.html")
 
 def main(request):
+    #카카오 닉네임가져오기 부분 고치는중
     user_nickname = request.session.get('user_nickname', None)  # 세션에서 닉네임 정보 가져오기
 
     context = {
         'user_nickname': user_nickname,
     }
-    return render(request, "main.html", context)
-
-def map(request):
-    return render(request,"map.html")
+    return render(request, "02main.html", context)
 
 def mydata(request):
-    return render(request,"mydata.html")
+    return render(request,"07mydata.html")
 
 def mypage(request):
     return render(request,"mypage.html")
@@ -39,22 +37,14 @@ def mypage(request):
 def myprofile(request):
     return render(request,"myprofile.html")
 
-def RegionSee(request):
-    return render(request,'RegionSee.html')
-
-def search(request):
-    return render(request,"search.html")
+def serviceRegion(request):
+    return render(request,'05serviceRegion.html')
 
 def shopping(request):
     return render(request,"shopping.html")
 
-def pathline(request):
-    return render(request,"pathline.html")
-
-def clustermap(request):
-    return render(request,"clustermap.html")
-
-
+def no(request):
+    return render(request,"no.html")
 ######### REST API VIEWSET ########
 class UsersViewSet(viewsets.ModelViewSet):
     queryset = Users.objects.all()

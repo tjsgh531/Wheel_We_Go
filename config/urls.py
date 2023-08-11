@@ -29,14 +29,11 @@ urlpatterns = [
     #페이지 url
     path('',views.index,name="index"),
     path('main/' ,views.main,name="main" ),
-    path('map/' ,views.map,name="map" ),
     path('mydata/' ,views.mydata,name="mydata" ),
     path('mypage/' ,views.mypage,name="mypage" ),
     path('myprofile/' ,views.myprofile,name="myprofile" ),
-    path('RegionSee/' ,views.RegionSee,name="RegionSee" ),
-    path('search/' ,views.search ,name="search" ),
+    path('serviceRegion/' ,views.serviceRegion,name="serviceRegion" ),
     path('shopping/' ,views.shopping,name="shopping" ),
-    path('pathline/',views.pathline,name="pathline"),
-    path('clustermap/',views.clustermap,name="clustermap"),
+    path('no/',views.no,name="no"),
     
 ]
