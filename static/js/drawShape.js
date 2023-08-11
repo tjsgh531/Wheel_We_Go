@@ -13,14 +13,11 @@ export class DrawShape{
 			map: this.map
 		});
 
-        
-
         return circle;
     }
 
     //원 위치 변경
     moveCircle(circle, lat, lon){
-        console.log(circle._shape_data.center._lat);
         circle._shape_data.center._lat = lat;
         circle._shape_data.center._lng = lon;
 
@@ -37,18 +34,16 @@ export class DrawShape{
 			strokeWeight: strokeWeight,
 			map: this.map
 		});
+        
 
         return polyline
     }
 
-    // 마지막 점에서 새로운 점과 연결
-    connectLine(polyline, lat, lon){
-        const newPoint = new Tmpv3.LatLng(lat, lon);
-        polyline[path].push(newPoint);
-
-        return polyline;
+    //선 지우기
+    deletePolyline(polyline){
+        polyline.setMap(null);
     }
-	
+    
     //사각형
 	addRectangle(maxLat, maxLon, minLat, minLon, strokeWeight, color){
 		const rect = new Tmapv3.Rectangle({
@@ -63,14 +58,14 @@ export class DrawShape{
 
     //다각형
 	addPolygon(pointArray, strokeWeight, color){
-
+        //pointArray: [(위도1, 경도1), (위도2, 경도2) ...]
         let newpaths = [];
         pointArray.forEach(ele => {
             const pointLat = ele[0];
             const pointLon = ele[1];
             const newPoint = new Tmapv3.LatLng(pointLat, pointLon);
 
-            paths.push(newPoint);
+            newpaths.push(newPoint);
         });
 
 		const polygon = new Tmapv3.Polygon({

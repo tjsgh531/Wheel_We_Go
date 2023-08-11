@@ -36,6 +36,7 @@ urlpatterns = [
     path('RegionSee/' ,views.RegionSee,name="RegionSee" ),
     path('search/' ,views.search ,name="search" ),
     path('shopping/' ,views.shopping,name="shopping" ),
-    path('pathline/',views.pathline,name="pathline")
+    path('pathline/',views.pathline,name="pathline"),
+    path('clustermap/',views.clustermap,name="clustermap"),
     
 ]

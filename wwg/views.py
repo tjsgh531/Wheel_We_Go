@@ -51,6 +51,9 @@ def shopping(request):
 def pathline(request):
     return render(request,"pathline.html")
 
+def clustermap(request):
+    return render(request,"clustermap.html")
+
 
 ######### REST API VIEWSET ########
 class UsersViewSet(viewsets.ModelViewSet):
