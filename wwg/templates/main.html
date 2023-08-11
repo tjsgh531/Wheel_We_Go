@@ -1,9 +1,73 @@
-<p> 첫 화면 접속시 로고와 소셜로그인 창 예상</p>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=640, user-scalable=yes">
+    <title>Wheel We Go</title>
+
+
+    <link rel="stylesheet" href="../static/css/main.css" type = "text/css">
+    <script type="module" src="../static/js/main.js" defer></script>
+
+</head>
+
+<body>
+    <div id="wrap">
+
+        <!-- 검색창&햄버거 -->
+        <div class="container">
+            <div class="bar">
+                <!-- 검색창 -->
+                <div class="search">
+                    <input class="searchBox" type="text" placeholder="장소, 주소 검색">
+                    <img class="check" src="../static/img/돋보기.png" alt="돋보기" height="20px" width="20px">
+                </div>
+                <!-- 햄버거 -->
+                <a class="menu-trigger" href="#">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </a>
+            </div>
+
+
+            <!-- 햄버거 메뉴 시작  -->
+            <div class="ham-content">
+                <!-- x -->
+                <a class="x-trigger" href="#">
+                    <span></span>
+                    <span></span>
+                </a>
+                <div class="ham-profile">
+                    <img class="hp0" src="../static/img/프로필.png" alt="프로필" width="35px" height="35px">
+                    <div class="hp1">
+                        <div class="hp1-1">어디든 자유롭게 가봐요.</div>
+                        <div class="hp1-2">
+                            {% if user_nickname %}
+                            <p>{{ user_nickname }}님</p>
+                            {% else %}
+                            <p>--님</p>
+                            {% endif %}
 
 
 
+                        </div>
+                    </div>
+                </div>
+
+                <div id="ham-menu-wrap">
+                    <ul class="hmw"><a class="hmwa" href="http://127.0.0.1:8000/mypage/">마이페이지</a></ul>
+                    <ul class="hmw"><a class="hmwa" href="http://127.0.0.1:8000/RegionSee/">서비스 지역 보기</a></ul>
+                </div>
+            </div>
+
+            <div class="ham-menu-back"></div>
+        </div>
+    </div>
+    </div>
 
 
-{% load socialaccount %}
+</body>
 
-<button type="button" onclick="location.href = '{% provider_login_url 'kakao' %}'"><img class = "kakao" src="https://k.kakaocdn.net/14/dn/btroDszwNrM/I6efHub1SN5KCJqLm1Ovx1/o.jpg" alt="" ></button>
+</html>

@@ -27,7 +27,8 @@ urlpatterns = [
     path('api/',include('wwg.urls')),
     
     #페이지 url
-    path('' ,views.main,name="main" ),
+    path('',views.index,name="index"),
+    path('main/' ,views.main,name="main" ),
     path('map/' ,views.map,name="map" ),
     path('mydata/' ,views.mydata,name="mydata" ),
     path('mypage/' ,views.mypage,name="mypage" ),
@@ -35,5 +36,6 @@ urlpatterns = [
     path('RegionSee/' ,views.RegionSee,name="RegionSee" ),
     path('search/' ,views.search ,name="search" ),
     path('shopping/' ,views.shopping,name="shopping" ),
-
+    path('pathline/',views.pathline,name="pathline")
+    
 ]

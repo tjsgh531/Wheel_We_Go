@@ -1,22 +1,26 @@
+
+<!-- 처음 입장시 로고 + 카카오로그인 -->
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=640, user-scalable=yes">
-    <title>Wheel We Go</title>
-
-
-    <link rel="stylesheet" href="../css/style.css">
-
-    <script src="https://apis.openapi.sk.com/tmap/vectorjs?version=1&appKey=l7xxed2c734830ae4364975ef11e67a76e81"></script>
-    <script src="../js/app.js" type="module" defer></script>
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="../static/css/login.css">
+    <script type="module" src="" defer></script>
 </head>
+
 <body>
     <div id="wrap">
-        <div id="map_div">
+        <div class="container">
+            <img class="logo" src="./static/img/로고.png" alt="Wheel We Go">
 
         </div>
     </div>
+    {% load socialaccount %}
+
+    <button type="button" onclick="location.href = '{% provider_login_url 'kakao' %}'"><img class = "kakao" src="https://k.kakaocdn.net/14/dn/btroDszwNrM/I6efHub1SN5KCJqLm1Ovx1/o.jpg" alt="" ></button>
 </body>
+
 </html>

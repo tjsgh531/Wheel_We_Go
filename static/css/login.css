@@ -1,0 +1,26 @@
+body,
+html {
+    overflow-x: hidden;
+}
+
+div {
+    box-sizing: border-box;
+}
+
+#wrap {
+    margin: 0 auto;
+    max-width: 767px;
+    min-height: 100vh;
+    background-color: #FFFFFF;
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 500px;
+}
+
+.logo {
+    width: 200px;
+}
