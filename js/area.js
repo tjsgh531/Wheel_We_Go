@@ -14,7 +14,7 @@ class Area {
             zoom: 12
         });
         
-        this.map.on("ConfigLoad", function () {
+        this.map.on("ConfigLoad", () => {
             this.startLoadFile();
         });
     }
@@ -24,7 +24,7 @@ class Area {
             url: '../geojson/seoul_coordinates.geojson',
             type: 'GET',
             dataType: 'json',
-            success: function (data) {
+            success: (data) => {
                 var data = data.features;
                 var coordinates = [];
                 
@@ -66,14 +66,12 @@ class Area {
             fillColor: "#fff00",
             strokeColor: "#FFFFFF",
             strokeWeight: 1,
-            map: map,
+            map: this.map,
         });
 
         this.polygons.push(polygon);
     }
 }
-
-
 
 window.onload = () => {
     new Area();
