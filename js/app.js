@@ -16,7 +16,7 @@ class App{
         this.currentPosCircle;
 
         this.currentPos = new CurrentPos();
-        
+
         this.init();
     }
 
