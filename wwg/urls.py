@@ -12,7 +12,8 @@ router.register(r'markings', MarkingsViewSet)
 router.register(r'filtered-records', RecordsFilterViewSet, basename='filtered-records')
 
 urlpatterns = [
-    path('' , include(router.urls)),    
+    path('' , include(router.urls)),
+    path('accounts/',include('allauth.urls'))
     # 아래주석은 지워도됨
     # path('users/',user_list),
 

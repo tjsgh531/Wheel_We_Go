@@ -1,1 +1,9 @@
 <p> 첫 화면 접속시 로고와 소셜로그인 창 예상</p>
+
+
+
+
+
+{% load socialaccount %}
+
+<button type="button" onclick="location.href = '{% provider_login_url 'kakao' %}'"><img class = "kakao" src="https://k.kakaocdn.net/14/dn/btroDszwNrM/I6efHub1SN5KCJqLm1Ovx1/o.jpg" alt="" ></button>

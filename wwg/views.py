@@ -86,3 +86,14 @@ def user_list(request):
             return JsonResponse(serializer.data,status=201)
         return JsonResponse(serializer.errors,status=400)
         '''
+
+# class kakaoOAuth2Adapter(OAuth2Adapter):
+#     provider_id = kakaoProvider.id
+#     access_token_url="https://kauth.kakao.com/oauth/token"
+#     authorize_url = "https://kauth.kakao.com/oauth/authorize"
+#     profile_url = "https://kapi.kakao.com/v2/user/me"
+    
+#     def complete_login(self,request,app,token,**kwargs):
+#         headers = {"Authorization":"Bearer {0}".format(token.token)}
+#         resp =requests.get(self.profile_url,headers=headers)
+#         resp.raise_for_status()

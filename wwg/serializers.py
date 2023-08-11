@@ -34,4 +34,7 @@ class RecordsFilterSerializer(serializers.ModelSerializer):
         fields = ('start_location','end_location','TIME','feedback','credits_earned','record_date','data_valid','km')
 
 
+
+
+
 ##필터링 기능미완###
