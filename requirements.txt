@@ -1,0 +1,6 @@
+django-filter
+django
+djangorestframework
+django-rest-auth
+django-allauth
+djangorestframework_simplejwt
