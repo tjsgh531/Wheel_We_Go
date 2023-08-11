@@ -9,7 +9,6 @@ router.register(r'users', UsersViewSet)
 router.register(r'records', RecordsViewSet)
 router.register(r'regions', RegionsViewSet)
 router.register(r'markings', MarkingsViewSet)
-router.register(r'filtered-records', RecordsFilterViewSet, basename='filtered-records')
 
 urlpatterns = [
     path('' , include(router.urls)),

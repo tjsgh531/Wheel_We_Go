@@ -9,6 +9,10 @@ from rest_framework.parsers import JSONParser
 from django.views.decorators.csrf import csrf_exempt
 from django_filters import rest_framework as filters
 
+#filtering
+from django_filters.rest_framework import DjangoFilterBackend
+from rest_framework.pagination import LimitOffsetPagination
+
 
 
 ### 페이지-html 매핑 views ###
@@ -47,35 +51,35 @@ def shopping(request):
 def pathline(request):
     return render(request,"pathline.html")
 
+
+######### REST API VIEWSET ########
 class UsersViewSet(viewsets.ModelViewSet):
     queryset = Users.objects.all()
     serializer_class = UsersSerializer
+    filter_backends=[DjangoFilterBackend]
+    #필터 필요시 추가
+    #filterset_fields=['']
 
 class RecordsViewSet(viewsets.ModelViewSet):
     queryset = Records.objects.all()
     serializer_class = RecordsSerializer
+    filter_backends=[DjangoFilterBackend]
+    #필터 필요시 추가
+    filterset_fields=['user_id','start_location']
 
 class RegionsViewSet(viewsets.ModelViewSet):
     queryset = Regions.objects.all()
     serializer_class = RegionsSerializer
+    filter_backends=[DjangoFilterBackend]
+    #필터 필요시 추가
+    filterset_fields=['regions']
 
 class MarkingsViewSet(viewsets.ModelViewSet):
     queryset = Markings.objects.all()
     serializer_class = MarkingsSerializer
-
-# Records모델에서 특정 단어 필터링(이건 시작위치 필터링 함수)
-##필터링 기능미완###
-class RecordsFilter(filters.FilterSet):
-    start_location = filters.CharFilter(lookup_expr='exact')
-
-    class Meta:
-        model = Records
-        fields = ('start_location',)
-
-class RecordsFilterViewSet(viewsets.ReadOnlyModelViewSet):
-    queryset = Records.objects.all()
-    serializer_class = RecordsFilterSerializer
-    filterset_class = RecordsFilter
+    filter_backends=[DjangoFilterBackend]
+    #필터 필요시 추가
+    filterset_fields=['records_id']
 
     # 아래주석은 지워도 됨
 ''' 
@@ -92,6 +96,19 @@ def user_list(request):
             serializer.save()
             return JsonResponse(serializer.data,status=201)
         return JsonResponse(serializer.errors,status=400)
+        --------------------------------
+class RecordsFilter(filters.FilterSet):
+    start_location = filters.CharFilter(lookup_expr='exact')
+
+    class Meta:
+        model = Records
+        fields = ('start_location',)
+
+class RecordsFilterViewSet(viewsets.ReadOnlyModelViewSet):
+    queryset = Records.objects.all()
+    serializer_class = RecordsFilterSerializer
+    filterset_class = RecordsFilter
+
         '''
         
         
