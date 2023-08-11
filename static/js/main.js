@@ -22,14 +22,3 @@ xTrigger.addEventListener('click', () => {
     hamMenuBack.style.opacity = '0';
     hamMenuBack.style.display = 'none';
 });
-
-
-// 박스클릭시 search page로 이동
-document.addEventListener('DOMContentLoaded', function() {
-    const searchBox = document.querySelector('.searchBox');
-
-    searchBox.addEventListener('click', function() {
-        // 클릭 시 검색 페이지로 이동
-        window.location.href = 'http://127.0.0.1:8000/search/';
-    });
-});
