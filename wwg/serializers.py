@@ -34,6 +34,12 @@ class RecordsFilterSerializer(serializers.ModelSerializer):
         fields = ('start_location','end_location','TIME','feedback','credits_earned','record_date','data_valid','km')
 
 
+### 이동거리 값 반환 ###
+class DataSerializer(serializers.Serializer):
+    dong = serializers.CharField(max_length=100)
+    mapCount = serializers.IntegerField()
+    mapDistance = serializers.IntegerField()
+
 
 
 

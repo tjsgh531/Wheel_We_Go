@@ -3,11 +3,13 @@ from django.shortcuts import render,redirect
 
 from rest_framework import viewsets
 from .models import Users, Records, Regions, Markings
-from .serializers import RecordsFilterSerializer,UsersSerializer, RecordsSerializer, RegionsSerializer, MarkingsSerializer
+from .serializers import RecordsFilterSerializer,UsersSerializer, RecordsSerializer, RegionsSerializer, MarkingsSerializer, DataSerializer
 from django.http import HttpResponse, JsonResponse
 from rest_framework.parsers import JSONParser
 from django.views.decorators.csrf import csrf_exempt
 from django_filters import rest_framework as filters
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
 
 #filtering
 from django_filters.rest_framework import DjangoFilterBackend
@@ -134,3 +136,19 @@ def callback_view(request):
     request.session['user_nickname'] = user_nickname
 
     return redirect('main')  # 리다이렉트를 통해 메인 페이지로 이동
+
+### 총 이동거리 및 데이터 개수 반환 ## -> 수정 필요 
+@api_view(['GET'])
+def search(request):
+    mapData = Regions.objects.all()
+    dongName=request.regions
+    searchDong = mapData.filter(dong=dongName) # 쿼리스트링 필터링 수정 필요
+    mapCount = searchDong.stacks
+    mapDistance = searchDong.distance
+    data = {
+        'dong': searchDong.dongName,
+        'mapCount': mapCount,
+        'mapDistance': mapDistance,
+    }
+    serializer = DataSerializer(data, many=True)
+    return Response(serializer.data)
