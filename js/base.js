@@ -27,9 +27,13 @@ class MapBase{
         const longitude = position.coords.longitude;
         const newPosition = new Tmapv3.LatLng(latitude, longitude);
         
-        this.map.setCenter(newPosition);
-
         this.drawShape.setMap(this.map);
+
+        this.updateSetCenterCircle(latitude, longitude, newPosition);
+    }
+
+    updateSetCenterCircle(latitude, longitude, newPosition){
+        this.map.setCenter(newPosition);
 
         if(this.centerCircle){
            this.centerCircle = this.drawShape.moveCircle(this.centerCircle, latitude, longitude);
@@ -37,7 +41,6 @@ class MapBase{
         else{
             this.centerCircle = this.drawShape.addCircle(latitude, longitude, 4);
         }
-        
     }
 
     initSetMap(){

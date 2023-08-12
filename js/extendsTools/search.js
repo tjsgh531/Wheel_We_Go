@@ -1,7 +1,10 @@
 export class Search {
     constructor() {
         this.clickSearchResult();
+        this.focusSearchBox();
     }
+
+    
 
     getList(lat, lng, search_word){
         let searchKeyword = search_word;
@@ -54,6 +57,17 @@ export class Search {
             }
         });
       
+    }
+
+    focusSearchBox(){
+        const searchBox = document.querySelector('.searchBox');
+        searchBox.addEventListener('focus', (ele)=>{
+            console.log("ehlfk");
+            console.log(ele);
+        });
+        searchBox.addEventListener('change', (ele)=>{
+            console.log(ele);
+        });
     }
 
     clickSearchResult(){
