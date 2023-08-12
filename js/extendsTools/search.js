@@ -31,7 +31,7 @@ export class Search {
                     "searchKeyword" : searchKeyword,
                     "centerLat" : lat,
                     "centerLon" : lng,
-                    "resCoordType" : "EPSG3857",
+                    "resCoordType" : "WGS84GEO",
                     "reqCoordType" : "WGS84GEO",
                     "count" : 10
                 },
@@ -178,11 +178,12 @@ export class Search {
     clickSearchBlock(lat, lng, name, addr, tel){
         console.log("여기 ㅙ 안돼?");
         console.log(lat, lng, name, addr, tel);
+
         /*test data */
         this.displayMark(lat, lng);
         this.displayStoreInfo(name);
     }
-
+    
     // Mark 지도 상에 찍기
     displayMark(lat, lng){
         const marker = new Tmapv3.Marker({
