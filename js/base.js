@@ -28,6 +28,7 @@ class MapBase{
         const newPosition = new Tmapv3.LatLng(latitude, longitude);
         
         this.drawShape.setMap(this.map);
+        this.searchTool.setPosition(latitude, longitude);
 
         //this.updateSetCenterCircle(latitude, longitude, newPosition);
     }
@@ -53,7 +54,6 @@ class MapBase{
                 this.map = map;
 
                 map.on("ConfigLoad", ()=>{  
-                    this.centerCircle = this.drawShape.addCircle(this.currentLat, this.currentLon, 4);
                     this.drawShape.setMap(map);
                     this.searchTool.setMap(map);
                     this.watchid = this.currentPos.watchLocation(this.update.bind(this));
