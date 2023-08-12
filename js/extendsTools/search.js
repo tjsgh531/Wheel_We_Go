@@ -2,9 +2,13 @@ export class Search {
     constructor() {
         this.clickSearchResult();
         this.focusSearchBox();
+
+        this.map;
     }
 
-    
+    setMap(map){
+        this.map = map;
+    }
 
     getList(lat, lng, search_word){
         let searchKeyword = search_word;
@@ -74,21 +78,25 @@ export class Search {
         const searchBlocks = document.querySelectorAll('.searchBlock');
         
         searchBlocks.forEach(ele => {
-            ele.addEventListener("click", this.clickSearchBlock.bind(this, ));
+            ele.addEventListener("click", this.clickSearchBlock.bind(this, 35.152429, 128.105710, "스타벅스 경상국립대점"));
         });
     }
 
     clickSearchBlock(lat, lng, name){
         /*test data */
         this.displayMark(lat, lng);
-        this.displayStoreInfo();
+        this.displayStoreInfo(name);
     }
 
-    displayMark(){
-
+    // Mark 지도 상에 찍기
+    displayMark(lat, lng){
+        const marker = new Tmapv3.Marker({
+            position : new Tmapv3.LatLng(lat,lng),
+            map : this.map
+        });
     }
 
-    displayStoreInfo(){
-
+    displayStoreInfo(name){
+        document.querySelector(".placeInfoDetail").textContent = `${name}`;
     }
 }
