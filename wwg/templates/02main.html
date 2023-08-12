@@ -1,31 +1,13 @@
 {% extends "00mapBase.html" %}
 {% load static %}
 {% block script %}
-    <script src="//code.jquery.com/jquery-3.2.1.min.js"></script>
+   
     <link rel="stylesheet" href="{% static 'css/search.css' %}" type = "text/css">
     <script src= "{% static 'js/search.js' %}"></script>
+    
 {% endblock %}
 
 {% block content %}
-    <div>
-        <input type="text" class="text_custom" id="searchKeyword" name="searchKeyword" value="서울시">	
-        <button id="btn_select">적용하기</button>
-    </div>
-    <div>
-        <div style="width: 30%; float:left;">
-            <div class="title"><strong>Search</strong> Results</div>
-            <div class="rst_wrap">
-                <div class="rst mCustomScrollbar">
-                    <ul id="searchResult" name="searchResult">
-                        <li>검색결과</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="searchblock">
-        <div></div>
-    </div>
+  
 {% endblock %}
 

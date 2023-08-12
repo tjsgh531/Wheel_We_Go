@@ -12,7 +12,7 @@ export class InitMap {
                     height: "100vh",
                     zoom: 18
                 });
-                console.log("즉당히 해라 제발 ");
+
                 resolve(map);
             });
         } catch (error) {

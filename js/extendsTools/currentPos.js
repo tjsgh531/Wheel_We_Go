@@ -14,15 +14,10 @@ export class CurrentPos{
                     timeout: 5000,
                     maximumAge: 0,
                 });
-            console.log("watch loaction id : ", watchid);
             return watchid;
         }
     }
-    
-    // const currentLocation = {
-    //     latitude : position.coords.latitude,
-    //     longitude : position.coords.longitude,  
-    // }
+
     
         
     
