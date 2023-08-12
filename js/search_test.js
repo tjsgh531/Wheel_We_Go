@@ -1,4 +1,4 @@
-class Search_Test {
+class Search {
     constructor() {
         this.getData();
 
@@ -43,7 +43,7 @@ class Search_Test {
         cancle.textContent = "X";
 
         cancle.addEventListener("click", ()=>{
-
+            
         })
 
         searchBlock.appendChild(wordBlock);
@@ -66,5 +66,5 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
 window.onload = () => {
-    new Search_Test();
+    new Search();
 };
