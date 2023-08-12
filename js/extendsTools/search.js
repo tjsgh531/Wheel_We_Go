@@ -36,42 +36,55 @@ export class Search {
                     "count" : 10
                 },
                 success:function(response){
-                    let resultpoisData = response.searchPoiInfo.pois.poi;
                     let search_list =[];
                     let search_coords = [];
                     let search_tel = [];
                     let search_addr = [];
-                    
-                    for(let k in resultpoisData){
+
+                    if(response){
+                        let resultpoisData = response.searchPoiInfo.pois.poi;
                         
-                        console.log(resultpoisData[k]);
-                        let noorLat = Number(resultpoisData[k].noorLat);
-                        let noorLon = Number(resultpoisData[k].noorLon);
-                        let coords = {
-                            latitude : noorLat,
-                            longitude : noorLon,
+                        for(let k in resultpoisData){
+                            console.log("위 경도 : ",resultpoisData[k].centerLat );
+                            console.log(resultpoisData[k]);
+                            let noorLat = Number(resultpoisData[k].noorLat);
+                            let noorLon = Number(resultpoisData[k].noorLon);
+                            let coords = {
+                                latitude : noorLat,
+                                longitude : noorLon,
+                            };
+                            
+                            let name = resultpoisData[k].name;
+
+                            let address = resultpoisData[k].middleAddrName + " " + resultpoisData[k].lowerAddrName + " " + resultpoisData[k].roadName;
+                            
+                            let tel = resultpoisData[k].telNo;
+
+                            search_list.push(name);
+                            search_coords.push(coords);
+                            search_addr.push(address);
+                            search_tel.push(tel);
+                        }
+
+                        const result = {
+                            name_list : search_list,
+                            coords : search_coords,
+                            addr : search_addr,
+                            tel : search_tel,
                         };
                         
-                        let name = resultpoisData[k].name;
-
-                        let address = resultpoisData[k].middleAddrName +resultpoisData[k].lowerAddrName + resultpoisData[k].roadName;
-                        
-                        let tel = resultpoisData[k].telNo;
-
-                        search_list.push(name);
-                        search_coords.push(coords);
-                        search_addr.push(address);
-                        search_tel.push(tel);
+                        resolve(result);
                     }
-
-                    const result = {
-                        name_list : search_list,
-                        coords : search_coords,
-                        addr : search_addr,
-                        tel : search_tel,
-                    };
-                    
-                    resolve(result);
+                    else{
+                        const result = {
+                            name_list : search_list,
+                            coords : search_coords,
+                            addr : search_addr,
+                            tel : search_tel,
+                        };
+                        
+                        resolve(result);
+                    }
                 },
                 error:function(request,status,error){
                     console.log("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
@@ -170,7 +183,7 @@ export class Search {
                         });
                     }
                 });
-            },1000);
+            },500);
 
         });
     }
@@ -179,20 +192,54 @@ export class Search {
         console.log("여기 ㅙ 안돼?");
         console.log(lat, lng, name, addr, tel);
 
-        /*test data */
+
+        const placeInfo = document.querySelector('.placeInfo');
+        placeInfo.classList.remove("unactive");
+      
         this.displayMark(lat, lng);
-        this.displayStoreInfo(name);
+        this.displayStoreInfo(lat, lng, name, addr, tel);
     }
     
     // Mark 지도 상에 찍기
     displayMark(lat, lng){
+        const position = new Tmapv3.LatLng(lat,lng);
         const marker = new Tmapv3.Marker({
-            position : new Tmapv3.LatLng(lat,lng),
+            position : position,
             map : this.map
         });
+
+        this.map.setCenter(position);
     }
 
-    displayStoreInfo(name){
-        document.querySelector(".placeInfoDetail").textContent = `${name}`;
+    displayStoreInfo(lat, lng, name, addr, tel){
+        console.log("???");
+        console.log(addr);
+        console.log(tel);
+
+        const palceName = document.querySelector('.placeName');
+        const teldiv = document.querySelector('.tel');
+        const addrdiv = document.querySelector('.addr');
+        const startPointBtn = document.querySelector('.startPointBtn');
+        const endPointBtn = document.querySelector('.endPointBtn');
+
+        palceName.textContent = `${name}`;
+
+        if(tel != ""){
+            teldiv.textContent += `${tel}`;
+        }
+        else{
+            teldiv.textContent +="전화번호 미등록";
+        }
+
+        addrdiv.textContent += `${addr}`;
+
+        startPointBtn.addEventListener('click', ()=>{
+            console.log("출발지로 설정 : ", lat, lng, name);
+        });
+
+        endPointBtn.addEventListener("click", ()=>{
+            console.log("도착지로 설정 : ", lat, lng, name);
+        });
+
     }
 }
