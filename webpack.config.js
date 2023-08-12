@@ -3,7 +3,7 @@ module.exports = {
     mode:"development",
     entry:{
         mapbase :"./js/mapbase.js",
-        app :"./js/main.js", 
+        main :"./js/main.js", 
         navi : "./js/navi.js",
     },
     output:{
