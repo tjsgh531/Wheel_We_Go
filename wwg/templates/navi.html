@@ -31,10 +31,6 @@
 				zoom : 16,	// 지도 줌레벨
 				naviControl : true,
 				scaleBar : true
-			});
-
-			map.on("ConfigLoad", function(){
-				drawLine();
 			});			
 			
 			// 2. 시작, 도착 심볼찍기
@@ -172,18 +168,9 @@
 							}
 						}//for문 [E]
 						// drawLine(drawInfoArr, map);
-					
-						
-						function drawLine(arrPoint) {
-							var polyline_ = new Tmapv3.Polyline({
-								path :  arrPoint,
-								strokeColor : "#dd00dd",
-								strokeWeight : 6,
-								direction : true,
-								map :thismap
-							});
-							resultdrawArr.push(polyline_);
-						}
+						map.on("ConfigLoad", function(){
+							drawLine(drawInfoArr);
+						});
 				
 						
 						
@@ -202,6 +189,16 @@
 			return num.toString().replace(regexp, ',');
 		}
 
+		function drawLine(arrPoint) {
+			var polyline_ = new Tmapv3.Polyline({
+				path :  arrPoint,
+				strokeColor : "#dd00dd",
+				strokeWeight : 6,
+				direction : true,
+				map :map
+			});
+			resultdrawArr.push(polyline_);
+		}
 		
 		 
 	</script>

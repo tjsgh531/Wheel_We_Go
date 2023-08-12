@@ -1,24 +1,65 @@
-// DOM 요소들 가져오기
-const menuTrigger = document.querySelector('.menu-trigger');
-const hamContent = document.querySelector('.ham-content');
-const hamMenuBack = document.querySelector('.ham-menu-back');
-const xTrigger = document.querySelector('.x-trigger');
+import { InitMap } from "./extendsTools/initmap.js";
+import { DrawShape } from "./extendsTools/drawShape.js";
+import { CurrentPos } from "./extendsTools/currentPos.js";
 
-// 초기에는 메뉴와 검은 배경을 숨김 처리
-hamContent.style.transform = 'translateX(100%)';
-hamMenuBack.style.opacity = '0';
-hamMenuBack.style.display = 'none';
+class App{
+    constructor(){
+        this.currentLat;
+        this.currentLon;
 
-// 햄버거 버튼 클릭 시 메뉴 슬라이드로 나타나고 검은 배경 활성화
-menuTrigger.addEventListener('click', () => {
-    hamContent.style.transform = 'translateX(0)';
-    hamMenuBack.style.opacity = '0.2';
-    hamMenuBack.style.display = 'block';
-});
+        this.map;
+        
+        this.maptool = new InitMap();
 
-// "x" 버튼 클릭 시 메뉴 슬라이드로 사라지고 검은 배경 비활성화
-xTrigger.addEventListener('click', () => {
-    hamContent.style.transform = 'translateX(100%)';
-    hamMenuBack.style.opacity = '0';
-    hamMenuBack.style.display = 'none';
-});
+        this.drawTools;
+
+        this.currentPosCircle;h
+
+        this.currentPos = new CurrentPos();
+        
+        this.init();
+    }
+
+    init(){
+        
+        const currentLocation = this.currentPos.getLocation();
+        this.currentLat = currentLocation[0];
+        this.currentLon = currentLocation[1];
+
+        this.map = this.maptool.createTmap(this.currentLat, this.currentLon);
+            
+        this.map.on("ConfigLoad",function(){
+            this.drawTools = new DrawShape(this.map);
+            this.currentPosCircle = this.drawTools.addCircle(this.currentLat, this.currentLon, 2, 2, "#FFC573");
+                    
+            setInterval(()=>{
+                this.update();
+            }, 500);
+            
+        }.bind(this));
+    }
+
+    //프래임마다 반복하는 함수
+    update(){
+        // 현재 위치 업데이트
+        this.currenLat, this.currentLon = this.currentPos.getLocation();
+
+        //자기 위치 표현하는 원 움직이기
+        this.currentPosCircle = this.drawTools.moveCircle(this.currentPosCircle, this.currentLat, this.currentLon);
+
+        //맵을 현재 위치에 중앙 맞추기
+        this.map = this.maptool.updateMap(this.map, this.currentLat, this.currentLon);
+    
+        
+    }
+    
+}
+
+window.onload = ()=>{
+    new App();
+}
+
+// window.addEventListener("click", ()=>{
+//     alert("STOP");
+// });
+

@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>search_test</title>
+
+    <script src="//code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script src="https://apis.openapi.sk.com/tmap/vectorjs?version=1&appKey=l7xxed2c734830ae4364975ef11e67a76e81"></script>
+    <link rel="stylesheet" href="/static/css/search_test.css" type = "text/css">
+</head>
+<body>
+    <div>
+		<input type="text" class="text_custom" id="searchKeyword" name="searchKeyword" value="서울시">	
+		<button id="btn_select">적용하기</button>
+	</div>
+	<div>
+		<div style="width: 30%; float:left;">
+			<div class="title"><strong>Search</strong> Results</div>
+			<div class="rst_wrap">
+				<div class="rst mCustomScrollbar">
+					<ul id="searchResult" name="searchResult">
+						<li>검색결과</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		<div id="map_div" class="map_wrap" style="float:left"></div>
+	</div>
+
+    <script type="text/javascript">
+
+        var map, marker;
+        var markerArr = [];
+
+        initTmap()
+
+        function initTmap(){
+             // 1. 지도 띄우기
+            map = new Tmapv3.Map("map_div", {
+                // center: new Tmapv3.LatLng(37.468240, 127.039053), // at센터(양재)
+                center: new Tmapv3.LatLng(35.151017, 128.103734), // at센터(양재)
+                width : "22.5rem",
+                height : "40rem",
+                zoom : 15,
+                naviControl : true,
+				scaleBar : true
+                
+            });
+            
+            // 2. POI 통합 검색 API 요청
+            $("#btn_select").click(function(){
+                
+                var searchKeyword = $('#searchKeyword').val();
+                var headers = {}; 
+                headers["appKey"]="l7xxed2c734830ae4364975ef11e67a76e81";
+        
+                $.ajax({
+                    method:"GET",
+                    headers : headers,
+                    url:"https://apis.openapi.sk.com/tmap/pois?version=1&format=json&callback=result",
+                    async:false,
+                    data:{
+                        "searchKeyword" : searchKeyword,
+                        "centerLat" : "35.151017",
+                        "centerLon" : "128.103734",
+                        "resCoordType" : "EPSG3857",
+                        "reqCoordType" : "WGS84GEO",
+                        "count" : 10
+                    },
+                    success:function(response){
+                        var resultpoisData = response.searchPoiInfo.pois.poi;
+                        
+                        // 기존 마커, 팝업 제거
+                        if(markerArr.length > 0){
+                            for(var i in markerArr){
+                                markerArr[i].setMap(null);
+                            }
+                        }
+                        var innerHtml ="";	// Search Reulsts 결과값 노출 위한 변수
+                        var positionBounds = new Tmapv3.LatLngBounds();		//맵에 결과물 확인 하기 위한 LatLngBounds객체 생성
+                        let search_list
+                        
+                        for(var k in resultpoisData){
+                            
+                            var noorLat = Number(resultpoisData[k].noorLat);
+                            var noorLon = Number(resultpoisData[k].noorLon);
+                            var name = resultpoisData[k].name;
+                            
+                            var pointCng = new Tmapv3.Point(noorLon, noorLat);
+                            var projectionCng = new Tmapv3.Projection.convertEPSG3857ToWGS84GEO(pointCng);
+                            
+                            var lat = projectionCng._lat;
+                            var lon = projectionCng._lng;
+                            
+                            var markerPosition = new Tmapv3.LatLng(lat, lon);
+                            
+                            marker = new Tmapv3.Marker({
+                                position : markerPosition,
+                                //icon : "http://tmapapi.sktelecom.com/upload/tmap/marker/pin_b_m_a.png",
+                                icon : "http://tmapapi.sktelecom.com/upload/tmap/marker/pin_b_m_" + k + ".png",
+                                iconSize : new Tmapv3.Size(24, 38),
+                                title : name,
+                                map:map
+                             });
+                            
+                            innerHtml += "<li><img src='http://tmapapi.sktelecom.com/upload/tmap/marker/pin_b_m_" + k + ".png' style='vertical-align:middle;'/><span>"+name+"</span></li>";
+                            search_list = catchString(innerHtml)
+                            
+                            markerArr.push(marker);
+                            positionBounds.extend(markerPosition);	// LatLngBounds의 객체 확장
+                        }
+                        console.log(search_list)
+                        
+                        $("#searchResult").html(innerHtml);	//searchResult 결과값 노출
+                        map.panToBounds(positionBounds);	// 확장된 bounds의 중심으로 이동시키기
+                        map.zoomOut();
+                        
+                    },
+                    error:function(request,status,error){
+                        console.log("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+                    }
+                });
+            });
+        }
+
+        function catchString(htmlString) {
+            const regex = /<span>(.*?)<\/span>/g;
+            const matches = htmlString.match(regex);
+            
+            if (matches) {
+                const extractedTexts = matches.map(match => {
+                    const spanContentRegex = /<span>(.*?)<\/span>/;
+                    const spanContentMatch = match.match(spanContentRegex);
+                    if (spanContentMatch && spanContentMatch[1]) {
+                        return spanContentMatch[1];
+                    } else {
+                        return "";
+                    }
+                });
+                return extractedTexts;
+            } else {
+                return [];
+            }
+        }
+
+        
+    </script>
+</body>
+</html>
