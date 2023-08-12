@@ -1,0 +1,86 @@
+html, body{
+    overflow-x: hidden;
+    padding: 0;
+    margin: 0;
+}
+
+div {
+    box-sizing: border-box;
+}
+
+#map_div{
+    position: fixed;
+    left: 0; top: 0; z-index: -9999;
+    width: 100vw;
+    height: 100vh;
+}
+
+.unactive{
+    display: none !important;
+}
+
+.search {
+    width: 100%;
+    height: 60px;
+    background-color: #FFFFFF;
+    border-end-end-radius: 16px;
+    border-bottom-left-radius: 16px;
+    text-align: center;
+    border-bottom: 1px solid #F5F5F5;
+    box-shadow: 0 10px 5px -5px #F5F5F5;
+    padding-top: 20px;
+}
+
+
+.searchBox {
+    width: 500px;
+    height: 30px;
+    border: none;
+    background-color: #F5F5F5;
+    border-radius: 16px;
+    outline: none;
+    padding-left: 20px;
+}
+
+.cancleBtn {
+    width: 30px;
+    height: 30px;
+    position: absolute;
+    border: none;
+    background-color: #FFFFFF;
+    cursor: pointer;
+
+}
+
+.cancleBtn:before,
+.cancleBtn:after {
+    position: absolute;
+    top: 3px;
+    left: 13px;
+    content: ' ';
+    height: 24px;
+    width: 1px;
+    background-color: #000;
+}
+
+.cancleBtn:before {
+    transform: rotate(45deg);
+}
+
+.cancleBtn:after {
+    transform: rotate(-45deg);
+}
+
+
+.recentBtn {
+    position: relative;
+    width: 100%;
+    bottom: 0px;
+    text-align: center;
+    background-color: #F5F5F5;
+    padding-top: 13px;
+    padding-bottom: 13px;
+    border: none;
+    font-size: 12px;
+    color: #A7A7A7;
+}

@@ -1,15 +1,17 @@
 export class DrawShape{
-    constructor(map){
+    constructor(){
+
+    }
+
+    setMap(map){
         this.map = map;
     }
 
     //원
-    addCircle(lat, lon, radius, strokeWeight, color){
+    addCircle(lat, lon, radius){
         const circle = new Tmapv3.Circle({
 			center: new Tmapv3.LatLng(lat, lon),
 			radius: radius,
-			strokeWeight : strokeWeight,
-			fillColor: color,
 			map: this.map
 		});
 
@@ -18,10 +20,16 @@ export class DrawShape{
 
     //원 위치 변경
     moveCircle(circle, lat, lon){
-        circle._shape_data.center._lat = lat;
-        circle._shape_data.center._lng = lon;
+        console.log(circle);
+        const newCircle = new Tmapv3.Circle({
+			center: new Tmapv3.LatLng(lat, lon),
+			radius: circle._shape_data.radius,
+			map: this.map
+		});
 
-        return circle;
+        circle.setMap(null);
+
+        return newCircle;
     }
 
     //선
