@@ -17,6 +17,7 @@ class MapBase{
 
     start(){
         this.initSetMap();
+        this.sideBar();
     }
 
     update(position){
@@ -43,15 +44,36 @@ class MapBase{
             this.currentLat = position.coords.latitude;
             this.currentLon = position.coords.longitude;
             
-            this.maptool.createTmap(this.currentLat, this.currentLon).then((map)=>{
+            this.maptool.createTmap(this.currentLat, this.currentLon)
+            .then((map)=>{
                 this.map = map;
 
                 map.on("ConfigLoad", ()=>{  
+                    console.log("왜 안되는 거여!!!");
                     this.drawShape.setMap(map);
                     this.currentPos.watchLocation(this.update.bind(this));
-                })
+                });
+            
             });
         });
+
+
+    }
+
+    sideBar(){
+        const sideBarBtn = document.querySelector('.sideBarBtn');
+        const sideBar = document.querySelector('.sideBar');
+        
+        // 사이드 바 나타내기
+        sideBarBtn.addEventListener("click", ()=>{
+            sideBar.classList.remove('unactive');
+            const sideBar_cancle = document.querySelector('.sideBar_cancle')
+            
+            sideBar_cancle.addEventListener('click', ()=>{
+                sideBar.classList.add('unactive');
+            });
+        });
+
     }
 
 }
