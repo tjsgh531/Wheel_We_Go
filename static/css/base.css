@@ -19,7 +19,7 @@ div {
 
 #map_div{
     position: fixed;
-    left: 0; top: 0; z-index: -9999;
+    left: 0; top: 0;
     width: 100vw;
     height: 100vh;
 }
@@ -33,7 +33,7 @@ div {
 
 .gnb{
     position: fixed;
-    top: 0; left: 0;
+    top: 0; left: 0; z-index: 9999;
 
     height: 6rem;
     width: 100vw;
