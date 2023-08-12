@@ -18,26 +18,6 @@ div {
     box-sizing: border-box;
 }
 
-.placeInfo{
-    position: absolute;
-    width: 100vw;
-    height: 40vh;
-    bottom: 0%;
-    border-top-left-radius: 1rem;
-    border-top-right-radius: 1rem;
-    background-color: #FFFFFF;
-    z-index: 1;
-}
-
-.placeInfoDetail{
-    width: 100%;
-    height: 100%;
-    padding: 7.5%;
-    font-size: 2rem;
-    font-weight: bold;
-    color: #FFC573;
-}
-
 .search_gnb{
     background-color: white;
     box-shadow: 2px 2px 1rem rgba(0, 0, 0, 0.5);;
@@ -64,3 +44,70 @@ div {
 
 }
 
+.placeInfo{
+    position: absolute;
+    bottom: 0%; z-index: 1;
+
+    width: 100vw;
+    height: 30vh;
+    padding: 1rem 3rem;
+    
+    border-radius: 1rem 1rem 0 0;
+    
+    background-color: #FFFFFF;
+
+}
+
+.downbar{
+    width: 30%;
+    height: 0.5rem;
+
+    border-radius: 1rem;
+
+    background-color: #ccc;
+
+    margin: 0rem auto;
+}
+
+.placeName{
+    margin: 1.5rem 0;
+
+    font-size: 2rem;
+    font-weight: bold;
+    color: #FFC573;
+}
+
+.naviBtn{
+    position: absolute;
+    bottom: 0;
+
+    width: 100%;
+    padding: 2rem;
+
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+.naviBtnItem{
+    width: 40%;
+    padding: 1rem;
+
+    border-radius: 2rem;
+
+    font-size: 1.5rem;
+    font-weight: 600;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.startPointBtn{
+    border: 3px solid #FFC573;
+    color : #FFC573;
+}
+
+.endPointBtn{
+    background-color: #FFC573;
+    color: white;
+}

@@ -71,12 +71,14 @@ class MapBase{
     }
 
     sideBar(){
+        console.log("왜 잘되다가???");
         const sideBarBtn = document.querySelector('.sideBarBtn');
         const sideBar = document.querySelector('.sideBar');
         const sideBar_cancle = document.querySelector('.sideBar_cancle')
                    
         // 사이드 바 나타내기
         sideBarBtn.addEventListener("click", ()=>{
+            console.log("왜 잘되다가??? 안되는 거여");
             sideBar.classList.remove('unactive');
         });
  
