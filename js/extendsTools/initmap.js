@@ -21,9 +21,6 @@ export class InitMap {
     }
     
     updateMap(map, lat, lon){
-
-        console.log("맵의 중심 : ", map.getCenter());
-
         const newcenter = new Tmapv3.LatLng(lat, lon);
         map.setCenter(newcenter);
 
