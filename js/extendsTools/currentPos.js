@@ -16,10 +16,7 @@ export class CurrentPos{
                 });
             return watchid;
         }
-    }
-
-    
-        
+    }   
     
 
     getCurrentLocation() {
