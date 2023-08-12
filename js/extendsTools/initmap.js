@@ -10,7 +10,9 @@ export class InitMap {
                     center: new Tmapv3.LatLng(lat, lon),
                     width: "100%",
                     height: "100vh",
-                    zoom: 18
+                    zoom: 15,
+                    // naviControl : true,
+				    // scaleBar : true
                 });
 
                 resolve(map);
@@ -29,4 +31,3 @@ export class InitMap {
     }
     
 }
-  

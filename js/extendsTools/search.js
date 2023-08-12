@@ -1,15 +1,20 @@
 export class Search {
     constructor() {
-        this.focusSearchBox();
-
         this.currentLat, this.currentLon;
+        this.map;
+      
+        this.focusSearchBox();
+    }
+
+    setMap(map){
+        this.map = map;
     }
 
     setPosition(lat, lon){
         this.currentLat = lat;
         this.currentLon = lon;
     }
-    
+   
 
     getList(lat, lng, search_word){
         return new Promise((resolve, reject)=>{     
@@ -118,6 +123,7 @@ export class Search {
             search_result.innerHTML = ""; //내용 제거
         });
 
+
         // 검색어 입력시
         this.preSearchWord="";
         this.searchtime;
@@ -165,7 +171,7 @@ export class Search {
                     }
                 });
             },1000);
-            
+
         });
     }
 
@@ -174,14 +180,18 @@ export class Search {
         console.log(lat, lng, name, addr, tel);
         /*test data */
         this.displayMark(lat, lng);
-        this.displayStoreInfo();
+        this.displayStoreInfo(name);
     }
 
-    displayMark(){
-
+    // Mark 지도 상에 찍기
+    displayMark(lat, lng){
+        const marker = new Tmapv3.Marker({
+            position : new Tmapv3.LatLng(lat,lng),
+            map : this.map
+        });
     }
 
-    displayStoreInfo(){
-
+    displayStoreInfo(name){
+        document.querySelector(".placeInfoDetail").textContent = `${name}`;
     }
 }

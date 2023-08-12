@@ -55,6 +55,7 @@ class MapBase{
 
                 map.on("ConfigLoad", ()=>{  
                     this.drawShape.setMap(map);
+                    this.searchTool.setMap(map);
                     this.watchid = this.currentPos.watchLocation(this.update.bind(this));
                 }); 
             });
