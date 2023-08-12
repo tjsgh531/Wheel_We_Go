@@ -29,7 +29,7 @@ class MapBase{
         
         this.drawShape.setMap(this.map);
 
-        this.updateSetCenterCircle(latitude, longitude, newPosition);
+        //this.updateSetCenterCircle(latitude, longitude, newPosition);
     }
 
     updateSetCenterCircle(latitude, longitude, newPosition){
@@ -53,6 +53,7 @@ class MapBase{
                 this.map = map;
 
                 map.on("ConfigLoad", ()=>{  
+                    this.centerCircle = this.drawShape.addCircle(this.currentLat, this.currentLon, 4);
                     this.drawShape.setMap(map);
                     this.watchid = this.currentPos.watchLocation(this.update.bind(this));
                 }); 
