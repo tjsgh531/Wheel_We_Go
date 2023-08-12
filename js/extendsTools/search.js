@@ -60,14 +60,13 @@ export class Search {
         const searchBlocks = document.querySelectorAll('.searchBlock');
         
         searchBlocks.forEach(ele => {
-            ele.addEventListener("click", this.clickSearchBlock.bind(this));
+            ele.addEventListener("click", this.clickSearchBlock.bind(this, ));
         });
     }
 
     clickSearchBlock(lat, lng, name){
         /*test data */
-
-        this.displayMark();
+        this.displayMark(lat, lng);
         this.displayStoreInfo();
     }
 
