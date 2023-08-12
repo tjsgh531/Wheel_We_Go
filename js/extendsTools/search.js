@@ -192,13 +192,14 @@ export class Search {
         console.log("여기 ㅙ 안돼?");
         console.log(lat, lng, name, addr, tel);
 
+
         const placeInfo = document.querySelector('.placeInfo');
         placeInfo.classList.remove("unactive");
-
+      
         this.displayMark(lat, lng);
         this.displayStoreInfo(lat, lng, name, addr, tel);
     }
-
+    
     // Mark 지도 상에 찍기
     displayMark(lat, lng){
         const position = new Tmapv3.LatLng(lat,lng);
