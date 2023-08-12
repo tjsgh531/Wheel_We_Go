@@ -20,8 +20,7 @@ class MapBase{
     }
 
     update(position){
-        console.log(position);
-        console.log(this);
+
         const latitude = position.coords.latitude;
         const longitude = position.coords.longitude;
         const newPosition = new Tmapv3.LatLng(latitude, longitude);
@@ -44,20 +43,17 @@ class MapBase{
             this.currentLat = position.coords.latitude;
             this.currentLon = position.coords.longitude;
             
-            this.map = this.maptool.createTmap(this.currentLat, this.currentLon);
+            this.maptool.createTmap(this.currentLat, this.currentLon).then((map)=>{
+                this.map = map;
 
-            this.map.on('ConfigLoad', function(){
-                
-                console.log("Map이 제대로 로드 됐을까? : ", this.map);
-                this.drawShape.setMap(this.map);
-                this.currentPos.watchLocation(this.update.bind(this));
+                map.on("ConfigLoad", ()=>{  
+                    this.drawShape.setMap(map);
+                    this.currentPos.watchLocation(this.update.bind(this));
+                })
             });
-            console.log(this.map);
-            this.drawShape.setMap(this.map);
-            this.watchMapId = this.currentPos.watchLocation(this.update.bind(this));
-       
         });
     }
+
 }
 
 window.onload = ()=>{
