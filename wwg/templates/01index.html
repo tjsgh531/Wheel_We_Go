@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 
@@ -5,13 +6,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="../static/css/login.css">
-    <script type="module" src="" defer></script>
+    <link rel="stylesheet" href="{% static 'css/login.css' %}" type="text/css">
+    
 </head>
 
 <body>
-    <div id="wrap">
-        <div class="container">
+    <div class="wrap">
+        <!--<div class="container">
             <div class="logo-container">
                 <img src="../static/img/로고.png" alt="Wheel We Go" class="logo">
             </div>
@@ -21,10 +22,11 @@
                 </div>
                 {% load socialaccount %}
 
-                <button type="button" onclick="location.href = '{% provider_login_url 'kakao' %}'"><img class = "kakao" src="https://k.kakaocdn.net/14/dn/btroDszwNrM/I6efHub1SN5KCJqLm1Ovx1/o.jpg" alt="" ></button>
-                카카오계정으로 로그인
+                <button type="button" onclick="location.href = '{% provider_login_url 'kakao' %}'"><img class="kakao"
+                        src="https://k.kakaocdn.net/14/dn/btroDszwNrM/I6efHub1SN5KCJqLm1Ovx1/o.jpg" alt=""></button>
+    
             </button>
-        </div>
+        </div>-->
     </div>
 </body>
 
