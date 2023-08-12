@@ -4,7 +4,7 @@ module.exports = {
     entry:{
         mapbase :"./js/mapbase.js",
         navi : "./js/navi.js",
-        search_test : "./js/search_test"
+        search : "./js/search"
     },
     output:{
         path:path.resolve(__dirname, "static", "js"),
