@@ -11,7 +11,6 @@ class MapBase{
         this.map;
         this.currentLat, this.currentLon;
         this.centerCircle;
-        
         this.start();
     }
 
