@@ -2,7 +2,7 @@ const path = require('path');
 module.exports = {
     mode:"development",
     entry:{
-        mapbase :"./js/mapbase.js",
+        base :"./js/base.js",
         navi : "./js/navi.js",
         search : "./js/search"
     },
