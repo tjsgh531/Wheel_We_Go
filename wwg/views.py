@@ -32,7 +32,7 @@ def mydata(request):
     return render(request,"07mydata.html")
 
 def mypage(request):
-    return render(request,"mypage.html")
+    return render(request,"03mypage.html")
 
 def myprofile(request):
     return render(request,"myprofile.html")
@@ -41,10 +41,10 @@ def serviceRegion(request):
     return render(request,'05serviceRegion.html')
 
 def shopping(request):
-    return render(request,"shopping.html")
+    return render(request,"04shopping.html")
 
 def no(request):
-    return render(request,"no.html")
+    return render(request,"08no.html")
 ######### REST API VIEWSET ########
 class UsersViewSet(viewsets.ModelViewSet):
     queryset = Users.objects.all()

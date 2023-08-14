@@ -1,3 +1,4 @@
+{%load static%}
 <!DOCTYPE html>
 <html lang="en">
 
@@ -5,29 +6,144 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="../static/css/service.css">
-    <script type="module" src="../static/js/service.js" defer></script>
+    <link rel="stylesheet" href="{% static 'css/mydata.css' %}">
+    <script type="module" src="" defer></script>
 </head>
 
 <body>
     <div id="wrap">
-        <div class="container">
-            <div class="inform">
-                <div class="text">(데이터 개수에 따라 다른 알림문구)</div>
-                <div class="data-count">
-                    <div class="dc0">데이터 개수</div>
-                    <div class="dc1">(데이터 개수)</div>
-                    <div class="dc1">개</div>
+        <div class="mydata-page-01">
+            <a href="javascript:history.back()" class="back-button">
+                &lt; 내 데이터
+            </a>
+            <div class="line"></div>
+
+            <div class="filter-adress">필터 - 장소 </div>
+
+            <div class="square-container"> <!--그래프 색깔 구분표 -->
+                <div class="square">
+                    <div><span class="square-0"></span> 전체 데이터</div>
+                    <div><span class="square-1"></span> --님 데이터</div>
+                    <div><span class="square-2"></span> 오류 데이터</div>
                 </div>
-                <br />
-                <div class="km">
-                    <div>총</div>
-                    <div>(km)</div>
-                    <div>km</div>
+            </div>
+            <!-- 그래프 -->
+            <div class="chart-container">
+                <span class="chart"></span>
+            </div>
+            <div class="filter-time">필터 - 시간</div>
+            <div> <!--데이터 내역-->
+                <div class="data-list">
+                    <div class="route-data">
+                        <div>일시 (ex.2023-07-31)</div>
+                        <div class="circle-container">
+                            <span class="circle-0"></span>
+                            <div class="route">
+                                <div>출발지</div> -> <div>도착지</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="etc-data">
+                        <div><img src="/static/img/시간.png" alt="시간">시간</div>
+                        <div><img src="/static/img/거리.png" alt="시간">거리</div>
+                        <div><img src="/static/img/코인.png" alt="시간">코인</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="mydata-page-02">
+            <div id="map_div"></div>
+            <div class="choice-route">
+                <a href="javascript:history.back()" class="back-button">
+                    &lt; 내 데이터
+                </a>
+                <div class="all-route">
+                    <div class="route">
+                        <div>출발지</div>
+                        <div class="route-box"></div>
+                    </div>
+
+                    <div class="route">
+                        <div>도착지</div>
+                        <div class="route-box"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="data-container">
+                <div class="bar"></div>
+                <!-- 데이터상태&이동시간&이동거리&획득코인 -->
+                <div class="all-data">
+                    <div class="data-00">
+                        <div>데이터 상태</div>
+                        <div>-</div>
+                    </div>
+                    <div class="data-01">
+                        <div>이동시간</div>
+                        <div>-</div>
+                    </div>
+                    <div class="data-01">
+                        <div>이동거리</div>
+                        <div>-</div>
+                    </div>
+                    <div class="data-01">
+                        <div>획득 코인</div>
+                        <div>-</div>
+                    </div>
+                </div>
+                <!--비장애인과의 이동시간 차이 -->
+                <div class="important-data">
+                    <div class="gap">
+                        <div class="custom-button-all">
+                            <span class="custom-button">&lt;</span>
+                            <div>비장애인과의 이동시간 차이</div>
+                            <span class="custom-button">&gt;</span>
+                        </div>
+
+                        <div class="gap-result">
+                            <div class="time">
+                                <img src="/static/img/시간.png" alt="장애인">
+                            </div>
+                            <div class="time">
+                                <img src="/static/img/비장애인.png" alt="비장애인">
+                            </div>
+                            <button class="pass">도로 개선안 전달하기</button>
+                        </div>
+                    </div>
+                </div>
+                <!-- 이 지역 지도 완성도 -->
+                <div class="complete">
+                    <div class="custom-button-all">
+                        <span class="custom-button">&lt;</span>
+                        <div>이 지역 완성도</div>
+                        <span class="custom-button">&gt;</span>
+                    </div>
+                    <div class="complete-result">
+                        이 지역 완성도
+                    </div>
+                    <div class="complete-result">
+                        평균 지역 완성도
+                    </div>
+                </div>
+                <!-- 마킹 지역 -->
+                <div class="marking">
+                    <div class="custom-button-all">
+                        <span class="custom-button">&lt;</span>
+                        <div>마킹 지역</div>
+                        <span class="custom-button">&gt;</span>
+                    </div>
+                    <div class="marking-reason">
+                        <div class="marking-location">
+                            <img src="/static/img/마킹.png" alt="마킹">
+                            <div>위치</div>
+                        </div>
+                        <div>사유 : </div>
+                    </div>
                 </div>
             </div>
 
         </div>
+    </div>
 </body>
 
 </html>

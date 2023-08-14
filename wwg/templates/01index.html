@@ -1,4 +1,4 @@
-{% load static %}
+{%load static%}
 <!DOCTYPE html>
 <html lang="ko">
 
@@ -7,26 +7,24 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="{% static 'css/login.css' %}" type="text/css">
-    
+
 </head>
 
 <body>
-    <div class="wrap">
-        <!--<div class="container">
+    <div id="wrap">
+
+        <div class="container">
             <div class="logo-container">
                 <img src="../static/img/로고.png" alt="Wheel We Go" class="logo">
             </div>
-            <button class="kakao-login-btn">
-                <div class="kakao-logo-container">
-                    <img src="../static/img/카카오톡로고.png" alt="Kakao Logo" class="kakao-logo">
-                </div>
-                {% load socialaccount %}
 
-                <button type="button" onclick="location.href = '{% provider_login_url 'kakao' %}'"><img class="kakao"
-                        src="https://k.kakaocdn.net/14/dn/btroDszwNrM/I6efHub1SN5KCJqLm1Ovx1/o.jpg" alt=""></button>
-    
+            {% load socialaccount %}
+
+            <button type="button" class="login-button" onclick="location.href = '{% provider_login_url 'kakao' %}'">
+                <img src="../static/img/카카오톡로고.png" alt="Kakao Logo" class="kakao-logo">
+                카카오계정으로 로그인
             </button>
-        </div>-->
+        </div>
     </div>
 </body>
 
