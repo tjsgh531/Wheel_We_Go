@@ -33,9 +33,9 @@ div {
 
 .gnb{
     position: fixed;
-    top: 0; left: 0; z-index: 9999;
+    top: 0; left: 0; z-index: 9990;
 
-    height: 6rem;
+    min-height: 6rem;
     width: 100vw;
 
     display: flex;
@@ -54,13 +54,23 @@ div {
 .searchBox {
     width: 80%;
     height: 3rem;
+
+    padding-left: 1.5rem;
   
     background-color: rgba(200, 200, 200, 0.5);
     border-radius: 2rem;
 
     border: none;
     outline: none;
-    padding-left: 1.5rem;
+ 
+}
+
+.search_navi{
+    padding: 1rem 0;
+}
+
+.departures{
+    margin-bottom: 1rem;
 }
 
 .searchIcon{

@@ -1,6 +1,6 @@
 export class InitMap {
     constructor() {
-
+      
     }
   
     createTmap(lat, lon) {
@@ -8,13 +8,11 @@ export class InitMap {
             return new Promise((resolve, reject)=>{
                 let map = new Tmapv3.Map("map_div", {
                     center: new Tmapv3.LatLng(lat, lon),
-                    width: "100%",
+                    width: "100vw",
                     height: "100vh",
                     zoom: 15,
-                    // naviControl : true,
-				    // scaleBar : true
                 });
-
+                
                 resolve(map);
             });
         } catch (error) {
@@ -28,6 +26,21 @@ export class InitMap {
         map.setCenter(newcenter);
 
         return map;
+    }
+
+    setMapCenter(map, lat, lon){
+        const position = new Tmapv3.LatLng(lat, lon);
+        map.setCenter(position);
+    }
+
+    createMark(map, lat, lon){
+        const position = new Tmapv3.LatLng(lat,lon);
+        const marker = new Tmapv3.Marker({
+            position : position,
+            map : map
+        });
+
+        return marker;
     }
     
 }
