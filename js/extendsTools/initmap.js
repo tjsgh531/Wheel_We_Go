@@ -8,7 +8,7 @@ export class InitMap {
             return new Promise((resolve, reject)=>{
                 let map = new Tmapv3.Map("map_div", {
                     center: new Tmapv3.LatLng(lat, lon),
-                    width: "100%",
+                    width: "100vw",
                     height: "100vh",
                     zoom: 15,
                     // naviControl : true,
