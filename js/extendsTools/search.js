@@ -1,12 +1,17 @@
 import { InitMap } from "./initmap.js";
+import { Navi } from "./navi.js";
 
 export class Search {
     constructor() {
         this.mapTool = new InitMap();
+        this.naviTool = new Navi();
+
         this.currentLat, this.currentLon;
         this.map;
 
         this.gnbMode = "search"; //"search 와 navi 모드 있음"
+        this.search_words = ["",""];
+        this.markers = [];
       
         this.focusSearchBox();
     }
@@ -112,9 +117,6 @@ export class Search {
         const sideBarBtn = document.querySelector('.sideBarBtn'); // 햄버거
         const search_result = document.querySelector('.search_result'); // 검색 결과창
 
-
-        
-
         const gnb = document.querySelector('.gnb');
 
         // 검색 창 활성화
@@ -170,9 +172,7 @@ export class Search {
 
                                 sideBarBtn.classList.toggle("unactive", false);
                                 searchIcon.classList.toggle('unactive', false);
-                                search_cancle.classList.toggle("unactive", true);
                                 search_result.classList.toggle("unactive", true);                
-                                gnb.classList.toggle("search_gnb", false);
     
                                 this.clickSearchBlock(store_latitude, store_longitude, store_name, store_addr, store_tel);
                             });
@@ -212,10 +212,17 @@ export class Search {
         
 
         searchBoxs.forEach(element => {
+            
             element.value="";
         });
        
         search_result.innerHTML = ""; //내용 제거
+        this.search_words = ["", ""]; //검색 내용 초기화
+        console.log("마커 지우기!!!");
+        this.eraseMarkers.bind(this); // 마커 지우기
+        this.markers = []; //마커 기록 지우기
+
+        this.mapTool.setMapCenter(this.map, this.currentLat, this.currentLon);
     }
 
     //검색 결과중 하나 클릭시
@@ -224,13 +231,43 @@ export class Search {
         this.gnbMode = "navi";
 
         //도착 지점과 시작 지점에 모두 값이 들어가면 Navi 시작
+        const gnb = document.querySelector(".gnb");
         const departures = document.querySelector(".departures");
         const arrivals = document.querySelector(".arrivals");
+        const search_cancle = document.querySelector(".search_cancle");
 
         //둘다 검색어가 있는 경우
         if (departures.value && arrivals.value){
-            // Navi 시작
+            if(this.search_words[0] ==""){
+                departures.value = `${name}`;
+                this.search_words[0] = {
+                    name : name,
+                    latitude : lat,
+                    longitude : lng
+                }
+            }else{
+                arrivals.value = `${name}`;
+                this.search_words[1] = {
+                    name : name,
+                    latitude : lat,
+                    longitude : lng
+                }
+            }
+
+            gnb.classList.toggle("search_gnb", true);
+            search_cancle.classList.toggle("unactive", false);
+
+            const marker = this.mapTool.createMark(this.map, lat, lng);
+            this.markers.push(marker);
+
+            this.mapTool.setMapCenter(this.map, lat, lng);
+            
+            this.displayStoreInfo(lat, lng, name, addr, tel);
+            
+            // ------------------------------------------- Navi 시작 -------------------------------------------
             console.log("내비 시작");
+            this.naviTool.navi(this.search_words[0].latitude, this.search_words[0].longitude, this.search_words[1].latitude, this.search_words[1].longitude);
+        
         }
         //아직 길찾기가 아니야
         else{
@@ -239,13 +276,15 @@ export class Search {
             const placeInfo = document.querySelector('.placeInfo');
             const searchItem = document.querySelector(".searchItem");
 
+            search_cancle.classList.toggle("unactive", true);
             search_navi.classList.toggle("unactive", true);
             search.classList.toggle("unactive", false);
-
+            gnb.classList.toggle("search_gnb", false);
             placeInfo.classList.remove("unactive");
         
             searchItem.value = `${name}`;
-            
+
+            this.eraseMarkers.bind(this);
             const marker = this.mapTool.createMark(this.map, lat, lng);
             this.mapTool.setMapCenter(this.map, lat, lng);
             
@@ -304,11 +343,29 @@ export class Search {
         //도착지 선택을 눌렀을 경우
         if(isArrival){
             arrivals.value = `${name}`;
+            this.search_words[1] = {
+                name : name,
+                latitude : lat,
+                longitude : lng
+            }
         }
         //출발지 선택을 눌렀을 경우
         else{
             departures.value = `${name}`;
+            this.search_words[0] = {
+                name : name,
+                latitude : lat,
+                longitude : lng
+            }
+
         }
     }
 
+    eraseMarkers(){
+        console.log(this.markers);
+        this.markers.forEach(element => {
+            console.log("마커지우기 : ", element);
+            element.setMap(null);
+        });
+    }
 }
