@@ -2,7 +2,7 @@
 from django.shortcuts import render,redirect
 
 from rest_framework import viewsets
-from .models import Users, Records, Regions, Markings
+from .models import kakaoUsers, Records, Regions, Markings
 from .serializers import RecordsFilterSerializer,UsersSerializer, RecordsSerializer, RegionsSerializer, MarkingsSerializer, DataSerializer
 from django.http import HttpResponse, JsonResponse
 from rest_framework.parsers import JSONParser
@@ -49,7 +49,7 @@ def no(request):
     return render(request,"08no.html")
 ######### REST API VIEWSET ########
 class UsersViewSet(viewsets.ModelViewSet):
-    queryset = Users.objects.all()
+    queryset = kakaoUsers.objects.all()
     serializer_class = UsersSerializer
     filter_backends=[DjangoFilterBackend]
     #필터 필요시 추가
@@ -129,13 +129,18 @@ def callback_view(request):
         headers={'Authorization': f'Bearer {token}'},
     )
     user_info = user_info_response.json()
-
+    # 카카오 사용자 정보 변수에 저장
+    user_email = user_info.get('kakao_account', {}).get('email')
     user_nickname = user_info.get('properties', {}).get('nickname')
-
+    # 사용자 정보 저장
+    #user, created= Users.objects.create(user_id=user_nickname, user_email=user_email)
+    user_instance = kakaoUsers(user_id = user_nickname,user_email=user_email,coin = 0)
+    user_instance.save()
     # 닉네임 정보를 세션에 저장
     request.session['user_nickname'] = user_nickname
 
     return redirect('main')  # 리다이렉트를 통해 메인 페이지로 이동
+
 
 ### 총 이동거리 및 데이터 개수 반환 ## -> 수정 필요 
 @api_view(['GET'])

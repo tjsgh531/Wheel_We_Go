@@ -14,7 +14,8 @@ div {
     background-color: #FAFAFA;
 }
 
-.shop-first {
+
+.shop-container {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -22,10 +23,9 @@ div {
     background-color: #FFC573;
 }
 
-.shop-first,
-.coin-container,
-.shop-last {
-    margin: 10px;
+
+.shop-container {
+    display: flex;
 }
 
 .shop-name {
@@ -36,29 +36,28 @@ div {
     display: flex;
 }
 
+.shop-ing img {
+    display: fixed;
+}
+
 .coin-container {
     display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
 }
 
 .coin {
     display: flex;
-    width: 45rem;
-    height: 5rem;
-    background-color: #FFF8EA;
-    border-radius: 1rem;
-    align-items: center;
-    justify-content: center;
-    margin-bottom: 1rem;
 }
 
-.line {
-    width: 47rem;
-    height: 0.1rem;
-    background-color: #FAFAFA;
-}
-
-.coin-list {
+.price-unit {
     display: flex;
+}
+
+.coin-list img {
+    display: fixed;
 }
 
 .unit {
@@ -106,7 +105,16 @@ div {
 
 }
 
-.ad-container {
+.shop-ing img {
+    display: fixed;
+}
+
+.my-data img {
+    display: fixed;
+    margin-bottom: 10px;
+}
+
+.my-data {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -125,28 +133,9 @@ div {
     width: 8px;
     height: 8px;
     background-color: #fff;
-    border-radius: 1rem;
-}
-
-a {
-    text-decoration: none;
-    color: black;
-}
-
-.etc-container {
-    display: flex;
-    flex-direction: column;
-}
-
-.logout {
-    margin-top: 2rem;
-    margin-left: 1rem;
-    margin-right: 1rem;
-    border-top: 0.1rem solid #000000;
-    border-bottom: 0.1rem solid #D9D9D9;
-    height: 2rem;
-    padding-top: 0.5rem;
-    padding-left: 0.5rem;
+    border-radius: 50%;
+    margin: 10rem 5rem;
+    /* 간격을 좁히기 위해 margin 값 조정 */
 }
 
 .withdraw,
