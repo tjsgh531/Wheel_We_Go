@@ -7,7 +7,6 @@ from .models import *
 admin.site.register(kakaoUsers)
 admin.site.register(Regions)
 admin.site.register(Records)
-admin.site.register(Markings)
 '''
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin

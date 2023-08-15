@@ -1,6 +1,8 @@
 from django.contrib.auth.signals import user_logged_in
 from django.dispatch import receiver
-from .models import kakaoUsers
+from .models import kakaoUsers, Records, Regions
+from django.db.models.signals import post_save
+from django.dispatch import receiver
 
 @receiver(user_logged_in)
 def save_kakao_user(sender, request, user, **kwargs):
@@ -13,3 +15,18 @@ def save_kakao_user(sender, request, user, **kwargs):
                 user_id=user.username,
                 user_coin=0
             )
+
+
+@receiver(post_save, sender=Records)
+def update_regions(sender, instance, created, **kwargs):
+    try:
+        regions_instance = Regions.objects.get(regions=instance.start_location)
+        regions_instance.kms += instance.km
+        regions_instance.stacks += 1
+        regions_instance.save()
+    except Regions.DoesNotExist:
+        Regions.objects.create(
+            regions=instance.start_location,
+            kms=instance.km,
+            stacks=1
+        )

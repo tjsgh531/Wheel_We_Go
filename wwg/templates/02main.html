@@ -36,3 +36,35 @@
 
 {% endblock %}
 
+{% block content2 %} 
+    <div class="backgroundBlur unactive">
+        <div class="lowData unactive">
+            <div class="lowDataContent">
+                데이터가 부족해요!
+                <img class="lowDataImg" src="{% static 'img/부족이모티콘.png' %}">
+                <div class="lowDataContentTxt"><br>해당 지역의 휠체어 기록이 
+                    <span class="dataCount">36</span>
+                    개 있습니다 <br>
+                    당신의 기록으로 내비게이션을 완성해주세요.
+                </div>
+                <div style="display: flex; justify-content: center; align-items: center; margin: 1rem;">
+                    <img class="coinImg" src="{% static 'img/코인.png' %}">
+                    <span class="coin">240</span>
+                </div>
+                <div class="naviDataCautionBtn">
+                    <div class="naviDataCautionBtn_Start">일반 경로 안내받기</div>
+                    <div class="naviDataCautionBtn_Record">이동경로 기록하기</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="iffyData">
+
+        </div>
+
+        <div class="fullData">
+            
+        </div>
+    </div>
+{% endblock %}
+
