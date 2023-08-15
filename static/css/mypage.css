@@ -23,15 +23,13 @@ div {
     background-color: #FFC573;
 }
 
-.shop-first,
-.coin-container,
-.shop-last {
-    margin: 10px;
+
+.shop-container {
+    display: flex;
 }
 
 .shop-name {
     display: flex;
-
 }
 
 .shop-ing {
@@ -52,22 +50,9 @@ div {
 
 .coin {
     display: flex;
-    width: 45rem;
-    height: 5rem;
-    background-color: #FFF8EA;
-    border-radius: 1rem;
-    align-items: center;
-    justify-content: center;
-    margin-bottom: 1rem;
 }
 
-.line {
-    width: 47rem;
-    height: 0.1rem;
-    background-color: #FAFAFA;
-}
-
-.coin-list {
+.price-unit {
     display: flex;
 }
 
@@ -75,8 +60,49 @@ div {
     display: fixed;
 }
 
+.unit {
+    padding-left: 0.5rem;
+}
+
+.main-container {
+    display: grid;
+    /* 그리드 레이아웃으로 변경 */
+    grid-template-columns: repeat(2, 1fr);
+    /* 두 개의 열로 설정 */
+    gap: 1rem;
+    /* 아이템 사이의 간격 */
+    align-items: center;
+    justify-items: center;
+    margin: 1rem;
+}
+
+.my-data,
+.shop-ing,
+.coin-list,
 .shop-list {
+    text-align: center;
+    text-decoration: none;
+    color: #333;
     display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.my-data img,
+.shop-ing img,
+.coin-list img,
+.shop-list img {
+    display: block;
+    margin-bottom: 0.5rem;
+    height: 5rem;
+}
+
+.my-data div,
+.shop-ing div,
+.coin-list div,
+.shop-list div {
+    margin-top: 0.5rem;
+
 }
 
 .shop-ing img {
@@ -90,44 +116,26 @@ div {
 
 .my-data {
     display: flex;
-    flex-direction: column;
     align-items: center;
-    margin: 2rem;
+    justify-content: center;
+    flex-direction: column;
+    /* 세로 방향 정렬 */
 }
 
-.ad-container {
+.ad-circle {
     display: flex;
     align-items: center;
     justify-content: center;
-    text-align: center;
 }
 
-.ad-container img {
-    width: 45rem;
-    height: 10rem;
+.ad-circle span {
+    display: block;
+    width: 8px;
+    height: 8px;
     background-color: #fff;
-    border-radius: 1rem;
-}
-
-a {
-    text-decoration: none;
-    color: black;
-}
-
-.etc-container {
-    display: flex;
-    flex-direction: column;
-}
-
-.logout {
-    margin-top: 2rem;
-    margin-left: 1rem;
-    margin-right: 1rem;
-    border-top: 0.1rem solid #000000;
-    border-bottom: 0.1rem solid #D9D9D9;
-    height: 2rem;
-    padding-top: 0.5rem;
-    padding-left: 0.5rem;
+    border-radius: 50%;
+    margin: 10rem 5rem;
+    /* 간격을 좁히기 위해 margin 값 조정 */
 }
 
 .withdraw,

@@ -1,3 +1,4 @@
+{%load static%}
 <!DOCTYPE html>
 <html lang="en">
 
@@ -5,72 +6,64 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="../static/css/mypage.css">
+    <link rel="stylesheet" href="{% static 'css/mypage.css' %}?after" type="text/css">
     <script type="module" src="../static/js/mypage.js"></script>
 </head>
 
 <body>
     <div id="wrap">
+
         <div class="shop-container">
             <div class="shop-first">
                 <div class="shop-name">
-                    <div class="name">(닉네임)</div>
+                    <div class="name">{{ user.username}}</div>
                     <div>님</div>
                 </div>
-                <div class="shop-ing">
-                    <img src="/쇼핑하기.png" alt="쇼핑" height="16px">
-                    <div>쇼핑하기</div>
-                </div>
+                <div>햄버거</div>
             </div>
 
             <div class="coin-container">
                 <div class="coin">
-                    <img src="/코인.png" alt="코인" height="20px" width="20px">
-                    <div>코인</div>
-                </div>
-                <div>(코인)</div>
-                <div>원</div>
-            </div>
-
-            <div class="shop-last">
-                <div class="coin-list">
-                    <img src="/코인내역.png" alt="코인내역" height="16px">
-                    <div>코인내역</div>
-                </div>
-                <div class="shop-list">
-                    <img src="/장바구니.png" alt="장바구니" height="16px">
-                    <div>장바구니</div>
+                    <div class="coin-img">
+                        <img src="/static/img/코인.png" alt="코인">
+                        <div>코인</div>
+                    </div>
+                    <div class="price-unit">
+                        <div class="price">{{kakaouser.coin}}</div>
+                        <div class="unit">원</div>
+                    </div>
                 </div>
             </div>
         </div>
-
         <div class="main-container">
-            <div class="profile">
-                <img src="/프로필.png" alt="프로필" height="100px">
-                <div>프로필</div>
-            </div>
-
-            <div class="my-data">
-                <img src="/내데이터.png" alt="내데이터" height="100px">
+            <a class="shop-ing" href="">
+                <img src="/static/img/쇼핑하기.png" alt="쇼핑">
+                <div>쇼핑하기</div>
+            </a>
+            <a class="my-data" href="">
+                <img src="/static/img/내데이터.png" alt="내 데이터">
                 <div>내 데이터</div>
-            </div>
-        </div>
-
-        <div class="etc-container">
-            <div class="logout">로그아웃</div>
-            <div class="withdraw">회원탈퇴</div>
-            <div class="empty"></div>
+            </a>
+            <a class="coin-list" href="">
+                <img src="/static/img/코인내역.png" alt="코인내역">
+                <div>코인내역</div>
+            </a>
+            <a class="shop-list" href="">
+                <img src="/static/img/장바구니.png" alt="장바구니">
+                <div>장바구니</div>
+            </a>
         </div>
 
         <div class="ad-container">
-            <div class="ad-circle">
-                <span></span>
-                <span></span>
-                <span></span>
-            </div>
-
-            <div class="ad"></div>
+            <img src="/static/img/KONKRIT 광고.png" alt="KONKRIT광고">
         </div>
+
+        <div class="etc-container">
+            <a class="logout" href="">로그아웃</a>
+            <a class="withdraw" href="">회원탈퇴</a>
+            <a class="empty" href=""></a>
+        </div>
+
     </div>
 
     </div>
