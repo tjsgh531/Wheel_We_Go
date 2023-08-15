@@ -1,8 +1,13 @@
 import { DrawShape } from "./drawShape.js";
+import { InitMap } from "./initmap.js";
+import { CurrentPos } from "./currentPos.js";
 
 export class Navi {
     constructor() {
         this.drawTool = new DrawShape();
+        this.mapTool = new InitMap();
+        this.currentPos = new CurrentPos();
+
         this.currentLat, this.currentLon;
         this.map;
         this.marker_SE = "";  
@@ -22,7 +27,10 @@ export class Navi {
         this.istracking = false;
         this.trackingLines = [];
         this.trackingCoords = [];
-        this.markers = [];
+        this.trackingMarkers = [];
+        this.trackingMarkersCoords = [];
+        this.trackingMarkStr ="";
+
         this.tracking_dis = 0;
     }
     
@@ -76,6 +84,17 @@ export class Navi {
         }
     }
 
+    // 마커 버튼 클릭시 작동
+    clickMarkBtn(){
+        this.currentPos.getCurrentLocation().then((position)=>{
+            const latitude = position.coords.latitude;
+            const logitude = position.coords.longitude;
+
+            const marker = this.mapTool.createMark(this.map, latitude, logitude);
+            this.trackingMarkers.push(marker);
+            this.trackingMarkersCoords.push([latitude, logitude]);
+        });
+    }
 
     // 날짜&시간 데이터 생성
     createDateInfo(){
@@ -160,8 +179,6 @@ export class Navi {
         const startpoint = this.trackingCoords[0];
         const endpoint = this.trackingCoords[this.trackingCoords.length -1];
 
-
-
         this.loadGetLonLatFromAddress(startpoint[0], startpoint[1])
         .then((start_addr_str)=>{
             const start_str = start_addr_str;
@@ -183,7 +200,8 @@ export class Navi {
                     coin : coin,
                     coords: this.trackingCoords,
                     data_valid : 0,
-                    markings : this.markers,
+                    markings : this.trackingMarkersCoords,
+                    markingStr : this.trackingMarkStr,
                     date : currentDate,
                 }
 
@@ -372,10 +390,8 @@ export class Navi {
                 }
         )};
         this.totalMarkerArr.push(this.markerObj);
-
     }
     
-
     drawLine(){
         this.polyline_ = new Tmapv3.Polyline({
             path : this.drawInfoArr,
