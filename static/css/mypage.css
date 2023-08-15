@@ -14,61 +14,147 @@ div {
     background-color: #FAFAFA;
 }
 
+
+.shop-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: #FFC573;
+}
+
 .shop-first {
     display: flex;
+    margin: 1rem;
 }
 
 .shop-name {
     display: flex;
-}
-
-.shop-ing {
-    display: flex;
+    width: 42rem;
 }
 
 .coin-container {
     display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
 }
 
 .coin {
     display: flex;
+    width: 45rem;
+    height: 5rem;
+    background-color: #FFF8EA;
+    border-radius: 1rem;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1rem;
 }
 
-.coin-list {
+.coin-img {
+    display: flex;
+    width: 35rem;
+    align-items: center;
+    font-size: 1.5rem;
+    font-weight: bold;
+
+}
+
+.coin-img img {
+    display: fixed;
+    height: 2rem;
+}
+
+.price-unit {
     display: flex;
 }
 
+.unit {
+    padding-left: 0.5rem;
+}
+
+.main-container {
+    display: grid;
+    /* 그리드 레이아웃으로 변경 */
+    grid-template-columns: repeat(2, 1fr);
+    /* 두 개의 열로 설정 */
+    gap: 1rem;
+    /* 아이템 사이의 간격 */
+    align-items: center;
+    justify-items: center;
+    margin: 1rem;
+}
+
+.my-data,
+.shop-ing,
+.coin-list,
 .shop-list {
+    text-align: center;
+    text-decoration: none;
+    color: #333;
     display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.my-data img,
+.shop-ing img,
+.coin-list img,
+.shop-list img {
+    display: block;
+    margin-bottom: 0.5rem;
+    height: 5rem;
+}
+
+.my-data div,
+.shop-ing div,
+.coin-list div,
+.shop-list div {
+    margin-top: 0.5rem;
+
 }
 
 .ad-container {
     display: flex;
     align-items: center;
     justify-content: center;
-    flex-direction: column;
-    /* 세로 방향 정렬 */
+    text-align: center;
 }
 
-.ad-circle {
+.ad-container img {
+    width: 45rem;
+    height: 10rem;
+    background-color: #fff;
+    border-radius: 1rem;
+}
+
+a {
+    text-decoration: none;
+    color: black;
+}
+
+.etc-container {
     display: flex;
-    align-items: center;
-    justify-content: center;
+    flex-direction: column;
 }
 
-.ad-circle span {
-    display: block;
-    width: 8px;
-    height: 8px;
-    background-color: #fff;
-    border-radius: 50%;
-    margin: 10rem 5rem;
-    /* 간격을 좁히기 위해 margin 값 조정 */
+.logout {
+    margin-top: 2rem;
+    margin-left: 1rem;
+    margin-right: 1rem;
+    border-top: 0.1rem solid #000000;
+    border-bottom: 0.1rem solid #D9D9D9;
+    height: 2rem;
+    padding-top: 0.5rem;
+    padding-left: 0.5rem;
 }
 
-.ad {
-    width: 600rem;
-    height: 150rem;
-    background-color: #fff;
-    border-radius: 16rem;
+.withdraw,
+.empty {
+    margin: 0 1rem;
+    border-bottom: 0.1rem solid #D9D9D9;
+    height: 2rem;
+    padding-top: 0.5rem;
+    padding-left: 0.5rem;
 }

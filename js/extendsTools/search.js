@@ -10,7 +10,7 @@ export class Search {
         this.map;
 
         this.gnbMode = "search"; //"search 와 navi 모드 있음"
-        this.search_words = ["",""];
+        this.search_navi_info = [null, null];
         this.markers = [];
       
         this.focusSearchBox();
@@ -218,9 +218,9 @@ export class Search {
         });
        
         search_result.innerHTML = ""; //내용 제거
-        this.search_words = ["", ""]; //검색 내용 초기화
-        console.log("마커 지우기!!!");
-        this.eraseMarkers.bind(this); // 마커 지우기
+        this.search_navi_info = [null, null]; //검색 내용 초기화
+      
+        this.eraseAllMarkers.bind(this); // 마커 지우기
         this.markers = []; //마커 기록 지우기
 
         this.mapTool.setMapCenter(this.map, this.currentLat, this.currentLon);
@@ -239,22 +239,7 @@ export class Search {
 
         //둘다 검색어가 있는 경우
         if (departures.value && arrivals.value){
-            if(this.search_words[0] ==""){
-                departures.value = `${name}`;
-                this.search_words[0] = {
-                    name : name,
-                    latitude : lat,
-                    longitude : lng
-                }
-            }else{
-                arrivals.value = `${name}`;
-                this.search_words[1] = {
-                    name : name,
-                    latitude : lat,
-                    longitude : lng
-                }
-            }
-
+            
             gnb.classList.toggle("search_gnb", true);
             search_cancle.classList.toggle("unactive", false);
 
@@ -263,13 +248,34 @@ export class Search {
 
             this.mapTool.setMapCenter(this.map, lat, lng);
             
-            this.displayStoreInfo(lat, lng, name, addr, tel);
+            // this.displayStoreInfo(lat, lng, name, addr, tel);
+
+            if(this.search_navi_info[0] == null){
+                departures.value = `${name}`;
+                this.search_navi_info[0] = {
+                    name : name,
+                    latitude : lat,
+                    longitude : lng,
+                    marker : marker
+                }
+            }
+            else{
+                arrivals.value = `${name}`;
+                this.search_navi_info[1] = {
+                    name : name,
+                    latitude : lat,
+                    longitude : lng,
+                    marker : marker
+                }
+            }
             
             // ------------------------------------------- Navi 시작 -------------------------------------------
             console.log("내비 시작");
-            console.log(this.search_words[0].latitude);
-            this.naviTool.navi(this.search_words[0].latitude, this.search_words[0].longitude, this.search_words[1].latitude, this.search_words[1].longitude);
-            
+            console.log(this.search_navi_info[0].latitude, this.search_navi_info[0].longitude, this.search_navi_info[1].latitude, this.search_navi_info[1].longitude);
+            console.log("마커 지우기 함수 실행!");
+            this.eraseAllMarkers();
+            this.naviTool.navi(this.search_navi_info[0].latitude, this.search_navi_info[0].longitude, this.search_navi_info[1].latitude, this.search_navi_info[1].longitude);
+
         }
         //아직 길찾기가 아니야
         else{
@@ -286,8 +292,10 @@ export class Search {
         
             searchItem.value = `${name}`;
 
-            this.eraseMarkers.bind(this);
-            const marker = this.mapTool.createMark(this.map, lat, lng);
+            this.eraseAllMarkers.bind(this);
+            this.search_marker = this.mapTool.createMark(this.map, lat, lng);
+            this.markers.push(this.search_marker);
+            
             this.mapTool.setMapCenter(this.map, lat, lng);
             
             this.displayStoreInfo(lat, lng, name, addr, tel);
@@ -345,26 +353,28 @@ export class Search {
         //도착지 선택을 눌렀을 경우
         if(isArrival){
             arrivals.value = `${name}`;
-            this.search_words[1] = {
+            this.search_navi_info[1] = {
                 name : name,
                 latitude : lat,
-                longitude : lng
+                longitude : lng,
+                marker : this.search_marker,
             }
         }
         //출발지 선택을 눌렀을 경우
         else{
             departures.value = `${name}`;
-            this.search_words[0] = {
+            this.search_navi_info[0] = {
                 name : name,
                 latitude : lat,
-                longitude : lng
+                longitude : lng,
+                marker : this.search_marker,
             }
 
         }
     }
 
-    eraseMarkers(){
-        console.log(this.markers);
+    eraseAllMarkers(){
+        console.log("마커 지우기 함수 실행! 하겠습닸!");
         this.markers.forEach(element => {
             console.log("마커지우기 : ", element);
             element.setMap(null);

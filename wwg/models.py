@@ -6,10 +6,8 @@ from django.db import models
 ##########################
 ### 유저 데이터 모델  ###
 ##########################
-class Users(models.Model):
+class kakaoUsers(models.Model):
     user_id = models.CharField(max_length= 255,primary_key=True)
-    user_name = models.CharField(max_length=255, null=True)
-    user_pw = models.CharField(max_length=255, null=True)
     user_email = models.EmailField(max_length=255, null=True)
     user_coin = models.IntegerField(default=0)
 
@@ -22,7 +20,7 @@ class Users(models.Model):
 ###########################
 class Records(models.Model):
     records_id = models.AutoField(primary_key=True)
-    user_id = models.ForeignKey(Users, on_delete=models.CASCADE)
+    user_id = models.ForeignKey(kakaoUsers, on_delete=models.CASCADE)
     start_location = models.CharField(max_length=255, null=True)
     end_location = models.CharField(max_length=255, null=True)
     TIME = models.TimeField(null=True)
@@ -52,5 +50,5 @@ class Regions(models.Model):
 class Markings(models.Model):
     AutoField = models.AutoField(primary_key=True)
     records_id = models.ForeignKey(Records, on_delete=models.CASCADE, related_name='markings_records')
-    user_id = models.ForeignKey(Users, on_delete=models.CASCADE, related_name='markings_user')
+    user_id = models.ForeignKey(kakaoUsers, on_delete=models.CASCADE, related_name='markings_user')
     marking_number = models.IntegerField(null=True)

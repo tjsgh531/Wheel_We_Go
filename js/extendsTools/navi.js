@@ -2,7 +2,7 @@ export class Navi {
     constructor() {
         this.currentLat, this.currentLon;
         this.map;
-
+      
         this.marker_SE = "";  
         this.markerObj;
         this.marker_p1;
@@ -14,12 +14,14 @@ export class Navi {
         this.totalMarkerArr = [];
         this.drawInfoArr =[];
         this.resultdrawArr = [];
+
     }
     
     setMap(map){
         this.map = map;
         console.log("여기 내비 setmao", map);
     }
+
 
     navi( startLat, startLng, endLat, endLng){
 
@@ -45,7 +47,7 @@ export class Navi {
         this.makeMark(endLat, endLng);
 
         const headers = {}; 
-		headers["appKey"]="l7xxed2c734830ae4364975ef11e67a76e81";
+		    headers["appKey"]="l7xxed2c734830ae4364975ef11e67a76e81";
 
         $.ajax({
             method : "POST",
@@ -62,7 +64,7 @@ export class Navi {
                 "startName" : "출발지",
                 "endName" : "도착지"
             },
-            // success : function(response) {
+
             success : (response) => {
                 const resultData = response.features;
 
@@ -145,10 +147,9 @@ export class Navi {
                         this.totalMarkerArr.push(this.marker_p);
                     }
                 }//for문 [E]
-                console.log(this.map);
-                console.log(this);
-
+              
                 this.drawLine();
+
             },
             
         })
@@ -156,6 +157,7 @@ export class Navi {
 
     
     makeMark(lat, lng){
+
         if(this.marker_SE == "S"){ 
             this.markerObj = new Tmapv3.Marker(
                 {
@@ -174,6 +176,7 @@ export class Navi {
                 }
         )};
         this.totalMarkerArr.push(this.markerObj);
+
     }
     
 
