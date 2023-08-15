@@ -11,20 +11,18 @@
 </head>
 
 <body>
-    {% if user_records_json %}
-        <ul>
-            {% for record in user_records_json %}
-                <li>Record ID: {{ record.records_id }}</li>
-                <li>Start Location: {{ record.start_location }}</li>
-                <li>End Location: {{ record.end_location }}</li>
-                <li>Time: {{ record.TIME }}</li>
-                <!-- 필요한 다른 기록 필드 추가 -->
-                <hr>
-            {% endfor %}
-        </ul>
-    {% else %}
-        <p>No records found.</p>
-    {% endif %}
+
+    {% block content %}
+    <h1>User Records</h1>
+    <ul>
+        {% for record in user_records %}
+            <li>{{ record.start_location }} to {{ record.end_location }}</li>
+        {% endfor %}
+    </ul>
+    {% endblock %}
+
+
+    
     <div id="wrap">
         <div class="mydata-page-01">
             <a href="javascript:history.back()" class="back-button">
