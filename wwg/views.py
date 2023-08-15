@@ -2,7 +2,7 @@
 from django.shortcuts import render,redirect
 
 from rest_framework import viewsets
-from .models import kakaoUsers, Records, Regions, Markings
+from .models import Users, Records, Regions, Markings
 from .serializers import RecordsFilterSerializer,UsersSerializer, RecordsSerializer, RegionsSerializer, MarkingsSerializer
 from django.http import HttpResponse, JsonResponse
 from rest_framework.parsers import JSONParser
@@ -47,7 +47,7 @@ def no(request):
     return render(request,"08no.html")
 ######### REST API VIEWSET ########
 class UsersViewSet(viewsets.ModelViewSet):
-    queryset = kakaoUsers.objects.all()
+    queryset = Users.objects.all()
     serializer_class = UsersSerializer
     filter_backends=[DjangoFilterBackend]
     #필터 필요시 추가
