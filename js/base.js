@@ -19,6 +19,7 @@ class MapBase{
     start(){
         this.initSetMap();
         this.sideBar();
+        this.searchTool.focusSearchBox();
     }
 
     // 현재 위치가 갱신 될때 마다 실행 하는 함수
@@ -84,8 +85,6 @@ class MapBase{
             sideBar.classList.add('unactive');
         });
     }
-
-  
 }
 
 window.onload = ()=>{
