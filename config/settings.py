@@ -26,6 +26,8 @@ SECRET_KEY = 'django-insecure-xejf8499)5(5%jx@t9j^e1***n9b0su7c=^e6k2rz=l-0p@f3x
 DEBUG = True
 
 ALLOWED_HOSTS = []
+
+
 # Application definition
 
 INSTALLED_APPS = [
@@ -164,7 +166,3 @@ SOCIALACCOUNT_PROVIDERS = {
         }
     }
 }
-
-
-ACCOUNT_EMAIL_VERIFICATION = 'none'  # 이메일 확인 절차 없음
-ACCOUNT_EMAIL_REQUIRED = True  # 이메일 필수로 설정
