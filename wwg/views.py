@@ -39,6 +39,7 @@ def mypage(request):
 def myprofile(request):
     return render(request,"myprofile.html")
 
+# view 기능 추가하려고 수정중 
 def serviceRegion(request):
     return render(request,'05serviceRegion.html')
 
@@ -144,19 +145,19 @@ def callback_view(request):
 
 ### 총 이동거리 및 데이터 개수 반환 ## -> 수정 필요 
 @api_view(['GET'])
-def search(request):
+def search_view(request):
     mapData = Regions.objects.all()
     dongName=request.regions
     searchDong = mapData.filter(dong=dongName) # 쿼리스트링 필터링 수정 필요
     mapCount = searchDong.stacks
     mapDistance = searchDong.distance
     data = {
-        'dong': searchDong.dongName,
+        'dong': searchDong.dong,
         'mapCount': mapCount,
         'mapDistance': mapDistance,
     }
     serializer = DataSerializer(data, many=True)
-    return Response(serializer.data)
+    return Response(serializer.data), render(request,'05serviceRegion.html')
 
 
 # 이름정보 저장

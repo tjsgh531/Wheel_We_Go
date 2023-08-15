@@ -1,6 +1,8 @@
 from django.contrib.auth.signals import user_logged_in
 from django.dispatch import receiver
-from .models import kakaoUsers
+from .models import kakaoUsers, Records, Regions
+from django.db.models.signals import post_save
+from django.dispatch import receiver
 
 @receiver(user_logged_in)
 def save_kakao_user(sender, request, user, **kwargs):
@@ -13,3 +15,9 @@ def save_kakao_user(sender, request, user, **kwargs):
                 user_id=user.username,
                 user_coin=0
             )
+
+# @receiver(post_save, sender=Regions)
+# def Records_save(sender, **kwargs):
+#     regions = kwargs['instance'].start_location
+
+    
