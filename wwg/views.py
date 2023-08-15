@@ -134,3 +134,7 @@ def callback_view(request):
     request.session['user_nickname'] = user_nickname
 
     return redirect('main')  # 리다이렉트를 통해 메인 페이지로 이동
+
+def index_name(request):
+    user= request.user
+    return render(request,'07mydata.html',{'user':user})
