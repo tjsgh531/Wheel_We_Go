@@ -1,19 +1,12 @@
-{% load static%}
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=640, user-scalable=yes">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-
-    <script
-        src="https://apis.openapi.sk.com/tmap/vectorjs?version=1&appKey=l7xxed2c734830ae4364975ef11e67a76e81"></script>
-
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-
-    <link rel="stylesheet" href="{% static 'css/service.css'%}">
-    <script src="{% static/js/service.js%}" defer></script>
+    <link rel="stylesheet" href="../static/css/service.css">
+    <script type="module" src="../static/js/service.js" defer></script>
 </head>
 
 <body>
@@ -35,11 +28,6 @@
             </div>
 
         </div>
-        
-    <div id="map_div"></div>
-    <p id="result" style="z-index:10"></p>
-
-
 </body>
 
 </html>
