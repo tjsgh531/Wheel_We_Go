@@ -11,34 +11,22 @@ export class Navi {
         this.markerImg = "";
         this.pType = "";
         this.size;
+
         this.totalMarkerArr = [];
         this.drawInfoArr =[];
         this.resultdrawArr = [];
-
     }
     
     setMap(map){
         this.map = map;
-        console.log("여기 내비 setmao", map);
     }
 
 
     navi( startLat, startLng, endLat, endLng){
-
+        
         // 기존 그려진 라인 & 마커가 있다면 초기화
+        this.eraseLineMarks()
 
-        if(this.resultdrawArr.length > 0) {
-            for ( const i in this.resultdrawArr) {
-                this.resultdrawArr[i].setMap(null);
-            }
-            for ( const i in this.totalMarkerArr) {
-                this.totalMarkerArr[i].setMap(null);
-            }
-            this.resultdrawArr = [];
-        }
-        
-        this.drawInfoArr = [];
-        
         // 시작 도착 심볼 찍기
         this.marker_SE = "S"
         this.makeMark(startLat, startLng);
@@ -64,7 +52,6 @@ export class Navi {
                 "startName" : "출발지",
                 "endName" : "도착지"
             },
-
             success : (response) => {
                 const resultData = response.features;
 
@@ -75,7 +62,7 @@ export class Navi {
                 const tTime = " 총 시간 : "
                         + ((resultData[0].properties.totalTime) / 60)
                                 .toFixed(0) + "분";
-
+                console.log(tDistance + tTime);
                 $("#result").text(tDistance + tTime);
                 
                 for ( let i in resultData) { //for문 [S]
@@ -98,12 +85,9 @@ export class Navi {
                                     convertPoint._lng);
                             
                             // 배열에 담기
-                            console.log(this);
                             this.drawInfoArr.push(convertChange);
                         }
                     } else {
-
-                        console.log("마크 S or E? : ", properties.pointType, typeof(properties.pointType));
                         if (properties.pointType == "S") { //출발지 마커
                             this.markerImg = "http://tmapapi.sktelecom.com/upload/tmap/marker/pin_r_m_s.png";
                             this.pType = "S";
@@ -189,5 +173,18 @@ export class Navi {
             map : this.map
         });
         this.resultdrawArr.push(this.polyline_);
+    }
+
+    eraseLineMarks(){
+        if(this.resultdrawArr.length > 0) {
+            for ( const i in this.resultdrawArr) {
+                this.resultdrawArr[i].setMap(null);
+            }
+            for ( const i in this.totalMarkerArr) {
+                this.totalMarkerArr[i].setMap(null);
+            }
+            this.resultdrawArr = [];
+        }
+        this.drawInfoArr = [];
     }
 }
