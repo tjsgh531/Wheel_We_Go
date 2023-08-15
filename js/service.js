@@ -101,3 +101,7 @@ class Area {
 window.onload = () => {
     new Area();
 }
+
+  fetch("http://127.0.0.1:8000/api/regions/?format=json/")
+  .then((response) => response.json())
+  .then((data) => console.log(data))

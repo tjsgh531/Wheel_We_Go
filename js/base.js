@@ -85,8 +85,6 @@ class MapBase{
             sideBar.classList.add('unactive');
         });
     }
-
-  
 }
 
 window.onload = ()=>{

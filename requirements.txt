@@ -4,3 +4,4 @@ djangorestframework
 django-rest-auth
 django-allauth
 djangorestframework_simplejwt
+django-seed

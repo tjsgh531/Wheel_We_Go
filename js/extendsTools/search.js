@@ -6,7 +6,9 @@ export class Search {
     constructor() {
         this.mapTool = new InitMap();
         this.naviTool = new Navi();
+
         this.naviDataCautionTool = new NaviDataCaution();
+
 
         this.currentLat, this.currentLon;
         this.map;
@@ -14,17 +16,18 @@ export class Search {
         this.gnbMode = "search"; //"search 와 navi 모드 있음"
         this.search_navi_info = [null, null];
         this.markers = [];
-    
     }
 
     setMap(map){
         this.map = map;
         this.naviTool.setMap(map);
+        
     }
 
     setPosition(lat, lon){
         this.currentLat = lat;
         this.currentLon = lon;
+        this.naviTool.setPosition(lat, lon);
     }
    
     getList(lat, lng, search_word){
@@ -112,7 +115,6 @@ export class Search {
     }
 
     focusSearchBox(){
-
         const searchBoxs = document.querySelectorAll('.searchBox'); // 서치 input text
         const searchIcon = document.querySelector('.searchIcon'); //돋보기 아이콘
         const search_cancle = document.querySelector('.search_cancle'); // 취소 아이콘

@@ -32,8 +32,6 @@ class DrawPath{
             }, 1000);
         }.bind(this));
         
-        
-
     }
 
     updateLocation(){
