@@ -10,6 +10,7 @@ router.register(r'records', RecordsViewSet)
 router.register(r'regions', RegionsViewSet)
 router.register(r'saveRecords',saveRecordsViewSet)
 
+
 urlpatterns = [
     path('' , include(router.urls)),
     path('accounts/',include('allauth.urls')),

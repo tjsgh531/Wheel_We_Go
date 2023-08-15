@@ -18,6 +18,7 @@ export class Navi {
         this.markerImg = "";
         this.pType = "";
         this.size;
+        this.expectCoin;
 
         this.totalMarkerArr = [];
         this.drawInfoArr =[];
@@ -245,7 +246,6 @@ export class Navi {
         .catch(error => {
             console.error("업데이트 실패:", error);
         });
-
     }
 
     navi(navi_info){
@@ -264,109 +264,114 @@ export class Navi {
         this.makeMark(endLat, endLng);
 
         const headers = {}; 
-		    headers["appKey"]="l7xxed2c734830ae4364975ef11e67a76e81";
+		headers["appKey"]="l7xxed2c734830ae4364975ef11e67a76e81";
 
-        $.ajax({
-            method : "POST",
-            headers : headers,
-            url : "https://apis.openapi.sk.com/tmap/routes/pedestrian?version=1&format=json&callback=result",
-            async : false,
-            data : {
-                "startX" : startLng.toString(),
-                "startY" : startLat.toString(),
-                "endX" : endLng.toString(),
-                "endY" : endLat.toString(),
-                "reqCoordType" : "WGS84GEO",
-                "resCoordType" : "EPSG3857",
-                "startName" : "출발지",
-                "endName" : "도착지"
-            },
-            success : (response) => {
-                const resultData = response.features;
+        return new Promise((resolve, reject)=>{
+            $.ajax({
+                method : "POST",
+                headers : headers,
+                url : "https://apis.openapi.sk.com/tmap/routes/pedestrian?version=1&format=json&callback=result",
+                async : false,
+                data : {
+                    "startX" : startLng.toString(),
+                    "startY" : startLat.toString(),
+                    "endX" : endLng.toString(),
+                    "endY" : endLat.toString(),
+                    "reqCoordType" : "WGS84GEO",
+                    "resCoordType" : "EPSG3857",
+                    "startName" : "출발지",
+                    "endName" : "도착지"
+                },
+                success : (response) => {
+                    const resultData = response.features;
 
-                //결과 출력
-                const tDistance = "총 거리 : "
-                        + ((resultData[0].properties.totalDistance) / 1000)
-                                .toFixed(1) + "km,";
-                const tTime = " 총 시간 : "
-                        + ((resultData[0].properties.totalTime) / 60)
-                                .toFixed(0) + "분";
-                console.log(tDistance + tTime);
-                
-                // $("#result").text(tDistance + tTime);
-                
-                for ( let i in resultData) { //for문 [S]
-                    const geometry = resultData[i].geometry;
-                    const properties = resultData[i].properties;
+                    //결과 출력
+                    const tDistance = "총 거리 : "
+                            + ((resultData[0].properties.totalDistance) / 1000)
+                                    .toFixed(1) + "km,";
+                    const tTime = " 총 시간 : "
+                            + ((resultData[0].properties.totalTime) / 60)
+                                    .toFixed(0) + "분";
+                    console.log(tDistance + tTime);
+                    console.log("navi :", this);
+                    this.expectCoin = Math.floor(((resultData[0].properties.totalDistance) / 1000).toFixed(1) * 10);
+                    console.log("coin :", this.expectCoin);
+                    
+                    // $("#result").text(tDistance + tTime);
+                    
+                    for ( let i in resultData) { //for문 [S]
+                        const geometry = resultData[i].geometry;
+                        const properties = resultData[i].properties;
 
 
-                    if (geometry.type == "LineString") {
-                        for ( const j in geometry.coordinates) {
-                            // 경로들의 결과값(구간)들을 포인트 객체로 변환 
-                            const latlng = new Tmapv3.Point(
-                                    geometry.coordinates[j][0],
-                                    geometry.coordinates[j][1]);
-                            // 포인트 객체를 받아 좌표값으로 변환
-                            const convertPoint = new Tmapv3.Projection.convertEPSG3857ToWGS84GEO(
-                                    latlng);
-                            // 포인트객체의 정보로 좌표값 변환 객체로 저장
-                            const convertChange = new Tmapv3.LatLng(
-                                    convertPoint._lat,
-                                    convertPoint._lng);
+                        if (geometry.type == "LineString") {
+                            for ( const j in geometry.coordinates) {
+                                // 경로들의 결과값(구간)들을 포인트 객체로 변환 
+                                const latlng = new Tmapv3.Point(
+                                        geometry.coordinates[j][0],
+                                        geometry.coordinates[j][1]);
+                                // 포인트 객체를 받아 좌표값으로 변환
+                                const convertPoint = new Tmapv3.Projection.convertEPSG3857ToWGS84GEO(
+                                        latlng);
+                                // 포인트객체의 정보로 좌표값 변환 객체로 저장
+                                const convertChange = new Tmapv3.LatLng(
+                                        convertPoint._lat,
+                                        convertPoint._lng);
+                                
+                                // 배열에 담기
+                                this.drawInfoArr.push(convertChange);
+                            }
+                        } else {
+                            if (properties.pointType == "S") { //출발지 마커
+                                this.markerImg = "http://tmapapi.sktelecom.com/upload/tmap/marker/pin_r_m_s.png";
+                                this.pType = "S";
+                                this.size = new Tmapv3.Size(24, 38);
+                            } else if (properties.pointType == "E") { //도착지 마커
+                                this.markerImg = "http://tmapapi.sktelecom.com/upload/tmap/marker/pin_r_m_e.png";
+                                this.pType = "E";
+                                this.size = new Tmapv3.Size(24, 38);
+                            } 
+                            else { //각 포인트 마커
+                                this.markerImg = "http://topopen.tmap.co.kr/imgs/point.png";
+                                this.pType = "P";
+                                this.size = new Tmapv3.Size(8, 8);
+                            }
+
+                            // 경로들의 결과값들을 포인트 객체로 변환 
+                            const latlon = new Tmapv3.Point(
+                                    geometry.coordinates[0],
+                                    geometry.coordinates[1]);
+
+                            // 포인트 객체를 받아 좌표값으로 다시 변환
+                            const convertPoint = new Tmapv3.Projection.convertEPSG3857ToWGS84GEO(latlon);
                             
-                            // 배열에 담기
-                            this.drawInfoArr.push(convertChange);
+
+                            const routeInfoObj = {
+                                markerImage : this.markerImg,
+                                lng : convertPoint._lng,
+                                lat : convertPoint._lat,
+                                pointType : this.pType
+                            };
+
+                            // Marker 추가
+                            this.marker_p = new Tmapv3.Marker({
+                            position : new Tmapv3.LatLng(
+                                    routeInfoObj.lat,
+                                    routeInfoObj.lng),
+                            icon : routeInfoObj.markerImage,
+                            iconSize : this.size,
+                            map : this.map
+                            });
+                            this.totalMarkerArr.push(this.marker_p);
                         }
-                    } else {
-                        if (properties.pointType == "S") { //출발지 마커
-                            this.markerImg = "http://tmapapi.sktelecom.com/upload/tmap/marker/pin_r_m_s.png";
-                            this.pType = "S";
-                            this.size = new Tmapv3.Size(24, 38);
-                        } else if (properties.pointType == "E") { //도착지 마커
-                            this.markerImg = "http://tmapapi.sktelecom.com/upload/tmap/marker/pin_r_m_e.png";
-                            this.pType = "E";
-                            this.size = new Tmapv3.Size(24, 38);
-                        } 
-                        else { //각 포인트 마커
-                            this.markerImg = "http://topopen.tmap.co.kr/imgs/point.png";
-                            this.pType = "P";
-                            this.size = new Tmapv3.Size(8, 8);
-                        }
-
-                        // 경로들의 결과값들을 포인트 객체로 변환 
-                        const latlon = new Tmapv3.Point(
-                                geometry.coordinates[0],
-                                geometry.coordinates[1]);
-
-                        // 포인트 객체를 받아 좌표값으로 다시 변환
-                        const convertPoint = new Tmapv3.Projection.convertEPSG3857ToWGS84GEO(latlon);
-                        
-
-                        const routeInfoObj = {
-                            markerImage : this.markerImg,
-                            lng : convertPoint._lng,
-                            lat : convertPoint._lat,
-                            pointType : this.pType
-                        };
-
-                        // Marker 추가
-                        this.marker_p = new Tmapv3.Marker({
-                        position : new Tmapv3.LatLng(
-                                routeInfoObj.lat,
-                                routeInfoObj.lng),
-                        icon : routeInfoObj.markerImage,
-                        iconSize : this.size,
-                        map : this.map
-                        });
-                        this.totalMarkerArr.push(this.marker_p);
-                    }
-                }//for문 [E]
-              
-                this.drawLine();
-
-            },
-            
-        }) 
+                    }//for문 [E]
+                
+                    this.drawLine();
+                    resolve();
+                },
+                
+            }) 
+        });
     }
 
     
@@ -414,6 +419,10 @@ export class Navi {
             this.resultdrawArr = [];
         }
         this.drawInfoArr = [];
+    }
+
+    getExpactCoin(){
+        return this.expectCoin
     }
 
 }

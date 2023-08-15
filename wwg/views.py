@@ -77,7 +77,6 @@ class saveRecordsViewSet(viewsets.ModelViewSet):
     #필터 필요시 추가
     filterset_fields=[]
     
-    
 from rest_framework import generics
 
 class SaveRecordCreateView(generics.CreateAPIView):

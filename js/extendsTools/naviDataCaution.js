@@ -1,13 +1,21 @@
+import { Navi } from "./navi.js";
+
 export class NaviDataCaution{
     constructor(){
         this.map;
         this.currentLat, this.currentLon;
 
         this.mode = 0; // 0 -> "데이터 부족" | 1 -> "데이터 애매" | 2 -> "데이터 충분"
+        this.isNavi = false;
+        this.expectCoin;
     }
 
     setMap(map){
         this.map = map;
+    }
+
+    setExpectCoin(coin){
+        this.expectCoin = coin;
     }
     
     naviDataCaution(){
@@ -28,17 +36,22 @@ export class NaviDataCaution{
             
             const backgroundBlur = document.querySelector(".backgroundBlur");
             const lowData = document.querySelector(".lowData");
+            const coin = document.querySelector(".coin");
             const naviDataCautionBtn_Start = document.querySelector(".naviDataCautionBtn_Start");
+       
 
             backgroundBlur.classList.toggle("unactive", false);
+            coin.textContent = `${this.expectCoin}`;
+
             // 데이터의 총 km를 기준으로 출력 화면 변화
             if( data[0]["kms"] <= 10) {
                 this.mode = 0
                 lowData.classList.toggle("unactive", false);
                 
-                startPointBtn.addEventListener('click',
-                    this.searchNavi.bind(this, false, name, lat, lng)
-                );
+                naviDataCautionBtn_Start.addEventListener('click',()=>{
+                    this.allUnactive();
+                });
+                
 
             }
             else if((10 < data[0]["kms"]) && (data[0]["kms"] < 100)) {
@@ -51,5 +64,18 @@ export class NaviDataCaution{
         .catch(error => {
             console.error('There was a problem fetching the data:', error);
         });
+    }
+
+    allUnactive(){
+        const backgroundBlur = document.querySelector(".backgroundBlur");
+        const lowData = document.querySelector(".lowData");
+        const iffyData = document.querySelector(".iffyData");
+        const fullData = document.querySelector(".fullData");
+
+        backgroundBlur.classList.toggle("unactive", true);
+        lowData.classList.toggle("unactive", true);
+        iffyData.classList.toggle("unactive", true);
+        fullData.classList.toggle("unactive", true);
+
     }
 }
