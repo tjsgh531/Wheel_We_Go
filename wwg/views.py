@@ -39,6 +39,7 @@ def mypage(request):
 def myprofile(request):
     return render(request,"myprofile.html")
 
+# view 기능 추가하려고 수정중 
 def serviceRegion(request):
     return render(request,'05serviceRegion.html')
 
