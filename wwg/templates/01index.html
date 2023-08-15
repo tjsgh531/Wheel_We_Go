@@ -20,13 +20,14 @@
                 <div class="kakao-logo-container">
                     <img src="../static/img/카카오톡로고.png" alt="Kakao Logo" class="kakao-logo">
                 </div>
-                {% load socialaccount %}
-
-                <button type="button" onclick="location.href = '{% provider_login_url 'kakao' %}'"><img class="kakao"
+ 
                         src="https://k.kakaocdn.net/14/dn/btroDszwNrM/I6efHub1SN5KCJqLm1Ovx1/o.jpg" alt=""></button>
     
             </button>
         </div>-->
+        {% load socialaccount %}
+
+        <button type="button" onclick="location.href = '{% provider_login_url 'kakao' %}'"><img class="kakao"
     </div>
 </body>
 
