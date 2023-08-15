@@ -52,8 +52,6 @@ INSTALLED_APPS = [
     'allauth.account',
     'allauth.socialaccount',
     'allauth.socialaccount.providers.kakao',
-    
-    #더미데이터 관리
 ]
 
 MIDDLEWARE = [
