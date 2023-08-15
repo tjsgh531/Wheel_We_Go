@@ -8,17 +8,17 @@ export class Navi {
         this.marker_p1;
         this.marker_p2;
         this.polyline_;
+        this.drawInfoArr =[];
+        this.resultdrawArr = [];
     }
     
     setMap(map){
         this.map = map;
+        console.log("여기 내비 setmao", map);
     }
 
-    navi(map, startLat, startLng, endLat, endLng){
-        let totalMarkerArr = [];
-        let resultdrawArr = [];
-        let drawInfoArr = [];
-        this.map = map;
+    navi( startLat, startLng, endLat, endLng){
+        
 
         // 시작 도착 심볼 찍기
         this.makeMark(startLat, startLng);
@@ -43,7 +43,8 @@ export class Navi {
                 "startName" : "출발지",
                 "endName" : "도착지"
             },
-            success : function(response) {
+            // success : function(response) {
+            success : (response) => {
                 const resultData = response.features;
 
                 //결과 출력
@@ -68,11 +69,9 @@ export class Navi {
                 
                 // this.drawInfoArr = [];
                 
-
                 for ( let i in resultData) { //for문 [S]
                     const geometry = resultData[i].geometry;
                     const properties = resultData[i].properties;
-                    let polyline_;
 
 
                     if (geometry.type == "LineString") {
@@ -88,8 +87,10 @@ export class Navi {
                             const convertChange = new Tmapv3.LatLng(
                                     convertPoint._lat,
                                     convertPoint._lng);
+                            
                             // 배열에 담기
-                            drawInfoArr.push(convertChange);
+                            console.log(this);
+                            this.drawInfoArr.push(convertChange);
                         }
                     } else {
                         let markerImg = "";
@@ -138,13 +139,16 @@ export class Navi {
                         });
                     }
                 }//for문 [E]
-                this.map = map;
-                console.log(drawInfoArr);
-                map.on("ConfigLoad", ()=>{
-                    // this.drawLine(this.drawInfoArr);
-                    this.drawLine();
-                });
+                console.log(this.map);
+                console.log(this);
+
+                // this.map.on("ConfigLoad", ()=>{
+                //     // this.drawLine(this.drawInfoArr);
+                //     this.drawLine();
+                // });
+                this.drawLine();
             },
+            
         })
     }
 
