@@ -3,13 +3,13 @@ from django.shortcuts import render,redirect
 
 from rest_framework import viewsets
 from .models import kakaoUsers, Records, Regions, Markings
-from .serializers import RecordsFilterSerializer,UsersSerializer, RecordsSerializer, RegionsSerializer, MarkingsSerializer, DataSerializer
+
+from .serializers import RecordsFilterSerializer,UsersSerializer, RecordsSerializer, RegionsSerializer, MarkingsSerializer
+
 from django.http import HttpResponse, JsonResponse
 from rest_framework.parsers import JSONParser
 from django.views.decorators.csrf import csrf_exempt
 from django_filters import rest_framework as filters
-from rest_framework.decorators import api_view
-from rest_framework.response import Response
 
 #filtering
 from django_filters.rest_framework import DjangoFilterBackend
@@ -34,7 +34,7 @@ def mydata(request):
     return render(request,"07mydata.html")
 
 def mypage(request):
-    return render(request,"mypage.html")
+    return render(request,"03mypage.html")
 
 def myprofile(request):
     return render(request,"myprofile.html")
@@ -44,10 +44,10 @@ def serviceRegion(request):
     return render(request,'05serviceRegion.html')
 
 def shopping(request):
-    return render(request,"shopping.html")
+    return render(request,"04shopping.html")
 
 def no(request):
-    return render(request,"no.html")
+    return render(request,"08no.html")
 ######### REST API VIEWSET ########
 class UsersViewSet(viewsets.ModelViewSet):
     queryset = kakaoUsers.objects.all()
@@ -141,7 +141,6 @@ def callback_view(request):
     request.session['user_nickname'] = user_nickname
 
     return redirect('main')  # 리다이렉트를 통해 메인 페이지로 이동
-
 
 ### 총 이동거리 및 데이터 개수 반환 ## -> 수정 필요 
 @api_view(['GET'])

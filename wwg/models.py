@@ -7,7 +7,6 @@ from django.db import models
 ### 유저 데이터 모델  ###
 ##########################
 class kakaoUsers(models.Model):
-    #카카오로그인뿐이라 user_pw지웠고 id는 동의시 수집했던 닉네임이 될 것
     user_id = models.CharField(max_length= 255,primary_key=True)
     user_email = models.EmailField(max_length=255, null=True)
     user_coin = models.IntegerField(default=0)
@@ -99,11 +98,3 @@ class Markings(models.Model):
     records_id = models.ForeignKey(Records, on_delete=models.CASCADE, related_name='markings_records')
     user_id = models.ForeignKey(kakaoUsers, on_delete=models.CASCADE, related_name='markings_user')
     marking_number = models.IntegerField(null=True)
-    
-    
-#########################################
-###           검색기록 모델            ###
-#########################################
-class SearchRecords(models.Model):
-    marking_numb = models.AutoField(primary_key=True)
-    search_name = models.CharField(max_length=255)
