@@ -1,5 +1,8 @@
+import { DrawShape } from "./drawShape.js";
+
 export class Navi {
     constructor() {
+        this.drawTool = new DrawShape();
         this.currentLat, this.currentLon;
         this.map;
       
@@ -15,12 +18,187 @@ export class Navi {
         this.totalMarkerArr = [];
         this.drawInfoArr =[];
         this.resultdrawArr = [];
+
+        // 트래킹 관련 변수
+        this.istracking = false;
+        this.trackingLines = [];
+        this.trackingCoords = [];
+        this.markers = [];
+        this.tracking_dis = 0;
     }
     
     setMap(map){
         this.map = map;
+        this.drawTool.setMap(map);
     }
 
+    setPosition(lat, lon){
+        this.currentLat = lat;
+        this.currentLon = lon;
+    }
+
+    //트래킹 시작
+    trackingPath(){
+        if(!this.istracking){
+            this.istracking = true;
+            
+            this.trackingLines = []; //트래킹 라인 초기화
+
+            //초 시계 초기화
+            this.costTime = 0;
+
+            // 거리 초기화
+            this.tracking_dis = 0;
+            
+            // 좌표 초기화 
+            const preLat = this.currentLat;
+            const preLon = this.currentLon;
+            
+            this.trackingCoords.push([preLat, preLon]);
+
+            // 라인 그리기 시작
+            this.track = setInterval(()=>{
+                // 시간 계산
+                this.costTime += 1;
+
+                //거리계산
+                this.tracking_dis += this.caculateDistance(preLat, preLon, this.currentLat, this.currentLon);
+                
+                //선 그리기
+                const polyline = this.drawTool.addPolyline(preLat, preLon, this.currentLat, this.currentLon);
+                preLat = this.currentLat;
+                preLon = this.currentLon;
+
+                this.trackingCoords.push([preLat, preLon]);
+                this.trackingLines.push(polyline);
+
+                
+            },1000);
+        }
+    }
+
+    // 마커 버튼 클릭시 작동
+    clickMarkBtn(){
+        
+    }
+
+
+    // 날짜&시간 데이터 생성
+    createDateInfo(){
+        const now = new Date();
+
+        const dataInfo ={
+            year : now.getFullYear(), // 년도
+            month : now.getMonth() + 1, // 월 (0부터 시작하므로 +1)
+            day : now.getDate(), // 일
+            hour : now.getHours(), // 시간
+            minute : now.getMinutes(), // 분
+        }
+
+        return dataInfo 
+    }
+
+    degreesToRadians(degrees) {
+        return degrees * (Math.PI / 180);
+    }
+      
+    //m 단위로 거리계산
+    caculateDistance(lat1, lon1, lat2, lon2) {
+        const earthRadiusMeters = 6371000;
+      
+        const dLat = this.degreesToRadians(lat2 - lat1);
+        const dLon = this.degreesToRadians(lon2 - lon1);
+      
+        const a =
+        Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+        Math.cos(this.degreesToRadians(lat1)) * Math.cos(this.degreesToRadians(lat2)) * Math.sin(dLon / 2) * Math.sin(dLon / 2);
+      
+        const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+      
+        const distance = earthRadiusMeters * c;
+        return distance.toFixed(1);
+    }
+
+    //위경도에 따른 주소 가져오기
+    loadGetLonLatFromAddress(lat, lon) {
+		// TData 객체 생성
+		var tData = new Tmapv3.extension.TData();
+
+		var optionObj = {
+			coordType: "WGS84GEO",       //응답좌표 타입 옵션 설정 입니다.
+			addressType: "A04"           //주소타입 옵션 설정 입니다.
+		};
+
+		var params = {
+			onComplete: function(){
+                return this._responseData.addressInfo.fullAddress; //출력될 결과 주소 정보 입니다.
+            },      //데이터 로드가 성공적으로 완료 되었을때 실행하는 함수 입니다.
+			//데이터 로드 중에 실행하는 함수 입니다.
+            onProgress: function(){
+                console.log("위경도 -> 주소 변환중...")
+            },
+            //데이터 로드가 실패했을때 실행하는 함수 입니다.      
+			onError: function(){
+                alert("onError")
+            } 
+		};
+
+		// TData 객체의 리버스지오코딩 함수
+        return new Promise((resolve, reject)=>{
+            const strdata = tData.getAddressFromGeoJson(`${lat}`,`${lon}`, optionObj, params);
+            resolve(strdata);
+        });
+
+    }
+
+    // 트래킹 종료
+    endTrackingPath(){
+        this.istracking = false 
+        clearInterval(this.track); // 선그리기 인터벌 종료
+
+        //날짜 정보 생성
+        const currentDate = this.createDateInfo();
+
+        //코인 계산
+        const coin = Math.floor((this.tracking_dis / 1000).toFixed(1) * 10);
+
+        // 시작 주소 string & 마지막 주소 string
+        const startpoint = this.trackingCoords[0];
+        const endpoint = this.trackingCoords[this.trackingCoords.length -1];
+
+
+
+        this.loadGetLonLatFromAddress() 
+        //데이터 저장 하기
+        const saveData = {
+            startpoint: startpoint,
+            endpoint : endpoint;
+
+            startName :
+            endName :
+
+            AtTime : this.costTime,
+            distance : this.tracking_dis,
+            coin : coin,
+            coords: this.trackingCoords,
+            data_valid : 0,
+            markings : this.markers,
+            date : currentDate,
+        }
+
+        //데이터 초기화
+        this.costTime = 0;
+        this.tracking_dis = 0;
+
+
+        // 라인 지우기
+        this.trackingLines.forEach(element => {
+            element.setMap(null);
+        });
+        this.trackingLines = [];
+
+      
+    }
 
     navi( startLat, startLng, endLat, endLng){
         
@@ -187,4 +365,5 @@ export class Navi {
         }
         this.drawInfoArr = [];
     }
+
 }

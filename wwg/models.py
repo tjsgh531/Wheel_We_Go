@@ -81,7 +81,6 @@ class Records(models.Model):
         return f"Record {self.records_id}: {self.start_location} to {self.end_location}"
 
 
-
 #######################################
 ###  지역별 총 이동거리와 데이터 개수 ###
 #######################################
