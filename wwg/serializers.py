@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import kakaoUsers, Records, Regions, Markings,saveRecord
+from .models import kakaoUsers, Records, Regions, saveRecord
 
 
 ### 모델마다 모든 레코드의 CRUD Serializer ###
@@ -18,10 +18,6 @@ class RegionsSerializer(serializers.ModelSerializer):
         model = Regions
         fields = '__all__'
 
-class MarkingsSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Markings
-        fields = '__all__'
 
 
 ### 각 모델마다 필터링용 Serializer ###
