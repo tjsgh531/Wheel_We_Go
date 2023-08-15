@@ -27,16 +27,32 @@
                     <div><span class="square-2"></span> 오류 데이터</div>
                 </div>
             </div>
-            {% for record in records.all %}
-            {{record.start_location}}
-            {{record.end_location}}
-            {%endfor%}
             <!-- 그래프 -->
             <div class="chart-container">
                 <span class="chart"></span>
             </div>
             <div class="filter-time">필터 - 시간</div>
-
+            <div> <!-- 데이터 내역 -->
+                {% for record in records %}
+                <div class="data-list">
+                    <div class="route-data">
+                        <div>일시 {{ record.record_date }}</div> <!-- record_date 필드 수정 -->
+                        <div class="circle-container">
+                            <span class="circle-0"></span>
+                            <div class="route">
+                                <div>출발지 {{ record.start_location }}</div>
+                                -> <div>도착지 {{ record.end_location }}</div> <!-- end_location 필드 수정 -->
+                            </div>
+                        </div>
+                    </div>
+                    <div class="etc-data">
+                        <div><img src="/static/img/시간.png" alt="시간">시간 {{ record.time }} 시간</div> <!-- time 필드 추가 -->
+                        <div><img src="/static/img/거리.png" alt="시간">거리 {{ record.km }} km</div> <!-- km 필드 추가 -->
+                        <div><img src="/static/img/코인.png" alt="시간">코인 {{ record.credits_earned }} 코인</div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
         </div>
 
         <div class="mydata-page-02">

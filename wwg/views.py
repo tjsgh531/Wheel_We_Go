@@ -34,7 +34,7 @@ def mydata(request):
     return render(request,"07mydata.html")
 
 def mypage(request):
-    return render(request,"03mypage.html")
+    return render(request,"mypage.html")
 
 def myprofile(request):
     return render(request,"myprofile.html")
@@ -43,10 +43,10 @@ def serviceRegion(request):
     return render(request,'05serviceRegion.html')
 
 def shopping(request):
-    return render(request,"04shopping.html")
+    return render(request,"shopping.html")
 
 def no(request):
-    return render(request,"08no.html")
+    return render(request,"no.html")
 ######### REST API VIEWSET ########
 class UsersViewSet(viewsets.ModelViewSet):
     queryset = kakaoUsers.objects.all()
@@ -160,15 +160,7 @@ def search(request):
 
 
 # 이름정보 저장
-from django.contrib.auth.decorators import login_required
-
-@login_required
-def index_mydate(request):
+def index_name(request):
     user = request.user
-    recordsData = Records.objects.all()
-    user_records = recordsData(user_id = user)
-    context = {
-        'user_records':user_records,
-        'user':user
-    }
-    return render(request,"07mydata.html", context)
+    records = Records.objects.filter(user=user).values('start_location','end_location','TIME','record_date','km','credits_earned')
+    return render(request, '07mydata.html',{'user':user,'records': records})
