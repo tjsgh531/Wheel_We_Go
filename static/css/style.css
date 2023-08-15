@@ -1,12 +1,13 @@
-body,
-html {
+body,html{
     overflow-x: hidden;
 }
+div{
+    box-sizing: border-box;
+}
 
-
-#wrap {
+#wrap{
     margin: 0 auto;
     max-width: 767px;
     min-height: 100vh;
-    background-color: #FFFFFF;
+    background-color: #c9c9c9;
 }

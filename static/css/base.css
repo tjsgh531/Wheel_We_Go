@@ -1,25 +1,16 @@
 html, body{
-    overflow: hidden;
+    overflow-x: hidden;
     padding: 0;
     margin: 0;
 }
 
-a, a:visited, a:active {
-    color: inherit; /* 상속된 색상 사용 */
-    text-decoration: none; /* 밑줄 제거 */
-}
-
-a:hover {
-    cursor: pointer;
-}
-  
 div {
     box-sizing: border-box;
 }
 
 #map_div{
     position: fixed;
-    left: 0; top: 0;
+    left: 0; top: 0; z-index: -9999;
     width: 100vw;
     height: 100vh;
 }
@@ -28,124 +19,28 @@ div {
     display: none !important;
 }
 
-
-/* Global navigation bar(gnb) 부분 CSS */
-
-.gnb{
-    position: fixed;
-    top: 0; left: 0; z-index: 9990;
-
-    min-height: 6rem;
-    width: 100vw;
-
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
 .search {
-    width: 80%;
-
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    width: 100%;
+    height: 60px;
+    background-color: #FFFFFF;
+    border-end-end-radius: 16px;
+    border-bottom-left-radius: 16px;
+    text-align: center;
+    border-bottom: 1px solid #F5F5F5;
+    box-shadow: 0 10px 5px -5px #F5F5F5;
+    padding-top: 20px;
 }
+
 
 .searchBox {
-    width: 80%;
-    height: 3rem;
-
-    padding-left: 1.5rem;
-  
-    background-color: rgba(200, 200, 200, 0.5);
-    border-radius: 2rem;
-
+    width: 500px;
+    height: 30px;
     border: none;
+    background-color: #F5F5F5;
+    border-radius: 16px;
     outline: none;
- 
+    padding-left: 20px;
 }
-
-.search_navi{
-    padding: 1rem 0;
-}
-
-.departures{
-    margin-bottom: 1rem;
-}
-
-.searchIcon{
-    position: relative;
-    right: 3rem;
-
-    font-size: 1.5rem;
-}
-
-.sideBarBtn, .search_cancle{
-    width: 3rem;
-    height: 3rem;
-    
-    background-color: white;
-
-    border-radius: 50%;
-
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    font-size: 1.5rem;
-}
-.sideBar{
-    position: fixed;
-    left: 0; top: 0; z-index: 9999;
-
-    width: 100vw;
-    height: 100vh;
-
-    background-color: rgba(0, 0, 0, 0.4);
-}
-.sideBar_content{
-    position: absolute;
-    right: 0; top: 0;
-
-    height: 100vh;
-    width: 50vw;
-
-    padding: 1rem;
-
-    background-color: white;
-}
-.sideBar_profile{
-    display: flex;
-    align-items: center;
-    
-    padding: 1rem 0.5rem;
-
-    border-bottom: 1px solid #A7A7A7;
-}
-.sideBar_cancle{
-    display: flex;
-    justify-content: flex-end;
-
-    font-size: 2rem;
-}
-
-.profile_img{
-    width: 4rem;
-    height: 4rem;
-
-    margin-right: 0.5rem;
-}
-
-.sideBarItems{
-    margin-top: 0.5rem;
-}
-
-.sideBar_item{
-    padding: 0.5rem;
-    font-size: 1.2rem;
-}
-
-
 
 .cancleBtn {
     width: 30px;

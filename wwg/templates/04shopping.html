@@ -1,1 +1,102 @@
-<p>쇼핑하기 창 클릭시 예상</p>
+{%load static%}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="{% static 'css/shopping.css' %}">
+    <script type="module" src="" defer></script>
+</head>
+
+<body>
+    <div id="wrap">
+        <a href="javascript:history.back()" class="back-button">
+            &lt; 쇼핑하기
+        </a>
+        <!-- 검색바 -->
+        <div>검색바</div>
+        <!-- 광고 -->
+        <div class="slider-container">
+            <input type="radio" name="slider" id="slide1" checked>
+            <input type="radio" name="slider" id="slide2">
+            <input type="radio" name="slider" id="slide3">
+            <input type="radio" name="slider" id="slide4">
+            <input type="radio" name="slider" id="slide5">
+
+            <div class="slide" id="slide1">
+                <img src="/static/img/광고1. 상하목장.jpg" alt="광고 이미지 1">
+            </div>
+            <div class="slide" id="slide2">
+                <img src="/static/img/광고2.codi.png" alt="광고 이미지 2">
+            </div>
+            <div class="slide" id="slide3">
+                <img src="image3.jpg" alt="광고 이미지 3">
+            </div>
+            <div class="slide" id="slide1">
+                <img src="image4.jpg" alt="광고 이미지 4">
+            </div>
+            <div class="slide" id="slide2">
+                <img src="image5.jpg" alt="광고 이미지 5">
+            </div>
+
+            <div class="nav">
+                <label for="slide1"></label>
+                <label for="slide2"></label>
+                <label for="slide3"></label>
+                <label for="slide4"></label>
+                <label for="slide5"></label>
+            </div>
+
+        </div>
+        <!-- 상품 -->
+        <div>
+            <div>
+                <div>상품목록</div>
+                <span></span>
+            </div>
+            <!-- 상품 -->
+            <div>
+                <!-- 1 -->
+                <div>
+                    <!-- 상품사진 -->
+                    <img src="" alt="">
+                    <!-- 상품명&장바구니 아이콘 -->
+                    <div>
+                        <div></div>
+                        <img src="" alt="">
+                    </div>
+                    <!-- 상품가격 -->
+                    <div></div>
+                </div>
+                <!-- 2 -->
+                <div>
+                    <!-- 상품사진 -->
+                    <img src="" alt="">
+                    <!-- 상품명&장바구니 아이콘 -->
+                    <div>
+                        <div></div>
+                        <img src="" alt="">
+                    </div>
+                    <!-- 상품가격 -->
+                    <div></div>
+                </div>
+                <!-- 3 -->
+                <div>
+                    <!-- 상품사진 -->
+                    <img src="" alt="">
+                    <!-- 상품명&장바구니 아이콘 -->
+                    <div>
+                        <div></div>
+                        <img src="" alt="">
+                    </div>
+                    <!-- 상품가격 -->
+                    <div></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

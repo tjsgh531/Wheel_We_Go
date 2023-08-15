@@ -6,12 +6,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=640, user-scalable=yes">
     <title>Wheel We Go</title>
-    <!-- JQuery CDN-->
-    <script src="//code.jquery.com/jquery-3.2.1.min.js"></script>
-    
-    <!-- font awesome CDN -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    
+
     <!-- base css Style -->
     <link rel="stylesheet" href= "{% static 'css/base.css' %}"  type = "text/css">
     
@@ -19,7 +14,7 @@
     <script src="https://apis.openapi.sk.com/tmap/vectorjs?version=1&appKey=l7xxed2c734830ae4364975ef11e67a76e81"></script>
     
     <!-- base script -->
-    <script src= "{% static 'js/base.js' %}"></script>
+    <script src= "{% static 'js/mapbase.js' %}"></script>
 
     <!-- personal Script -->
     {% block script %}{% endblock %}
@@ -27,68 +22,58 @@
 </head>
 <body>
     <div id="wrap">
-
-        <div class="gnb">
-            <div class="search">
-                <input class="searchBox searchItem" type="text" placeholder="장소, 주소 검색">
-                <i class="fa-solid fa-magnifying-glass searchIcon"></i>
-            </div>
-
-            <div class="search_navi unactive">
-                <input class="searchBox departures" type="text" placeholder="장소, 주소 검색">
-                <input class="searchBox arrivals" type="text" placeholder="장소, 주소 검색">
-            </div>
-
-            <div class="search_cancle unactive">
-                <i class="fa-solid fa-xmark"></i>
-            </div>
-            
-            <div class="sideBarBtn">
-                <i class="fa-solid fa-bars"></i>
-            </div>
-
-        </div>
-
-        <div class="sideBar unactive">
-            <div class="sideBar_content">
-                
-                <div class="sideBar_cancle">
-                    <i class="fa-solid fa-xmark"></i>
+        <!-- 지도 div -->
+        <div id="map_div"></div>
+        
+        <!-- 검색창&햄버거 -->
+        <div class="container">
+            <div class="bar">
+                <!-- 검색창 -->
+                <div class="search">
+                    <input class="searchBox" type="text" placeholder="장소, 주소 검색">
+                    <img class="check" src="../static/img/돋보기.png" alt="돋보기" height="20px" width="20px">
                 </div>
+                <!-- 햄버거 -->
+                <a class="menu-trigger" href="#">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </a>
+            </div>
 
-                <div class="sideBar_profile">
 
-                    <div class="profile_image">
-                        <img class="profile_img" src="{% static 'img/프로필.png' %}" alt="프로필">
-                    </div>
-
-                    <div class="profile_text">
-                        <div class="sideBar_profile_text">어디든 자유롭게 가봐요.</div>
-                    
-                        <div class="sideBar_profile_content">
-                            {% if user %}
-                            <span style="font-size: 1.5rem; font-weight: 900;">{{ user.username }}</span><span>님</span>
+            <!-- 햄버거 메뉴 시작  -->
+            <div class="ham-content">
+                <!-- x -->
+                <a class="x-trigger" href="#">
+                    <span></span>
+                    <span></span>
+                </a>
+                <div class="ham-profile">
+                    <img class="hp0" src="../static/img/프로필.png" alt="프로필" width="35px" height="35px">
+                    <div class="hp1">
+                        <div class="hp1-1">어디든 자유롭게 가봐요.</div>
+                        <div class="hp1-2">
+                            {% if user_nickname %}
+                            <p>{{ user_nickname }}님</p>
                             {% else %}
-                            <p>지나가는 멋쟁이 호랑이 님</p>
+                            <p>--님</p>
                             {% endif %}
                         </div>
                     </div>
-
                 </div>
-    
-                <div class="sideBarItems">
-                    <div class="sideBar_item"><a class="hmwa" href="{% url 'mypage' %}">마이페이지</a></div>
-                    <div class="sideBar_item"><a class="hmwa" href="{% url 'serviceRegion' %}">서비스 지역 보기</a></div>
+
+                <div id="ham-menu-wrap">
+                    <ul class="hmw"><a class="hmwa" href="http://127.0.0.1:8000/mypage/">마이페이지</a></ul>
+                    <ul class="hmw"><a class="hmwa" href="http://127.0.0.1:8000/RegionSee/">서비스 지역 보기</a></ul>
                 </div>
             </div>
+
+            <div class="ham-menu-back"></div>
+        
         </div>
 
-        <!-- 지도 div -->
-        <div id="map_div"></div>
-
-        {% block content %}
-
-        {% endblock %}
+        {% block content %}{% endblock %}
 
     </div>
 </body>
