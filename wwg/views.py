@@ -69,13 +69,6 @@ class RegionsViewSet(viewsets.ModelViewSet):
     filter_backends=[DjangoFilterBackend]
     #필터 필요시 추가
     filterset_fields=['regions']
-
-class MarkingsViewSet(viewsets.ModelViewSet):
-    queryset = Markings.objects.all()
-    serializer_class = MarkingsSerializer
-    filter_backends=[DjangoFilterBackend]
-    #필터 필요시 추가
-    filterset_fields=['records_id']
     
     
 from rest_framework import generics

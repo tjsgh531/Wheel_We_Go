@@ -277,11 +277,17 @@ export class Search {
             
             // ------------------------------------------- Navi 시작 -------------------------------------------
             console.log("내비 시작");
-            console.log(this.search_navi_info[0].latitude, this.search_navi_info[0].longitude, this.search_navi_info[1].latitude, this.search_navi_info[1].longitude);
-            console.log("마커 지우기 함수 실행!");
             this.eraseAllMarkers();
-            this.naviTool.navi(this.search_navi_info);
-            this.naviDataCautionTool.naviDataCaution(this.search_navi_info);
+
+
+            this.naviTool.navi(this.search_navi_info)
+            .then(()=>{
+                console.log("여기 실행 되니?");
+                const expect_coin = this.naviTool.getExpactCoin();
+                this.naviDataCautionTool.setExpectCoin(expect_coin);
+                this.naviDataCautionTool.naviDataCaution(this.search_navi_info);
+            })
+            
         }
         //아직 길찾기가 아니야
         else{

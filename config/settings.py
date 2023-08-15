@@ -54,7 +54,6 @@ INSTALLED_APPS = [
     'allauth.socialaccount.providers.kakao',
     
     #더미데이터 관리
-    'django_seed',
 ]
 
 MIDDLEWARE = [

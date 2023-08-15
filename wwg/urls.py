@@ -8,7 +8,6 @@ router = DefaultRouter()
 router.register(r'users', UsersViewSet)
 router.register(r'records', RecordsViewSet)
 router.register(r'regions', RegionsViewSet)
-router.register(r'markings', MarkingsViewSet)
 
 
 urlpatterns = [
