@@ -18,6 +18,7 @@ export class Search {
 
     setMap(map){
         this.map = map;
+        this.naviTool.setMap(map);
     }
 
     setPosition(lat, lon){
@@ -267,7 +268,7 @@ export class Search {
             // ------------------------------------------- Navi 시작 -------------------------------------------
             console.log("내비 시작");
             console.log(this.search_words[0].latitude);
-            this.naviTool.navi(this.map, this.search_words[0].latitude, this.search_words[0].longitude, this.search_words[1].latitude, this.search_words[1].longitude);
+            this.naviTool.navi(this.search_words[0].latitude, this.search_words[0].longitude, this.search_words[1].latitude, this.search_words[1].longitude);
         }
         //아직 길찾기가 아니야
         else{
