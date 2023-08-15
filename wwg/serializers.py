@@ -18,7 +18,10 @@ class RegionsSerializer(serializers.ModelSerializer):
         model = Regions
         fields = '__all__'
 
-
+class saveRecordSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = saveRecord
+        fields = '__all__'
 
 ### 각 모델마다 필터링용 Serializer ###
 class RecordsFilterSerializer(serializers.ModelSerializer):

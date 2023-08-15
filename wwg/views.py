@@ -70,7 +70,12 @@ class RegionsViewSet(viewsets.ModelViewSet):
     #필터 필요시 추가
     filterset_fields=['regions']
 
-
+class saveRecordsViewSet(viewsets.ModelViewSet):
+    queryset = saveRecord.objects.all()
+    serializer_class = saveRecordSerializer
+    filter_backends=[DjangoFilterBackend]
+    #필터 필요시 추가
+    filterset_fields=[]
     
     
 from rest_framework import generics
@@ -156,7 +161,17 @@ def index_name_mydata(request):
     user= request.user.username
     return render(request,'07mydata.html',{'user':user})
 
+from django.contrib.auth.decorators import login_required
 
-def index_name_mypage(request):
-    user= request.user.username
-    return render(request,'03mydata.html',{'user':user})
+# def index_name_mypage(request):
+#     user= request.user
+#     kakao_user = kakaoUsers.objects.all()
+    
+#     return render(request,'03mydata.html',{'user':user,'kakao_user': kakao_user})
+@login_required  # 이 뷰는 로그인된 사용자만 접근 가능하도록 설정
+def user_records(request):
+    user = request.user  # 로그인된 사용자 정보 가져오기
+    user_kakao = kakaoUsers.objects.filter(user_id=user)  # 해당 사용자와 연관된 Records 필터링
+    records = Records.objects.filter(user_id = user_kakao)
+    return render(request, '07mydata.html', {'records': records})
+
