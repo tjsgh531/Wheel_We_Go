@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Users, Records, Regions, Markings
+from .models import kakaoUsers, Records, Regions, Markings
 
 
 
@@ -8,7 +8,7 @@ from .models import Users, Records, Regions, Markings
 ### 모델마다 모든 레코드의 CRUD Serializer ###
 class UsersSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Users
+        model = kakaoUsers
         fields = '__all__'
 
 class RecordsSerializer(serializers.ModelSerializer):
@@ -33,12 +33,6 @@ class RecordsFilterSerializer(serializers.ModelSerializer):
         model = Records
         fields = ('start_location','end_location','TIME','feedback','credits_earned','record_date','data_valid','km')
 
-
-### 이동거리 값 반환 ###
-class DataSerializer(serializers.Serializer):
-    dong = serializers.CharField(max_length=100)
-    mapCount = serializers.IntegerField()
-    mapDistance = serializers.IntegerField()
 
 
 
