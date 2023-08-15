@@ -2,9 +2,9 @@
 from django.shortcuts import render,redirect
 
 from rest_framework import viewsets
-from .models import kakaoUsers, Records, Regions, Markings
+from .models import *
 
-from .serializers import RecordsFilterSerializer,UsersSerializer, RecordsSerializer, RegionsSerializer, MarkingsSerializer
+from .serializers import *
 
 from django.http import HttpResponse, JsonResponse
 from rest_framework.parsers import JSONParser
@@ -76,7 +76,22 @@ class MarkingsViewSet(viewsets.ModelViewSet):
     filter_backends=[DjangoFilterBackend]
     #필터 필요시 추가
     filterset_fields=['records_id']
+    
+    
+from rest_framework import generics
 
+class SaveRecordCreateView(generics.CreateAPIView):
+    queryset = saveRecord.objects.all()
+    serializer_class = SaveRecordSerializer
+
+    def perform_create(self, serializer):
+        instance = serializer.save()
+        # Update user's coin
+        user_id = instance.user_id
+        earned_coin = instance.earnedCoin
+        user = kakaoUsers.objects.get(user_id=user_id)
+        user.user_coin += earned_coin
+        user.save()
     # 아래주석은 지워도 됨
 ''' 
 @csrf_exempt
@@ -142,25 +157,8 @@ def callback_view(request):
 
     return redirect('main')  # 리다이렉트를 통해 메인 페이지로 이동
 
-### 총 이동거리 및 데이터 개수 반환 ## -> 수정 필요 
-# @api_view(['GET'])
-# def search_view(request):
-#     mapData = Regions.objects.all()
-#     dongName=request.regions
-#     searchDong = mapData.filter(dong=dongName) # 쿼리스트링 필터링 수정 필요
-#     mapCount = searchDong.stacks
-#     mapDistance = searchDong.distance
-#     data = {
-#         'dong': searchDong.dong,
-#         'mapCount': mapCount,
-#         'mapDistance': mapDistance,
-#     }
-#     serializer = DataSerializer(data, many=True)
-#     return Response(serializer.data), render(request,'05serviceRegion.html')
-
-
-# 이름정보 저장
 def index_name(request):
-    user = request.user
-    records = Records.objects.filter(user=user).values('start_location','end_location','TIME','record_date','km','credits_earned')
-    return render(request, '07mydata.html',{'user':user,'records': records})
+    user= request.user.username
+    return render(request,'07mydata.html',{'user':user})
+
+

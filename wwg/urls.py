@@ -10,9 +10,11 @@ router.register(r'records', RecordsViewSet)
 router.register(r'regions', RegionsViewSet)
 router.register(r'markings', MarkingsViewSet)
 
+
 urlpatterns = [
     path('' , include(router.urls)),
-    path('accounts/',include('allauth.urls'))
+    path('accounts/',include('allauth.urls')),
+    path('create_record/',SaveRecordCreateView.as_view(),name='create_record')
     # 아래주석은 지워도됨
     # path('users/',user_list),
 
