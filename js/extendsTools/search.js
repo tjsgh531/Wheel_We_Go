@@ -13,7 +13,7 @@ export class Search {
         this.search_navi_info = [null, null];
         this.markers = [];
       
-        this.focusSearchBox();
+        //this.focusSearchBox();
     }
 
     setMap(map){

@@ -1,4 +1,4 @@
-{% load static%}
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 
@@ -12,8 +12,8 @@
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
-    <link rel="stylesheet" href="{% static 'css/service.css'%}">
-    <script src="{% static/js/service.js%}" defer></script>
+    <link rel="stylesheet" href="{% static 'css/service.css' %}">
+    <script src="{% static 'js/service.js' %}" defer></script>
 </head>
 
 <body>
@@ -35,9 +35,13 @@
             </div>
 
         </div>
-        
-    <div id="map_div"></div>
-    <p id="result" style="z-index:10"></p>
+
+        <div id="map_div"></div>
+        <p id="result" style="z-index:10"></p>
+        <input type="text" class="text" id="searchInput" placeholder="검색어 입력">
+        <div id="markerName"></div>
+        <button id="searchBtn">search</button>
+        <!-- <ul id="markerList"></ul> -->
 
 
 </body>
