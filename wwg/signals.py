@@ -19,4 +19,4 @@ def save_kakao_user(sender, request, user, **kwargs):
 # @receiver(post_save, sender=Regions)
 # def Records_save(sender, **kwargs):
 #     Records=kwargs['instance'].Records
-#     Regions.
+#     Regions
