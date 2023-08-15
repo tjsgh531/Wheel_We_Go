@@ -21,6 +21,7 @@ div {
     align-items: center;
     justify-content: center;
     background-color: #FFC573;
+
 }
 
 .shop-first {
@@ -31,6 +32,10 @@ div {
 .shop-name {
     display: flex;
     width: 42rem;
+}
+
+.shop-ing img {
+    display: fixed;
 }
 
 .coin-container {
@@ -50,6 +55,7 @@ div {
     align-items: center;
     justify-content: center;
     margin-bottom: 1rem;
+
 }
 
 .coin-img {
@@ -60,6 +66,7 @@ div {
     font-weight: bold;
 
 }
+
 
 .coin-img img {
     display: fixed;

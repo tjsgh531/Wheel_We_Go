@@ -3,7 +3,9 @@ from django.shortcuts import render,redirect
 
 from rest_framework import viewsets
 from .models import kakaoUsers, Records, Regions, Markings
+
 from .serializers import RecordsFilterSerializer,UsersSerializer, RecordsSerializer, RegionsSerializer, MarkingsSerializer
+
 from django.http import HttpResponse, JsonResponse
 from rest_framework.parsers import JSONParser
 from django.views.decorators.csrf import csrf_exempt
@@ -127,9 +129,13 @@ def callback_view(request):
         headers={'Authorization': f'Bearer {token}'},
     )
     user_info = user_info_response.json()
-
+    # 카카오 사용자 정보 변수에 저장
+    user_email = user_info.get('kakao_account', {}).get('email')
     user_nickname = user_info.get('properties', {}).get('nickname')
-
+    # 사용자 정보 저장
+    #user, created= Users.objects.create(user_id=user_nickname, user_email=user_email)
+    user_instance = kakaoUsers(user_id = user_nickname,user_email=user_email,coin = 0)
+    user_instance.save()
     # 닉네임 정보를 세션에 저장
     request.session['user_nickname'] = user_nickname
 
