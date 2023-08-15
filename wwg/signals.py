@@ -16,7 +16,17 @@ def save_kakao_user(sender, request, user, **kwargs):
                 user_coin=0
             )
 
-# @receiver(post_save, sender=Regions)
-# def Records_save(sender, **kwargs):
-#     Records=kwargs['instance'].Records
-#     Regions
+
+@receiver(post_save, sender=Records)
+def update_regions(sender, instance, created, **kwargs):
+    try:
+        regions_instance = Regions.objects.get(regions=instance.start_location)
+        regions_instance.kms += instance.km
+        regions_instance.stacks += 1
+        regions_instance.save()
+    except Regions.DoesNotExist:
+        Regions.objects.create(
+            regions=instance.start_location,
+            kms=instance.km,
+            stacks=1
+        )
