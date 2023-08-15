@@ -223,7 +223,10 @@ export class Search {
         this.eraseAllMarkers.bind(this); // 마커 지우기
         this.markers = []; //마커 기록 지우기
 
+        this.naviTool.eraseLineMarks(); // 네비에서 생성한 마커, 라인 지우기
+
         this.mapTool.setMapCenter(this.map, this.currentLat, this.currentLon);
+        
     }
 
     //검색 결과중 하나 클릭시
