@@ -11,6 +11,18 @@
 </head>
 
 <body>
+
+    {% block content %}
+    <h1>User Records</h1>
+    <ul>
+        {% for record in user_records %}
+            <li>{{ record.start_location }} to {{ record.end_location }}</li>
+        {% endfor %}
+    </ul>
+    {% endblock %}
+
+
+    
     <div id="wrap">
         <div class="mydata-page-01">
             <a href="javascript:history.back()" class="back-button">
@@ -29,12 +41,12 @@
                 </div> -->
             </div>
 
-
-
             <div class="square-container"> <!--그래프 색깔 구분표 -->
                 <div class="square">
                     <div><span class="square-0"></span> 전체 데이터</div>
+
                     <div><span class="square-1"></span> {{ user.username }}님 데이터</div>
+
                     <div><span class="square-2"></span> 오류 데이터</div>
                 </div>
             </div>

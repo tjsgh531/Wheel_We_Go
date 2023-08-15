@@ -2,9 +2,9 @@
 from django.shortcuts import render,redirect
 
 from rest_framework import viewsets
-from .models import kakaoUsers, Records, Regions, Markings
+from .models import *
 
-from .serializers import RecordsFilterSerializer,UsersSerializer, RecordsSerializer, RegionsSerializer, MarkingsSerializer
+from .serializers import *
 
 from django.http import HttpResponse, JsonResponse
 from rest_framework.parsers import JSONParser
@@ -39,6 +39,7 @@ def mypage(request):
 def myprofile(request):
     return render(request,"myprofile.html")
 
+# view 기능 추가하려고 수정중 
 def serviceRegion(request):
     return render(request,'05serviceRegion.html')
 
@@ -69,13 +70,27 @@ class RegionsViewSet(viewsets.ModelViewSet):
     #필터 필요시 추가
     filterset_fields=['regions']
 
-class MarkingsViewSet(viewsets.ModelViewSet):
-    queryset = Markings.objects.all()
-    serializer_class = MarkingsSerializer
+class saveRecordsViewSet(viewsets.ModelViewSet):
+    queryset = saveRecord.objects.all()
+    serializer_class = saveRecordSerializer
     filter_backends=[DjangoFilterBackend]
     #필터 필요시 추가
-    filterset_fields=['records_id']
+    filterset_fields=[]
+    
+from rest_framework import generics
 
+class SaveRecordCreateView(generics.CreateAPIView):
+    queryset = saveRecord.objects.all()
+    serializer_class = SaveRecordSerializer
+
+    def perform_create(self, serializer):
+        instance = serializer.save()
+        # Update user's coin
+        user_id = instance.user_id
+        earned_coin = instance.earnedCoin
+        user = kakaoUsers.objects.get(user_id=user_id)
+        user.user_coin += earned_coin
+        user.save()
     # 아래주석은 지워도 됨
 ''' 
 @csrf_exempt
@@ -141,6 +156,20 @@ def callback_view(request):
 
     return redirect('main')  # 리다이렉트를 통해 메인 페이지로 이동
 
-def index_name(request):
-    user= request.user
+def index_name_mydata(request):
+    user= request.user.username
     return render(request,'07mydata.html',{'user':user})
+
+from django.contrib.auth.decorators import login_required
+
+# def index_name_mypage(request):
+#     user= request.user
+#     kakao_user = kakaoUsers.objects.all()
+    
+#     return render(request,'03mydata.html',{'user':user,'kakao_user': kakao_user})
+@login_required  # 이 뷰는 로그인된 사용자만 접근 가능하도록 설정
+def user_records(request):
+    user = request.user  # 로그인된 사용자 정보 가져오기
+    user_kakao = kakaoUsers.objects.filter(user_id=user)  # 해당 사용자와 연관된 Records 필터링
+    records = Records.objects.filter(user_id = user_kakao)
+    return render(request, '07mydata.html', {'records': records})

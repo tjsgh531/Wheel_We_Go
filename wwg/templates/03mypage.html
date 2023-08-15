@@ -13,11 +13,13 @@
 <body>
 
 
-    <div class="shop-container">
-        <div class="shop-first">
-            <div class="shop-name">
-                <div class="name">(닉네임)</div>
-                <div>님</div>
+        <div class="shop-container">
+            <div class="shop-first">
+                <div class="shop-name">
+                    <div class="name">{{user.username}}</div>
+                    <div>님</div>
+                </div>
+                <div>햄버거</div>
             </div>
             <!-- <div class="sideBarBtn">
                 <i class="fa-solid fa-bars"></i>
@@ -38,16 +40,10 @@
                         <img class="profile_img" src="{% static 'img/프로필.png' %}" alt="프로필">
                     </div>
 
-                    <div class="profile_text">
-                        <div class="sideBar_profile_text">어디든 자유롭게 가봐요.</div>
+                    <div class="price-unit">
+                        <div class="price">{{user_coin.coin}}</div>
+                        <div class="unit">원</div>
 
-                        <div class="sideBar_profile_content">
-                            {% if user %}
-                            <span style="font-size: 1.5rem; font-weight: 900;">{{ user.username }}</span><span>님</span>
-                            {% else %}
-                            <p>지나가는 멋쟁이 호랑이 님</p>
-                            {% endif %}
-                        </div>
                     </div>
 
                 </div>
@@ -58,6 +54,7 @@
                 </div>
             </div>
         </div> -->
+
 
         <div class="coin-container">
             <div class="coin">
@@ -70,7 +67,6 @@
                     <div class="unit">원</div>
                 </div>
             </div>
-        </div>
     </div>
     <div class="main-container">
         <a class="shop-ing" href="">
@@ -96,7 +92,7 @@
     </div>
 
     <div class="etc-container">
-        <a class="logout" href="">로그아웃</a>
+        <a class="logout" href="https://kauth.kakao.com/oauth/logout?client_id=6aae09aeeec4e992f89293eb333535be&logout_redirect_uri=http://127.0.0.1:8000/">로그아웃</a>
         <a class="withdraw" href="">회원탈퇴</a>
         <a class="empty" href=""></a>
     </div>

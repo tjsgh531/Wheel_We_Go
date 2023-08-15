@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import kakaoUsers, Records, Regions, Markings
+from .models import kakaoUsers, Records, Regions, saveRecord
 
 
 ### 모델마다 모든 레코드의 CRUD Serializer ###
@@ -18,11 +18,10 @@ class RegionsSerializer(serializers.ModelSerializer):
         model = Regions
         fields = '__all__'
 
-class MarkingsSerializer(serializers.ModelSerializer):
+class saveRecordSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Markings
+        model = saveRecord
         fields = '__all__'
-
 
 ### 각 모델마다 필터링용 Serializer ###
 class RecordsFilterSerializer(serializers.ModelSerializer):
@@ -31,4 +30,12 @@ class RecordsFilterSerializer(serializers.ModelSerializer):
         fields = ('start_location','end_location','TIME','feedback','credits_earned','record_date','data_valid','km')
 
 
-##필터링 기능미완###
+class EarnedCoinSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = kakaoUsers
+        fields = ['user_coin']
+
+class SaveRecordSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = saveRecord
+        fields = ['user_id', 'earnedCoin', 'info']
