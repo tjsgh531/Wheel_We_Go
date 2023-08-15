@@ -18,7 +18,16 @@
             </a>
             <div class="line"></div>
 
-            <div class="filter-adress">필터 - 장소 </div>
+            <div class="filter-adress">
+                <!-- 필터 기능 - 장소 -->
+                <button class="filter-button">전체 <span class="arrow-down"></span></button>
+                <div class="filter-content">
+                    <button data-filter="all">전체</button>
+                    <button data-filter="category1">카테고리1</button>
+                    <button data-filter="category2">카테고리2</button>
+                    <button data-filter="category3">카테고리3</button>
+                </div>
+            </div>
 
             <div class="square-container"> <!--그래프 색깔 구분표 -->
                 <div class="square">
@@ -30,12 +39,14 @@
             <!-- 그래프 -->
             <div class="chart-container">
                 <span class="chart"></span>
+                <span class="chart-shadow"></span>
             </div>
-            <div class="filter-time">필터 - 시간</div>
+            <div class="filter-time"></div>
+
             <div> <!--데이터 내역-->
                 <div class="data-list">
                     <div class="route-data">
-                        <div>일시 (ex.2023-07-31)</div>
+                        <div class="route-data-time">일시 (ex.2023-07-31)</div>
                         <div class="circle-container">
                             <span class="circle-0"></span>
                             <div class="route">
@@ -141,9 +152,9 @@
                     </div>
                 </div>
             </div>
-
         </div>
     </div>
+
 </body>
 
 </html>

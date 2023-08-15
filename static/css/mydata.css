@@ -107,6 +107,7 @@ div {
     justify-content: center;
     align-items: center;
     margin: 2rem;
+    flex-direction: column;
 }
 
 
@@ -116,7 +117,16 @@ div {
     height: 10em;
     background-color: #dadada;
     border-radius: 50%;
-    margin-right: 1rem;
+}
+
+.chart-shadow {
+    margin-top: 2rem;
+    background-color: #7a7a7a;
+    border-radius: 50%;
+    width: 7rem;
+    height: 0.5rem;
+    filter: blur(1rem);
+
 }
 
 #map_div {
@@ -133,6 +143,12 @@ div {
     align-items: center;
     justify-content: center;
     text-align: center;
+}
+
+.chart-shadow {
+    background-color: #333;
+    width: 5rem;
+    height: 2rem;
 }
 
 .data-00 {
@@ -305,4 +321,69 @@ div {
     height: 3rem;
     /* border 삭제 예정 */
     border: 0.1rem solid black;
+}
+
+.filter-dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.filter-button {
+    padding: 0.5rem 1rem;
+    background-color: #FAFAFA;
+    color: #000;
+    border: none;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.arrow-down {
+    width: 0;
+    height: 0;
+    border-left: 0.25rem solid transparent;
+    border-right: 0.25rem solid transparent;
+    border-top: 0.25rem solid BLACK;
+    margin-left: 0.5rem;
+}
+
+.filter-content {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: none;
+    border-radius: 5px;
+}
+
+.filter-button.active .arrow-down {
+    border-top: 0;
+    border-bottom: 5px solid black;
+}
+
+.filter-button.active+.filter-content {
+    display: block;
+}
+
+.filter-content button {
+    display: block;
+    width: 100%;
+    padding: 1rem;
+    border: none;
+    background-color: #F5F5F5;
+    text-align: left;
+    color: black;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.filter-content button:hover {
+    background-color: #f5f5f5;
+}
+
+.route-data-time {
+    color: #D9D9D9;
+    font-size: 1rem;
 }
