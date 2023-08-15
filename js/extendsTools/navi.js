@@ -1,8 +1,13 @@
 import { DrawShape } from "./drawShape.js";
+import { InitMap } from "./initmap.js";
+import { CurrentPos } from "./currentPos.js";
 
 export class Navi {
     constructor() {
         this.drawTool = new DrawShape();
+        this.mapTool = new InitMap();
+        this.currentPos = new CurrentPos();
+
         this.currentLat, this.currentLon;
         this.map;
         this.marker_SE = "";  
@@ -22,7 +27,10 @@ export class Navi {
         this.istracking = false;
         this.trackingLines = [];
         this.trackingCoords = [];
-        this.markers = [];
+        this.trackingMarkers = [];
+        this.trackingMarkersCoords = [];
+        this.trackingMarkStr ="";
+
         this.tracking_dis = 0;
     }
     
@@ -78,9 +86,15 @@ export class Navi {
 
     // 마커 버튼 클릭시 작동
     clickMarkBtn(){
-        
-    }
+        this.currentPos.getCurrentLocation().then((position)=>{
+            const latitude = position.coords.latitude;
+            const logitude = position.coords.longitude;
 
+            const marker = this.mapTool.createMark(this.map, latitude, logitude);
+            this.trackingMarkers.push(marker);
+            this.trackingMarkersCoords.push([latitude, logitude]);
+        });
+    }
 
     // 날짜&시간 데이터 생성
     createDateInfo(){
@@ -150,7 +164,7 @@ export class Navi {
 
     }
 
-    // 트래킹 종료
+    // 트래킹 종료 -> 트래킹 데이터 반환
     endTrackingPath(){
         this.istracking = false 
         clearInterval(this.track); // 선그리기 인터벌 종료
@@ -165,43 +179,73 @@ export class Navi {
         const startpoint = this.trackingCoords[0];
         const endpoint = this.trackingCoords[this.trackingCoords.length -1];
 
+        this.loadGetLonLatFromAddress(startpoint[0], startpoint[1])
+        .then((start_addr_str)=>{
+            const start_str = start_addr_str;
+            this.loadGetLonLatFromAddress(endpoint[0], endpoint[1])
+            .then((end_addr_str)=>{
+                const end_str = end_addr_str;
 
 
-        this.loadGetLonLatFromAddress() 
-        //데이터 저장 하기
-        const saveData = {
-            startpoint: startpoint,
-            endpoint : endpoint;
+                //데이터 저장 하기
+                const trackingData = {
+                    startpoint: startpoint,
+                    endpoint : endpoint,
 
-            startName :
-            endName :
+                    startName : start_str,
+                    endName : end_str,
 
-            AtTime : this.costTime,
-            distance : this.tracking_dis,
-            coin : coin,
-            coords: this.trackingCoords,
-            data_valid : 0,
-            markings : this.markers,
-            date : currentDate,
-        }
+                    AtTime : this.costTime,
+                    distance : this.tracking_dis,
+                    coin : coin,
+                    coords: this.trackingCoords,
+                    data_valid : 0,
+                    markings : this.trackingMarkersCoords,
+                    markingStr : this.trackingMarkStr,
+                    date : currentDate,
+                }
 
-        //데이터 초기화
-        this.costTime = 0;
-        this.tracking_dis = 0;
+                const saveJsonData = JSON.stringify(trackingData);
+                
+                const saveData = {
+                    earnedCoin : coin,
+                    info : saveJsonData,
+                }
 
+                //데이터 초기화
+                this.costTime = 0;
+                this.tracking_dis = 0;
 
-        // 라인 지우기
-        this.trackingLines.forEach(element => {
-            element.setMap(null);
-        });
-        this.trackingLines = [];
+                // 라인 지우기
+                this.trackingLines.forEach(element => {
+                    element.setMap(null);
+                });
+                this.trackingLines = [];
 
-      
+                this.saveTrackingData(saveData);
+            })
+        })
     }
 
-    navi( startLat, startLng, endLat, endLng){
+    saveTrackingData(data){
+        const apiUrl = `http://127.0.0.1:8000/api/saveRecords/`; // 업데이트할 API의 URL
 
-        
+        // 업데이트 요청 보내기
+        fetch(apiUrl, {
+            method: "PUT", // HTTP 메서드 설정 (또는 "PATCH"를 사용할 수도 있음)
+            headers: {
+                "Content-Type": "trakingData/json", // JSON 데이터 전송을 위한 헤더 설정
+            },
+            body: JSON.stringify(data), // 업데이트할 데이터를 JSON 문자열로 변환하여 전송
+        })
+        .then(response => response.json()) // 응답을 JSON으로 변환
+        .then(updatedUser => {
+            console.log("업데이트된 사용자 정보:", updatedUser);
+        })
+        .catch(error => {
+            console.error("업데이트 실패:", error);
+        });
+
     }
 
     navi(navi_info){
@@ -346,10 +390,8 @@ export class Navi {
                 }
         )};
         this.totalMarkerArr.push(this.markerObj);
-
     }
     
-
     drawLine(){
         this.polyline_ = new Tmapv3.Polyline({
             path : this.drawInfoArr,
