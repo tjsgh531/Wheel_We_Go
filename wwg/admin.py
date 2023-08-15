@@ -4,7 +4,7 @@ from django.contrib import admin
 
 from .models import *
 
-admin.site.register(Users)
+admin.site.register(kakaoUsers)
 admin.site.register(Regions)
 admin.site.register(Records)
 admin.site.register(Markings)
