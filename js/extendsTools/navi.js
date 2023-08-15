@@ -21,9 +21,15 @@ export class Navi {
         this.map = map;
     }
 
-
-    navi( startLat, startLng, endLat, endLng){
+    coinCal(){
         
+    }
+
+    navi(navi_info){
+        const startLat = navi_info[0].latitude;
+        const startLng = navi_info[0].longitude;
+        const endLat = navi_info[1].latitude;
+        const endLng = navi_info[1].longitude;
         // 기존 그려진 라인 & 마커가 있다면 초기화
         this.eraseLineMarks()
 
@@ -63,7 +69,8 @@ export class Navi {
                         + ((resultData[0].properties.totalTime) / 60)
                                 .toFixed(0) + "분";
                 console.log(tDistance + tTime);
-                $("#result").text(tDistance + tTime);
+                
+                // $("#result").text(tDistance + tTime);
                 
                 for ( let i in resultData) { //for문 [S]
                     const geometry = resultData[i].geometry;
@@ -136,7 +143,7 @@ export class Navi {
 
             },
             
-        })
+        }) 
     }
 
     

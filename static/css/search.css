@@ -111,3 +111,121 @@ div {
     background-color: #FFC573;
     color: white;
 }
+
+
+/* content2 */
+.backgroundBlur{
+    position: fixed;
+    top: 0; left: 0; z-index: 9980;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    width: 100vw;
+    height: 100vh;
+    
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+.lowData{
+    position: relative;
+    top: 5%;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    border-radius: 2rem;
+
+    width: 60%;
+    height: 55%;
+
+    font-size: 2rem;
+    font-weight: bold;
+    color: black;
+
+    background-color: white;
+}
+
+.lowDataContent{
+    position: relative;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.lowDataImg{
+    width: 6rem;
+    height: 6rem;
+
+    margin: 1rem 0;
+}
+.lowDataContentTxt{
+    position: relative;
+
+    font-size: 1rem;
+    font-weight: normal;
+    color: black;
+}
+.coinImg{
+    width: 2rem;
+    height: 2rem;
+}
+.coin{
+    padding: 0 0.5rem;
+
+    font-size: 1rem;
+    font-weight: bold;
+    color: black;
+}
+.naviDataCautionBtn{
+    position: relative;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+
+    width: 100%;
+
+    font-size: 1.2rem;
+    font-weight: normal;
+    color: black;
+}
+.naviDataCautionBtn_Start{
+    position: relative;
+    
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    width: 100%;
+    height: 3.5rem;
+
+    border: 0;
+    border-radius: 1rem;
+    margin: 1rem;
+
+    background-color: #D9D9D9;
+    cursor: pointer;
+}
+
+.naviDataCautionBtn_Record{
+    position: relative;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    width: 100%;
+    height: 3.5rem;
+
+    border: 0;
+    border-radius: 1rem;
+
+    background-color: #FFF8EA;
+    cursor: pointer;
+}

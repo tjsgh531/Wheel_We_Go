@@ -1,10 +1,12 @@
 import { InitMap } from "./initmap.js";
 import { Navi } from "./navi.js";
+import { NaviDataCaution } from "./naviDataCaution.js";
 
 export class Search {
     constructor() {
         this.mapTool = new InitMap();
         this.naviTool = new Navi();
+        this.naviDataCautionTool = new NaviDataCaution();
 
         this.currentLat, this.currentLon;
         this.map;
@@ -12,8 +14,7 @@ export class Search {
         this.gnbMode = "search"; //"search 와 navi 모드 있음"
         this.search_navi_info = [null, null];
         this.markers = [];
-      
-        this.focusSearchBox();
+    
     }
 
     setMap(map){
@@ -277,8 +278,8 @@ export class Search {
             console.log(this.search_navi_info[0].latitude, this.search_navi_info[0].longitude, this.search_navi_info[1].latitude, this.search_navi_info[1].longitude);
             console.log("마커 지우기 함수 실행!");
             this.eraseAllMarkers();
-            this.naviTool.navi(this.search_navi_info[0].latitude, this.search_navi_info[0].longitude, this.search_navi_info[1].latitude, this.search_navi_info[1].longitude);
-
+            this.naviTool.navi(this.search_navi_info);
+            this.naviDataCautionTool.naviDataCaution(this.search_navi_info);
         }
         //아직 길찾기가 아니야
         else{
