@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="{% static 'css/mydata.css' %}">
-    <script type="module" src="" defer></script>
+    <script src="{% static 'js/mydata.js' %}"></script>
 </head>
 
 <body>
@@ -20,13 +20,13 @@
 
             <div class="filter-adress">
                 <!-- 필터 기능 - 장소 -->
-                <button class="filter-button">전체 <span class="arrow-down"></span></button>
+                <!-- <button class="filter-button">전체 <span class="arrow-down"></span></button>
                 <div class="filter-content">
                     <button data-filter="all">전체</button>
                     <button data-filter="category1">카테고리1</button>
                     <button data-filter="category2">카테고리2</button>
                     <button data-filter="category3">카테고리3</button>
-                </div>
+                </div> -->
             </div>
 
 
@@ -109,13 +109,16 @@
                         <div>-</div>
                     </div>
                 </div>
-                <!--비장애인과의 이동시간 차이 -->
-                <div class="important-data">
-                    <div class="gap">
+                <div class="container">
+                    <!--비장애인과의 이동시간 차이 -->
+                    <!-- <div class="important-data"> -->
+
+                    <div class="section gap active">
                         <div class="custom-button-all">
-                            <span class="custom-button">&lt;</span>
                             <div>비장애인과의 이동시간 차이</div>
-                            <span class="custom-button">&gt;</span>
+                            <div class="button-container">
+                                <button class="next-button">Next</button>
+                            </div>
                         </div>
 
                         <div class="gap-result">
@@ -128,36 +131,40 @@
                             <button class="pass">도로 개선안 전달하기</button>
                         </div>
                     </div>
-                </div>
-                <!-- 이 지역 지도 완성도 -->
-                <div class="complete">
-                    <div class="custom-button-all">
-                        <span class="custom-button">&lt;</span>
-                        <div>이 지역 완성도</div>
-                        <span class="custom-button">&gt;</span>
-                    </div>
-                    <div class="all-complete-result">
-                        <div class="complete-result">
-                            이 지역 완성도
+
+                    <!-- 이 지역 지도 완성도 -->
+                    <div class="section complete">
+                        <div class="custom-button-all">
+                            <div class="button-container">
+                                <button class="prev-button">Prev</button>
+                                <div>완성도</div>
+                                <button class="next-button">Next</button>
+                            </div>
                         </div>
-                        <div class="complete-result">
-                            평균 지역 완성도
+                        <div class="all-complete-result">
+                            <div class="complete-result">
+                                이 지역 완성도
+                            </div>
+                            <div class="complete-result">
+                                평균 지역 완성도
+                            </div>
                         </div>
                     </div>
-                </div>
-                <!-- 마킹 지역 -->
-                <div class="marking">
-                    <div class="custom-button-all">
-                        <span class="custom-button">&lt;</span>
-                        <div>마킹 지역</div>
-                        <span class="custom-button">&gt;</span>
-                    </div>
-                    <div class="marking-reason">
-                        <div class="marking-location">
-                            <img src="{% static 'img/마킹.png' %}" alt="마킹">
-                            <div>위치</div>
+                    <!-- 마킹 지역 -->
+                    <div class="section marking">
+                        <div class="custom-button-all">
+                            <div class="button-container">
+                                <button class="prev-button">Prev</button>
+                                <div>마킹</div>
+                            </div>
                         </div>
-                        <div>사유 : </div>
+                        <div class="marking-reason">
+                            <div class="marking-location">
+                                <img src="{% static 'img/마킹.png' %}" alt="마킹">
+                                <div>위치</div>
+                            </div>
+                            <div>사유 : </div>
+                        </div>
                     </div>
                 </div>
             </div>
