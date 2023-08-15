@@ -22,11 +22,10 @@ class MarkingsSerializer(serializers.ModelSerializer):
     class Meta:
         model = Markings
         fields = '__all__'
-class SearchRecordsSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = SearchRecords
-        fields = '__all__'
-
+        
+        
+        
+        
 ### 각 모델마다 필터링용 Serializer ###
 class RecordsFilterSerializer(serializers.ModelSerializer):
     class Meta:
