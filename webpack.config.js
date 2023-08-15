@@ -4,6 +4,7 @@ module.exports = {
     entry:{
         base :"./js/base.js",
         service: "./js/service.js",
+        mydata : "./js/mydata.js",
     },
     output:{
         path:path.resolve(__dirname, "static", "js"),

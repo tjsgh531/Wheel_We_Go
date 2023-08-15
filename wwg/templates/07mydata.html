@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="{% static 'css/mydata.css' %}">
-    <script type="module" src="" defer></script>
+    <script src="{% static 'js/mydata.js' %}"></script>
 </head>
 
 <body>
@@ -32,19 +32,21 @@
 
             <div class="filter-adress">
                 <!-- 필터 기능 - 장소 -->
-                <button class="filter-button">전체 <span class="arrow-down"></span></button>
+                <!-- <button class="filter-button">전체 <span class="arrow-down"></span></button>
                 <div class="filter-content">
                     <button data-filter="all">전체</button>
                     <button data-filter="category1">카테고리1</button>
                     <button data-filter="category2">카테고리2</button>
                     <button data-filter="category3">카테고리3</button>
-                </div>
+                </div> -->
             </div>
 
             <div class="square-container"> <!--그래프 색깔 구분표 -->
                 <div class="square">
                     <div><span class="square-0"></span> 전체 데이터</div>
-                    <div><span class="square-1"></span> {{ user.username}}님 데이터</div>
+
+                    <div><span class="square-1"></span> {{ user.username }}님 데이터</div>
+
                     <div><span class="square-2"></span> 오류 데이터</div>
                 </div>
             </div>
@@ -67,14 +69,19 @@
                         </div>
                     </div>
                     <div class="etc-data">
-                        <div><img src="/static/img/시간.png" alt="시간">시간</div>
-                        <div><img src="/static/img/거리.png" alt="시간">거리</div>
-                        <div><img src="/static/img/코인.png" alt="시간">코인</div>
+                        <div><img src="{% static 'img/시간.png' %}" alt="시간">
+                            <div>시간</div>
+                        </div>
+                        <div><img src="{% static 'img/거리.png' %}" alt="거리">
+                            <div>거리</div>
+                        </div>
+                        <div><img src="{% static 'img/코인.png' %}" alt="코인">
+                            <div>코인</div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-
         <div class="mydata-page-02">
             <div id="map_div"></div>
             <div class="choice-route">
@@ -82,12 +89,12 @@
                     &lt; 내 데이터
                 </a>
                 <div class="all-route">
-                    <div class="route">
+                    <div class="start">
                         <div>출발지</div>
                         <div class="route-box"></div>
                     </div>
 
-                    <div class="route">
+                    <div class="finish">
                         <div>도착지</div>
                         <div class="route-box"></div>
                     </div>
@@ -114,59 +121,65 @@
                         <div>-</div>
                     </div>
                 </div>
-                <!--비장애인과의 이동시간 차이 -->
-                <div class="important-data">
-                    <div class="gap">
-                        <div class="custom-button-all">
-                            <span class="custom-button">&lt;</span>
-                            <div>비장애인과의 이동시간 차이</div>
-                            <span class="custom-button">&gt;</span>
+                <div class="container">
+                    <!--비장애인과의 이동시간 차이 -->
+                    <!-- <div class="important-data"> -->
+
+                    <div class="section gap active">
+                        <div>비장애인과의 이동시간 차이</div>
+                        <div class="button-container">
+                            <button class="next-button">Next</button>
                         </div>
+
 
                         <div class="gap-result">
                             <div class="time">
-                                <img src="/static/img/시간.png" alt="장애인">
+                                <img src="{% static 'img/시간.png' %}" alt="장애인">
                             </div>
                             <div class="time">
-                                <img src="/static/img/비장애인.png" alt="비장애인">
+                                <img src="{% static 'img/비장애인.png' %}" alt="비장애인">
                             </div>
                             <button class="pass">도로 개선안 전달하기</button>
                         </div>
                     </div>
-                </div>
-                <!-- 이 지역 지도 완성도 -->
-                <div class="complete">
-                    <div class="custom-button-all">
-                        <span class="custom-button">&lt;</span>
-                        <div>이 지역 완성도</div>
-                        <span class="custom-button">&gt;</span>
-                    </div>
-                    <div class="complete-result">
-                        이 지역 완성도
-                    </div>
-                    <div class="complete-result">
-                        평균 지역 완성도
-                    </div>
-                </div>
-                <!-- 마킹 지역 -->
-                <div class="marking">
-                    <div class="custom-button-all">
-                        <span class="custom-button">&lt;</span>
-                        <div>마킹 지역</div>
-                        <span class="custom-button">&gt;</span>
-                    </div>
-                    <div class="marking-reason">
-                        <div class="marking-location">
-                            <img src="/static/img/마킹.png" alt="마킹">
-                            <div>위치</div>
+
+                    <!-- 이 지역 지도 완성도 -->
+                    <div class="section complete">
+                        <div class="button-container">
+                            <button class="prev-button">Prev</button>
+                            <div>완성도</div>
+                            <button class="next-button">Next</button>
                         </div>
-                        <div>사유 : </div>
+
+                        <div class="all-complete-result">
+                            <div class="complete-result">
+                                이 지역 완성도
+                            </div>
+                            <div class="complete-result">
+                                평균 지역 완성도
+                            </div>
+                        </div>
+                    </div>
+                    <!-- 마킹 지역 -->
+                    <div class="section marking">
+
+                        <div class="button-container">
+                            <button class="prev-button">Prev</button>
+                            <div>마킹</div>
+                        </div>
+
+                        <div class="marking-reason">
+                            <div class="marking-location">
+                                <img src="{% static 'img/마킹.png' %}" alt="마킹">
+                                <div>위치</div>
+                            </div>
+                            <div>사유 : </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-
 </body>
 
 </html>
