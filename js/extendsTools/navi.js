@@ -3,8 +3,6 @@ export class Navi {
         this.currentLat, this.currentLon;
         this.map;
         this.resultdrawArr = [];
-
-        this.navi()
         
     }
     
@@ -13,6 +11,7 @@ export class Navi {
     }
 
     navi(startLat, startLng, endLat, endLng){
+        console.log("navi : ", startLat, startLng, endLat, endLng);
 		let marker_s, marker_e, marker_p1, marker_p2;
 		const totalMarkerArr = [];
 		const drawInfoArr = [];
@@ -130,6 +129,7 @@ export class Navi {
                         });
                     }
                 }//for문 [E]
+                
                 map.on("ConfigLoad", function(){
                     this.drawLine(drawInfoArr);
                 });
@@ -138,7 +138,7 @@ export class Navi {
     }
 
     makeMark(lat, lng){
-        marker_s = new Tmapv3.Marker(
+        const marker_s = new Tmapv3.Marker(
             {
                 position : new Tmapv3.LatLng(lat, lng),
                 icon : "http://tmapapi.sktelecom.com/upload/tmap/marker/pin_r_m_s.png",
