@@ -28,11 +28,40 @@
                     <button data-filter="category3">카테고리3</button>
                 </div>
             </div>
+            <div class="data-container">
+                <div class="bar"></div>
+                <!-- 데이터상태&이동시간&이동거리&획득코인 -->
+                <div class="all-data">
+                    <div class="data-00">
+                        <div>데이터 상태</div>
+                        <div>-</div>
+                    </div>
+                    <div class="data-01">
+                        <div>이동시간</div>
+                        <div>-</div>
+                    </div>
+                    <div class="data-01">
+                        <div>이동거리</div>
+                        <div>-</div>
+                    </div>
+                    <div class="data-01">
+                        <div>획득 코인</div>
+                        <div>-</div>
+                    </div>
+                </div>
+                <!--비장애인과의 이동시간 차이 -->
+                <div class="important-data">
+                    <div class="gap">
+                        <div class="custom-button-all">
+                            <span class="custom-button">&lt;</span>
+                            <div>비장애인과의 이동시간 차이</div>
+                            <span class="custom-button">&gt;</span>
+                        </div>
 
             <div class="square-container"> <!--그래프 색깔 구분표 -->
                 <div class="square">
                     <div><span class="square-0"></span> 전체 데이터</div>
-                    <div><span class="square-1"></span> {{ user.username }}님 데이터</div>
+                    <div><span class="square-1"></span> --님 데이터</div>
                     <div><span class="square-2"></span> 오류 데이터</div>
                 </div>
             </div>
@@ -41,26 +70,25 @@
                 <span class="chart"></span>
                 <span class="chart-shadow"></span>
             </div>
-            <div class="filter-time">필터 - 시간</div>
+            <div class="filter-time"></div>
+
             <div> <!--데이터 내역-->
                 <div class="data-list">
                     <div class="route-data">
-                        <div>일시 (ex.2023-07-31)</div>
+                        <div class="route-data-time">일시 (ex.2023-07-31)</div>
                         <div class="circle-container">
                             <span class="circle-0"></span>
                             <div class="route">
-                                <div>출발지 {{ record.start_location }}</div>
-                                -> <div>도착지 {{ record.end_location }}</div> <!-- end_location 필드 수정 -->
+                                <div>출발지</div> -> <div>도착지</div>
                             </div>
                         </div>
                     </div>
                     <div class="etc-data">
-                        <div><img src="/static/img/시간.png" alt="시간">시간 {{ record.time }} 시간</div> <!-- time 필드 추가 -->
-                        <div><img src="/static/img/거리.png" alt="시간">거리 {{ record.km }} km</div> <!-- km 필드 추가 -->
-                        <div><img src="/static/img/코인.png" alt="시간">코인 {{ record.credits_earned }} 코인</div>
+                        <div><img src="/static/img/시간.png" alt="시간">시간</div>
+                        <div><img src="/static/img/거리.png" alt="시간">거리</div>
+                        <div><img src="/static/img/코인.png" alt="시간">코인</div>
                     </div>
                 </div>
-                {% endfor %}
             </div>
         </div>
 

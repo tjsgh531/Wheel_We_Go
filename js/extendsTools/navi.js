@@ -2,31 +2,52 @@ export class Navi {
     constructor() {
         this.currentLat, this.currentLon;
         this.map;
-
-        this.marker_s; 
-        this.marker_e; 
+      
+        this.marker_SE = "";  
+        this.markerObj;
         this.marker_p1;
         this.marker_p2;
         this.polyline_;
+        this.markerImg = "";
+        this.pType = "";
+        this.size;
+        this.totalMarkerArr = [];
+        this.drawInfoArr =[];
+        this.resultdrawArr = [];
+
     }
     
     setMap(map){
         this.map = map;
+        console.log("여기 내비 setmao", map);
     }
 
-    navi(map, startLat, startLng, endLat, endLng){
-        let totalMarkerArr = [];
-        let resultdrawArr = [];
-        let drawInfoArr = [];
-        this.map = map;
 
+    navi( startLat, startLng, endLat, endLng){
+
+        // 기존 그려진 라인 & 마커가 있다면 초기화
+
+        if(this.resultdrawArr.length > 0) {
+            for ( const i in this.resultdrawArr) {
+                this.resultdrawArr[i].setMap(null);
+            }
+            for ( const i in this.totalMarkerArr) {
+                this.totalMarkerArr[i].setMap(null);
+            }
+            this.resultdrawArr = [];
+        }
+        
+        this.drawInfoArr = [];
+        
         // 시작 도착 심볼 찍기
+        this.marker_SE = "S"
         this.makeMark(startLat, startLng);
         // 도착 심볼 찍기
+        this.marker_SE = "E"
         this.makeMark(endLat, endLng);
 
         const headers = {}; 
-		headers["appKey"]="l7xxed2c734830ae4364975ef11e67a76e81";
+		    headers["appKey"]="l7xxed2c734830ae4364975ef11e67a76e81";
 
         $.ajax({
             method : "POST",
@@ -43,7 +64,8 @@ export class Navi {
                 "startName" : "출발지",
                 "endName" : "도착지"
             },
-            success : function(response) {
+
+            success : (response) => {
                 const resultData = response.features;
 
                 //결과 출력
@@ -55,24 +77,10 @@ export class Navi {
                                 .toFixed(0) + "분";
 
                 $("#result").text(tDistance + tTime);
-
-                // 기존 그려진 라인 & 마커가 있다면 초기화
-
-                // console.log(resultdrawArr.length)
-                // if(this.resultdrawArr.length = 0) {
-                //     for ( const i in this.resultdrawArr) {
-                //         this.resultdrawArr[i].setMap(null);
-                //     }
-                //     this.resultdrawArr = [];
-                // }
                 
-                // this.drawInfoArr = [];
-                
-
                 for ( let i in resultData) { //for문 [S]
                     const geometry = resultData[i].geometry;
                     const properties = resultData[i].properties;
-                    let polyline_;
 
 
                     if (geometry.type == "LineString") {
@@ -88,27 +96,27 @@ export class Navi {
                             const convertChange = new Tmapv3.LatLng(
                                     convertPoint._lat,
                                     convertPoint._lng);
+                            
                             // 배열에 담기
-                            drawInfoArr.push(convertChange);
+                            console.log(this);
+                            this.drawInfoArr.push(convertChange);
                         }
                     } else {
-                        let markerImg = "";
-                        let pType = "";
-                        let size;
 
+                        console.log("마크 S or E? : ", properties.pointType, typeof(properties.pointType));
                         if (properties.pointType == "S") { //출발지 마커
-                            markerImg = "http://tmapapi.sktelecom.com/upload/tmap/marker/pin_r_m_s.png";
-                            pType = "S";
-                            size = new Tmapv3.Size(24, 38);
+                            this.markerImg = "http://tmapapi.sktelecom.com/upload/tmap/marker/pin_r_m_s.png";
+                            this.pType = "S";
+                            this.size = new Tmapv3.Size(24, 38);
                         } else if (properties.pointType == "E") { //도착지 마커
-                            markerImg = "http://tmapapi.sktelecom.com/upload/tmap/marker/pin_r_m_e.png";
-                            pType = "E";
-                            size = new Tmapv3.Size(24, 38);
+                            this.markerImg = "http://tmapapi.sktelecom.com/upload/tmap/marker/pin_r_m_e.png";
+                            this.pType = "E";
+                            this.size = new Tmapv3.Size(24, 38);
                         } 
                         else { //각 포인트 마커
-                            markerImg = "http://topopen.tmap.co.kr/imgs/point.png";
-                            pType = "P";
-                            size = new Tmapv3.Size(8, 8);
+                            this.markerImg = "http://topopen.tmap.co.kr/imgs/point.png";
+                            this.pType = "P";
+                            this.size = new Tmapv3.Size(8, 8);
                         }
 
                         // 경로들의 결과값들을 포인트 객체로 변환 
@@ -121,10 +129,10 @@ export class Navi {
                         
 
                         const routeInfoObj = {
-                            markerImage : markerImg,
+                            markerImage : this.markerImg,
                             lng : convertPoint._lng,
                             lat : convertPoint._lat,
-                            pointType : pType
+                            pointType : this.pType
                         };
 
                         // Marker 추가
@@ -133,36 +141,46 @@ export class Navi {
                                 routeInfoObj.lat,
                                 routeInfoObj.lng),
                         icon : routeInfoObj.markerImage,
-                        iconSize : size,
+                        iconSize : this.size,
                         map : this.map
                         });
+                        this.totalMarkerArr.push(this.marker_p);
                     }
                 }//for문 [E]
-                this.map = map;
-                console.log(drawInfoArr);
-                map.on("ConfigLoad", ()=>{
-                    // this.drawLine(this.drawInfoArr);
-                    this.drawLine();
-                });
+              
+                this.drawLine();
+
             },
+            
         })
     }
 
     
     makeMark(lat, lng){
-        this.marker_s = new Tmapv3.Marker(
-            {
-                position : new Tmapv3.LatLng(lat, lng),
-                icon : "http://tmapapi.sktelecom.com/upload/tmap/marker/pin_r_m_s.png",
-                iconSize : new Tmapv3.Size(24, 38),
-                map : this.map
-            }
-        );
+
+        if(this.marker_SE == "S"){ 
+            this.markerObj = new Tmapv3.Marker(
+                {
+                    position : new Tmapv3.LatLng(lat, lng),
+                    icon : "http://tmapapi.sktelecom.com/upload/tmap/marker/pin_r_m_s.png",
+                    iconSize : new Tmapv3.Size(24, 38),
+                    map : this.map
+                }
+        )}else{ 
+            this.markerObj = new Tmapv3.Marker(
+                {
+                    position : new Tmapv3.LatLng(lat, lng),
+                    icon : "http://tmapapi.sktelecom.com/upload/tmap/marker/pin_r_m_e.png",
+                    iconSize : new Tmapv3.Size(24, 38),
+                    map : this.map
+                }
+        )};
+        this.totalMarkerArr.push(this.markerObj);
+
     }
     
 
     drawLine(){
-        console.log(this.drawInfoArr);
         this.polyline_ = new Tmapv3.Polyline({
             path : this.drawInfoArr,
             strokeColor : "#dd00dd",
