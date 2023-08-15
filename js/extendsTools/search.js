@@ -18,6 +18,7 @@ export class Search {
 
     setMap(map){
         this.map = map;
+        this.naviTool.setMap(map);
     }
 
     setPosition(lat, lon){
@@ -274,7 +275,7 @@ export class Search {
             console.log("마커 지우기 함수 실행!");
             this.eraseAllMarkers();
             this.naviTool.navi(this.search_navi_info[0].latitude, this.search_navi_info[0].longitude, this.search_navi_info[1].latitude, this.search_navi_info[1].longitude);
-        
+
         }
         //아직 길찾기가 아니야
         else{
