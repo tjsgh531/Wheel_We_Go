@@ -16,7 +16,7 @@
         <div class="shop-container">
             <div class="shop-first">
                 <div class="shop-name">
-                    <div class="name">(닉네임)</div>
+                    <div class="name">{{user.username}}</div>
                     <div>님</div>
                 </div>
                 <div>햄버거</div>
@@ -36,19 +36,19 @@
             </div>
         </div>
         <div class="main-container">
-            <a class="shop-ing" href="">
-                <img src="/static/img/쇼핑하기.png" alt="쇼핑">
+            <a class="shop-ing" href="http://127.0.0.1:8000/shopping/">
+                <img src="/static/img/쇼핑하기.png" alt="쇼핑" >
                 <div>쇼핑하기</div>
             </a>
-            <a class="my-data" href="">
+            <a class="my-data" href="http://127.0.0.1:8000/mydata/">
                 <img src="/static/img/내데이터.png" alt="내 데이터">
                 <div>내 데이터</div>
             </a>
-            <a class="coin-list" href="">
+            <a class="coin-list" href="http://127.0.0.1:8000/no/">
                 <img src="/static/img/코인내역.png" alt="코인내역">
                 <div>코인내역</div>
             </a>
-            <a class="shop-list" href="">
+            <a class="shop-list" href="http://127.0.0.1:8000/no/">
                 <img src="/static/img/장바구니.png" alt="장바구니">
                 <div>장바구니</div>
             </a>
@@ -59,7 +59,7 @@
         </div>
 
         <div class="etc-container">
-            <a class="logout" href="">로그아웃</a>
+            <a class="logout" href="https://kauth.kakao.com/oauth/logout?client_id=6aae09aeeec4e992f89293eb333535be&logout_redirect_uri=http://127.0.0.1:8000/">로그아웃</a>
             <a class="withdraw" href="">회원탈퇴</a>
             <a class="empty" href=""></a>
         </div>

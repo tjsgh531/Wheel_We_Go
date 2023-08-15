@@ -152,8 +152,11 @@ def callback_view(request):
 
     return redirect('main')  # 리다이렉트를 통해 메인 페이지로 이동
 
-def index_name(request):
+def index_name_mydata(request):
     user= request.user.username
     return render(request,'07mydata.html',{'user':user})
 
 
+def index_name_mypage(request):
+    user= request.user.username
+    return render(request,'03mydata.html',{'user':user})
