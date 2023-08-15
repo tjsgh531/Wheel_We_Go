@@ -2,9 +2,7 @@ const path = require('path');
 module.exports = {
     mode:"development",
     entry:{
-        mapbase :"./js/mapbase.js",
-        app :"./js/main.js", 
-        navi : "./js/navi.js",
+        base :"./js/base.js",
     },
     output:{
         path:path.resolve(__dirname, "static", "js"),

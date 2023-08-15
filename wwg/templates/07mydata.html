@@ -32,7 +32,7 @@
             <div class="square-container"> <!--그래프 색깔 구분표 -->
                 <div class="square">
                     <div><span class="square-0"></span> 전체 데이터</div>
-                    <div><span class="square-1"></span> --님 데이터</div>
+                    <div><span class="square-1"></span> {{ user.username }}님 데이터</div>
                     <div><span class="square-2"></span> 오류 데이터</div>
                 </div>
             </div>
@@ -41,25 +41,26 @@
                 <span class="chart"></span>
                 <span class="chart-shadow"></span>
             </div>
-            <div class="filter-time"></div>
-
+            <div class="filter-time">필터 - 시간</div>
             <div> <!--데이터 내역-->
                 <div class="data-list">
                     <div class="route-data">
-                        <div class="route-data-time">일시 (ex.2023-07-31)</div>
+                        <div>일시 (ex.2023-07-31)</div>
                         <div class="circle-container">
                             <span class="circle-0"></span>
                             <div class="route">
-                                <div>출발지</div> -> <div>도착지</div>
+                                <div>출발지 {{ record.start_location }}</div>
+                                -> <div>도착지 {{ record.end_location }}</div> <!-- end_location 필드 수정 -->
                             </div>
                         </div>
                     </div>
                     <div class="etc-data">
-                        <div><img src="/static/img/시간.png" alt="시간">시간</div>
-                        <div><img src="/static/img/거리.png" alt="시간">거리</div>
-                        <div><img src="/static/img/코인.png" alt="시간">코인</div>
+                        <div><img src="/static/img/시간.png" alt="시간">시간 {{ record.time }} 시간</div> <!-- time 필드 추가 -->
+                        <div><img src="/static/img/거리.png" alt="시간">거리 {{ record.km }} km</div> <!-- km 필드 추가 -->
+                        <div><img src="/static/img/코인.png" alt="시간">코인 {{ record.credits_earned }} 코인</div>
                     </div>
                 </div>
+                {% endfor %}
             </div>
         </div>
 

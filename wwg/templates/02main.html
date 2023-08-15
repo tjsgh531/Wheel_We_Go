@@ -1,6 +1,38 @@
 {% extends "00mapBase.html" %}
 {% load static %}
+{% block script %}
+   
+    <link rel="stylesheet" href="{% static 'css/search.css' %}" type = "text/css">
+    <script src = "base.js"></script>
+    <script src = "navi.js"></script>
+
+{% endblock %}
 
 {% block content %}
-    test 해볼게요.
+
+
+    <div class="search_result unactive">
+ 
+    </div>
+    
+
+
+    <div class="placeInfo unactive">
+        <div class="downbar"></div>
+        <div class="placeName"></div>
+        <div class="detailInfo">
+            <div class="tel">
+                <i class="fa-solid fa-phone"></i>
+            </div>
+            <div class="addr">
+                <i class="fa-solid fa-location-dot"></i>
+            </div>
+        </div>
+        <div class="naviBtn">
+            <div class="naviBtnItem startPointBtn">출발지로 설정</div>
+            <div class="naviBtnItem endPointBtn">도착지로 설정</div>
+        </div>
+    </div>
+
 {% endblock %}
+

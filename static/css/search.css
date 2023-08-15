@@ -1,12 +1,113 @@
-body,
-html {
+
+html, body{
     overflow-x: hidden;
+    padding: 0;
+    margin: 0;
 }
 
+a, a:visited, a:active {
+    color: inherit; /* 상속된 색상 사용 */
+    text-decoration: none; /* 밑줄 제거 */
+}
 
-#wrap {
-    margin: 0 auto;
-    max-width: 767px;
-    min-height: 100vh;
+a:hover {
+    cursor: pointer;
+}
+  
+div {
+    box-sizing: border-box;
+}
+
+.search_gnb{
+    background-color: white;
+    box-shadow: 2px 2px 1rem rgba(0, 0, 0, 0.5);;
+    border-radius: 0 0 1.5rem 1.5rem;
+}
+
+.search_result{
+    position: relative;
+
+    width: 100vw;
+    height: 100vh;
+
+    padding-top: 7rem;
+
+    background-color: white;
+    
+}
+
+.searchBlock{
+    width: 100vw;
+    height: 4rem;
+
+    padding: 1rem;
+
+}
+
+.placeInfo{
+    position: absolute;
+    bottom: 0%; z-index: 1;
+
+    width: 100vw;
+    height: 30vh;
+    padding: 1rem 3rem;
+    
+    border-radius: 1rem 1rem 0 0;
+    
     background-color: #FFFFFF;
+
+}
+
+.downbar{
+    width: 30%;
+    height: 0.5rem;
+
+    border-radius: 1rem;
+
+    background-color: #ccc;
+
+    margin: 0rem auto;
+}
+
+.placeName{
+    margin: 1.5rem 0;
+
+    font-size: 2rem;
+    font-weight: bold;
+    color: #FFC573;
+}
+
+.naviBtn{
+    position: absolute;
+    bottom: 0;
+
+    width: 100%;
+    padding: 2rem;
+
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+.naviBtnItem{
+    width: 40%;
+    padding: 1rem;
+
+    border-radius: 2rem;
+
+    font-size: 1.5rem;
+    font-weight: 600;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.startPointBtn{
+    border: 3px solid #FFC573;
+    color : #FFC573;
+}
+
+.endPointBtn{
+    background-color: #FFC573;
+    color: white;
 }

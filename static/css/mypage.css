@@ -23,14 +23,23 @@ div {
     background-color: #FFC573;
 }
 
-.shop-first {
-    display: flex;
-    margin: 1rem;
+.shop-first,
+.coin-container,
+.shop-last {
+    margin: 10px;
 }
 
 .shop-name {
     display: flex;
-    width: 42rem;
+
+}
+
+.shop-ing {
+    display: flex;
+}
+
+.shop-ing img {
+    display: fixed;
 }
 
 .coin-container {
@@ -52,67 +61,38 @@ div {
     margin-bottom: 1rem;
 }
 
-.coin-img {
-    display: flex;
-    width: 35rem;
-    align-items: center;
-    font-size: 1.5rem;
-    font-weight: bold;
-
+.line {
+    width: 47rem;
+    height: 0.1rem;
+    background-color: #FAFAFA;
 }
 
-.coin-img img {
+.coin-list {
+    display: flex;
+}
+
+.coin-list img {
     display: fixed;
-    height: 2rem;
 }
 
-.price-unit {
+.shop-list {
     display: flex;
 }
 
-.unit {
-    padding-left: 0.5rem;
+.shop-ing img {
+    display: fixed;
 }
 
-.main-container {
-    display: grid;
-    /* 그리드 레이아웃으로 변경 */
-    grid-template-columns: repeat(2, 1fr);
-    /* 두 개의 열로 설정 */
-    gap: 1rem;
-    /* 아이템 사이의 간격 */
-    align-items: center;
-    justify-items: center;
-    margin: 1rem;
+.my-data img {
+    display: fixed;
+    margin-bottom: 10px;
 }
 
-.my-data,
-.shop-ing,
-.coin-list,
-.shop-list {
-    text-align: center;
-    text-decoration: none;
-    color: #333;
+.my-data {
     display: flex;
     flex-direction: column;
     align-items: center;
-}
-
-.my-data img,
-.shop-ing img,
-.coin-list img,
-.shop-list img {
-    display: block;
-    margin-bottom: 0.5rem;
-    height: 5rem;
-}
-
-.my-data div,
-.shop-ing div,
-.coin-list div,
-.shop-list div {
-    margin-top: 0.5rem;
-
+    margin: 2rem;
 }
 
 .ad-container {

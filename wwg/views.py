@@ -2,12 +2,14 @@
 from django.shortcuts import render,redirect
 
 from rest_framework import viewsets
-from .models import Users, Records, Regions, Markings
-from .serializers import RecordsFilterSerializer,UsersSerializer, RecordsSerializer, RegionsSerializer, MarkingsSerializer
+from .models import kakaoUsers, Records, Regions, Markings
+from .serializers import RecordsFilterSerializer,UsersSerializer, RecordsSerializer, RegionsSerializer, MarkingsSerializer, DataSerializer
 from django.http import HttpResponse, JsonResponse
 from rest_framework.parsers import JSONParser
 from django.views.decorators.csrf import csrf_exempt
 from django_filters import rest_framework as filters
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
 
 #filtering
 from django_filters.rest_framework import DjangoFilterBackend
@@ -32,7 +34,7 @@ def mydata(request):
     return render(request,"07mydata.html")
 
 def mypage(request):
-    return render(request,"03mypage.html")
+    return render(request,"mypage.html")
 
 def myprofile(request):
     return render(request,"myprofile.html")
@@ -41,13 +43,13 @@ def serviceRegion(request):
     return render(request,'05serviceRegion.html')
 
 def shopping(request):
-    return render(request,"04shopping.html")
+    return render(request,"shopping.html")
 
 def no(request):
-    return render(request,"08no.html")
+    return render(request,"no.html")
 ######### REST API VIEWSET ########
 class UsersViewSet(viewsets.ModelViewSet):
-    queryset = Users.objects.all()
+    queryset = kakaoUsers.objects.all()
     serializer_class = UsersSerializer
     filter_backends=[DjangoFilterBackend]
     #필터 필요시 추가
@@ -127,10 +129,38 @@ def callback_view(request):
         headers={'Authorization': f'Bearer {token}'},
     )
     user_info = user_info_response.json()
-
+    # 카카오 사용자 정보 변수에 저장
+    user_email = user_info.get('kakao_account', {}).get('email')
     user_nickname = user_info.get('properties', {}).get('nickname')
-
+    # 사용자 정보 저장
+    #user, created= Users.objects.create(user_id=user_nickname, user_email=user_email)
+    user_instance = kakaoUsers(user_id = user_nickname,user_email=user_email,coin = 0)
+    user_instance.save()
     # 닉네임 정보를 세션에 저장
     request.session['user_nickname'] = user_nickname
 
     return redirect('main')  # 리다이렉트를 통해 메인 페이지로 이동
+
+
+### 총 이동거리 및 데이터 개수 반환 ## -> 수정 필요 
+@api_view(['GET'])
+def search(request):
+    mapData = Regions.objects.all()
+    dongName=request.regions
+    searchDong = mapData.filter(dong=dongName) # 쿼리스트링 필터링 수정 필요
+    mapCount = searchDong.stacks
+    mapDistance = searchDong.distance
+    data = {
+        'dong': searchDong.dongName,
+        'mapCount': mapCount,
+        'mapDistance': mapDistance,
+    }
+    serializer = DataSerializer(data, many=True)
+    return Response(serializer.data)
+
+
+# 이름정보 저장
+def index_name(request):
+    user = request.user
+    records = Records.objects.filter(user=user).values('start_location','end_location','TIME','record_date','km','credits_earned')
+    return render(request, '07mydata.html',{'user':user,'records': records})
