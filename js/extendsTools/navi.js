@@ -2,7 +2,6 @@ export class Navi {
     constructor() {
         this.currentLat, this.currentLon;
         this.map;
-      
         this.marker_SE = "";  
         this.markerObj;
         this.marker_p1;

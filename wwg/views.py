@@ -143,20 +143,20 @@ def callback_view(request):
     return redirect('main')  # 리다이렉트를 통해 메인 페이지로 이동
 
 ### 총 이동거리 및 데이터 개수 반환 ## -> 수정 필요 
-@api_view(['GET'])
-def search_view(request):
-    mapData = Regions.objects.all()
-    dongName=request.regions
-    searchDong = mapData.filter(dong=dongName) # 쿼리스트링 필터링 수정 필요
-    mapCount = searchDong.stacks
-    mapDistance = searchDong.distance
-    data = {
-        'dong': searchDong.dong,
-        'mapCount': mapCount,
-        'mapDistance': mapDistance,
-    }
-    serializer = DataSerializer(data, many=True)
-    return Response(serializer.data), render(request,'05serviceRegion.html')
+# @api_view(['GET'])
+# def search_view(request):
+#     mapData = Regions.objects.all()
+#     dongName=request.regions
+#     searchDong = mapData.filter(dong=dongName) # 쿼리스트링 필터링 수정 필요
+#     mapCount = searchDong.stacks
+#     mapDistance = searchDong.distance
+#     data = {
+#         'dong': searchDong.dong,
+#         'mapCount': mapCount,
+#         'mapDistance': mapDistance,
+#     }
+#     serializer = DataSerializer(data, many=True)
+#     return Response(serializer.data), render(request,'05serviceRegion.html')
 
 
 # 이름정보 저장
