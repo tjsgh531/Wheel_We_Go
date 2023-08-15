@@ -2,9 +2,9 @@
 from django.shortcuts import render,redirect
 
 from rest_framework import viewsets
-from .models import kakaoUsers, Records, Regions, Markings
+from .models import *
 
-from .serializers import RecordsFilterSerializer,UsersSerializer, RecordsSerializer, RegionsSerializer, MarkingsSerializer
+from .serializers import *
 
 from django.http import HttpResponse, JsonResponse
 from rest_framework.parsers import JSONParser
@@ -75,7 +75,22 @@ class MarkingsViewSet(viewsets.ModelViewSet):
     filter_backends=[DjangoFilterBackend]
     #필터 필요시 추가
     filterset_fields=['records_id']
+    
+    
+from rest_framework import generics
 
+class SaveRecordCreateView(generics.CreateAPIView):
+    queryset = saveRecord.objects.all()
+    serializer_class = SaveRecordSerializer
+
+    def perform_create(self, serializer):
+        instance = serializer.save()
+        # Update user's coin
+        user_id = instance.user_id
+        earned_coin = instance.earnedCoin
+        user = kakaoUsers.objects.get(user_id=user_id)
+        user.user_coin += earned_coin
+        user.save()
     # 아래주석은 지워도 됨
 ''' 
 @csrf_exempt
@@ -142,5 +157,7 @@ def callback_view(request):
     return redirect('main')  # 리다이렉트를 통해 메인 페이지로 이동
 
 def index_name(request):
-    user= request.user
+    user= request.user.username
     return render(request,'07mydata.html',{'user':user})
+
+
