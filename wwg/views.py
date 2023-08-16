@@ -173,3 +173,5 @@ def user_records(request):
     user_kakao = kakaoUsers.objects.filter(user_id=user)  # 해당 사용자와 연관된 Records 필터링
     records = Records.objects.filter(user_id = user_kakao)
     return render(request, '07mydata.html', {'records': records})
+
+
