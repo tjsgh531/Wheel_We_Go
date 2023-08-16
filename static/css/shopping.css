@@ -1,0 +1,101 @@
+body,
+html {
+    overflow-x: hidden;
+    margin: 0;
+    padding: 0;
+    background-color: #FAFAFA;
+}
+
+div {
+    box-sizing: border-box;
+}
+
+.search {
+    width: 80%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.searchBox {
+    width: 80%;
+    height: 3rem;
+
+    padding-left: 1.5rem;
+
+    background-color: rgba(200, 200, 200, 0.5);
+    border-radius: 2rem;
+
+    border: none;
+    outline: none;
+
+}
+
+.searchIcon {
+    position: relative;
+    right: 3rem;
+    font-size: 1.5rem;
+}
+
+.product img,
+.company img {
+    background-color: #D9D9D9;
+    width: 6rem;
+    height: 6rem;
+}
+
+.img-product {
+    width: 6rem;
+}
+
+.product-name {
+    display: flex;
+    width: 6rem;
+    justify-content: space-between;
+
+}
+
+.product-name img {
+    width: 1rem;
+    height: 1rem;
+    background-color: #FFFFFF;
+
+}
+
+.price {
+    width: 6rem;
+    text-align: left;
+}
+
+.all-product,
+.all-company {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-gap: 1rem;
+    padding: 0.5rem;
+}
+
+.product-container,
+.company-container {
+    width: 100vw;
+}
+
+.product,
+.company {
+    padding: 0.5rem
+}
+
+.banner-container {
+    display: flex;
+    /* 아이템들을 가로로 나란히 배치하기 위해 flex 사용 */
+    overflow: hidden;
+    /* 넘치는 아이템을 감추기 위해 overflow 사용 */
+    width: 100%;
+}
+
+.banner-item {
+    flex: 0 0 100%;
+    /* 아이템 너비 설정 (가로로 나란히 배치되도록) */
+    transition: transform 0.5s;
+    /* 슬라이드 애니메이션 효과를 위한 트랜지션 설정 */
+}
