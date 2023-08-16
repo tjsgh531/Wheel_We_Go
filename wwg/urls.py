@@ -6,7 +6,6 @@ from .views import *
 # ViewSet 클래스들을 인스턴스화하여 라우터에 등록
 router = DefaultRouter()
 router.register(r'users', UsersViewSet)
-router.register(r'records', RecordsViewSet)
 router.register(r'regions', RegionsViewSet)
 router.register(r'saveRecords',saveRecordsViewSet)
 
