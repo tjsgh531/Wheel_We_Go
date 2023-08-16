@@ -78,11 +78,11 @@ class MapBase{
                    
         // 사이드 바 나타내기
         sideBarBtn.addEventListener("click", ()=>{
-            sideBar.classList.remove('unactive');
+            sideBar.classList.toggle('unactive', false);
         });
  
         sideBar_cancle.addEventListener('click', ()=>{
-            sideBar.classList.add('unactive');
+            sideBar.classList.toggle('unactive', true);
         });
     }
 }

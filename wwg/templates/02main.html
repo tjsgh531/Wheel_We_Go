@@ -3,7 +3,7 @@
 {% block script %}
    
     <link rel="stylesheet" href="{% static 'css/search.css' %}" type = "text/css">
-    <link rel="stylesheet" href="{% static 'css/searchResult.css' %}"
+    <link rel="stylesheet" href="{% static 'css/searchResult.css' %}">
 
 {% endblock %}
 
@@ -71,33 +71,36 @@
 {% block resultBoard %}
 <div class="resultBoard">
     <div class="drag_bar"></div>
-    <div class="result_sumary">
-    
+    <div class="result_summary">
+
         <!-- 데이터 상태 -->
-        <div class="result_sumary_item data_valid">
+        <div class="result_summary_item data_valid">
             <div class="data_valid_text">데이터 상태</div>
             <div class="data_valid_item"></div>
         </div>
 
         <!-- 이동시간 -->
-        <div class="result_sumary_item data_time">
+        <div class="result_summary_item data_time">
             <div class="data_time_text">이동 시간</div>
             <div class="data_time_item"></div>
         </div>
         
         <!-- 이동 거리 -->
-        <div class="result_sumary_item data_distance">
+        <div class="result_summary_item data_distance">
             <div class="data_distance_text">이동 거리</div>
             <div class="data_distance_item"></div>
         </div>
 
         <!-- 획득 코인 -->
-        <div class="result_sumary_item data_coin">
+        <div class="result_summary_item data_coin">
             <div class="data_coin_text">획득 코인</div>
             <div class="data_coin_item"></div>
         </div>
     </div>
+
     <div class="result_content">
+        <div class="result_content_title"> 마킹지역</div>
+        
         <div class="marking_state">
 
         </div>

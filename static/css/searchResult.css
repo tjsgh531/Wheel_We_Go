@@ -21,13 +21,13 @@
     background-color: #ccc;
 }
 
-.result_sumary{
+.result_summary{
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-.result_sumary_item{
+.result_summary_item{
     display: flex;
     justify-content: center;
     align-items: center;
@@ -36,6 +36,42 @@
 
     border-right: 1px solid #ccc;
 }
+
 .data_coin{
     border-right: none;
+}
+
+/* 결과 창 마킹  */
+.marking_state{
+    display: flex;
+}
+.marking_group{
+    width: 100vw;
+    padding: 1rem;
+}
+.marking_div{
+    height: 1.5rem;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.number_div{
+    font-size: 1.2rem;
+}
+.pin_div{
+    font-size: 1.2rem;
+}
+.state_div{
+    width: 80%;
+    height: 100%;
+}
+.write_state_btn{
+    padding: 0.2rem 0.5rem;
+    background-color: #ccc;
+    cursor: pointer;
+}
+.write_state_btn:hover{
+    background-color: "#FFC573";
+    color: white;
 }
