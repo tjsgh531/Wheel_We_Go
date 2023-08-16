@@ -52,7 +52,7 @@
                 </div>
                 <div class="naviDataCautionBtn1">
                     <div class="naviDataCautionBtn_Start1">일반 경로 안내받기</div>
-                    <div class="naviDataCautionBtn_Record1">이동경로 기록하기</div>
+                    <div class="naviDataCautionBtn_Record1">이동 경로 기록하기</div>
                 </div>
             </div>
         </div>
@@ -73,7 +73,7 @@
                 </div>
                 <div class="naviDataCautionBtn2">
                     <div class="naviDataCautionBtn_Start2">일반 경로 안내받기</div>
-                    <div class="naviDataCautionBtn_Record2">이동경로 기록하기</div>
+                    <div class="naviDataCautionBtn_Record2">이동 경로 기록하기</div>
                     <div class="naviDataCautionBtn_RecordNavi1">기록하면서 경로 안내받기</div>
                 </div>
             </div>
@@ -87,7 +87,7 @@
                     <span class="dataCount3">1,234</span>
                     개 있습니다 <br>
                     더 완벽한 내비게이션을 위해 <br>
-                    당신의 이동경로를 기록해 주세요.
+                    당신의 이동 경로를 기록해 주세요.
                 </div>
                 <div style="display: flex; justify-content: center; align-items: center; margin: 1rem;">
                     <img class="coinImg" src="{% static 'img/코인.png' %}">
@@ -102,6 +102,38 @@
     </div>
 {% endblock %}
 
+{% block bottomBar %}
+    <div class="bottomBar unactive">
+        <div class="functionInfo">
+            <div class="fuctionDataRecord unactive">
+                <img class="fuctionDataRecordImg" src="{% static 'img/데이터기록.png' %}">
+                <div class="fuctionDataRecordTxt">데이터 기록</div>
+            </div>
+            <div class="functionRoadNavi unactive">
+                <img class="functionRoadNaviImg" src="{% static 'img/시간.png' %}">
+                <div class="functionRoadNaviTxt">휠체어 경로 안내</div>
+            </div>
+            <div class="funcitonArriveTime unactive">
+                <div class="funcitonArriveTimeContent">
+                    <img class="funcitonArriveTimeImg" src="{% static 'img/타이머.png' %}">
+                    <div class="funcitonArriveTimeValue">18</div>
+                    분
+                </div>
+                <div class="funcitonArriveTimeTxt">도착 예상 시간</div>
+            </div>
+            <div class="functionGetCoin unactive">
+                <div class="functionGetCoinContent">
+                    <img class="functionGetCoinImg" src="{% static 'img/코인.png' %}">
+                    <span class="functionGetCoinValue">180</span>
+                </div>
+                <div class="functionGetCoinTxt">획득 예상 코인</div>
+            </div>
+        </div>
+        <div class="startBtn">
+            시작하기
+        </div>
+    </div>
+{% endblock %}
 
 {% block resultBoard %}
 <div class="resultBoard unactive">
