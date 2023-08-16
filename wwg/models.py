@@ -22,7 +22,7 @@ class kakaoUsers(models.Model):
 ###########################
 class Records(models.Model):
     records_id = models.AutoField(primary_key=True)
-    user_id = models.ForeignKey(User, on_delete=models.CASCADE)
+    user_id = models.ForeignKey(kakaoUsers, on_delete=models.CASCADE)
     start_location = models.CharField(max_length=255, null=True)
     end_location = models.CharField(max_length=255, null=True)
     TIME = models.TimeField(null=True)
