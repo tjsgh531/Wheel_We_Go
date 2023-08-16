@@ -59,28 +59,31 @@ export class Navi {
             this.tracking_dis = 0;
             
             // 좌표 초기화 
-            const preLat = this.currentLat;
-            const preLon = this.currentLon;
+            let preLat = this.currentLat;
+            let preLon = this.currentLon;
             
             this.trackingCoords.push([preLat, preLon]);
 
             // 라인 그리기 시작
             this.track = setInterval(()=>{
+                console.log("현재위치 업데이트 되니? :",this.currentLat, this.currentLon);
                 // 시간 계산
                 this.costTime += 1;
+                if(preLat == this.currentLat && preLat == this.currentLat){
+                    console.log("이전 좌표와 동일");
+                }
+                else{
+                    //거리계산
+                    this.tracking_dis += this.caculateDistance(preLat, preLon, this.currentLat, this.currentLon);
+                    
+                    //선 그리기
+                    const polyline = this.drawTool.addPolyline(preLat, preLon, this.currentLat, this.currentLon);
+                    preLat = this.currentLat;
+                    preLon = this.currentLon;
 
-                //거리계산
-                this.tracking_dis += this.caculateDistance(preLat, preLon, this.currentLat, this.currentLon);
-                
-                //선 그리기
-                const polyline = this.drawTool.addPolyline(preLat, preLon, this.currentLat, this.currentLon);
-                preLat = this.currentLat;
-                preLon = this.currentLon;
-
-                this.trackingCoords.push([preLat, preLon]);
-                this.trackingLines.push(polyline);
-
-                
+                    this.trackingCoords.push([preLat, preLon]);
+                    this.trackingLines.push(polyline);
+                }
             },1000);
         }
     }

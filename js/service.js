@@ -8,7 +8,7 @@ class Area {
         this.currentPos = new CurrentPos();
         this.searchTool = new Search();
 
-        this.map;
+        this.map = null;
         this.currentLat;
         this.currentLon;
 
@@ -23,6 +23,10 @@ class Area {
             const searchWord = document.getElementById('searchInput').value;
             this.search(searchWord);
         });
+
+        setInterval(() => {
+            this.displayMapCenter();
+        }, 500);
     }
 
     start() {
@@ -41,8 +45,9 @@ class Area {
 
                     this.map.on("ConfigLoad", () => {
                         this.startLoadFile();
-                        this.search();
+                        this.getMapCenter();                     
                     });
+                    this.search();
                 })
         });
     }
@@ -110,6 +115,7 @@ class Area {
                 path.push(new Tmapv3.LatLng(points[0], points[1]));
             }
         }
+
         var polygon = new Tmapv3.Polygon({
             paths: path,
             fillColor: color,
@@ -127,7 +133,7 @@ class Area {
         this.searchTool.getList(this.currentlat, this.currentLon, search_word).then((result) => {
             const nameList = result.name_list;
             const add = result.addr;
-            
+
 
             for (const coords of result.coords) {
                 const marker = new Tmapv3.Marker({
@@ -144,7 +150,7 @@ class Area {
                 var markerPosition = this.markers[0].getPosition();
                 var latitude = markerPosition.lat();
                 var longitude = markerPosition.lng();
-                
+
                 this.map.setCenter(this.markers[0].getPosition());
 
                 console.log(latitude, longitude);
@@ -153,18 +159,53 @@ class Area {
         });
     }
 
-    clearMarker(){
-        this.markers.forEach(function (marker){
+    clearMarker() {
+        this.markers.forEach(function (marker) {
             marker.setMap(null);
         })
         this.markers = [];
     }
+
+    getMapCenter() {
+        var center = this.map.getCenter();
+        console.log(center.lat(), center.lng());
+
+        return {
+            latitude: center.lat(),
+            longitude: center.lng(),
+        };
+    }
+
+    displayMapCenter() {
+        var center = this.getMapCenter();
+        console.log(center.latitude, center.longitude);
+
+
+        var closestDistance = Number.MAX_VALUE;
+        var closestPolygon = null;
+
+        for(const polygon of this.polygons){
+            var polygonCenter = polygon.getCenter();
+
+            var distance = Math.sqrt(
+                Math.pow(center.latitude - polygonCenter.lat(), 2)+Math.pow(center.longitude - polygonCenter.lng(),2)
+            );
+
+            if (distance < closestDistance){
+                closestDistance = distance;
+                closestPolygon = polygon;
+            }
+            console.log("yes", closestPolygon)
+        }
+    }
+
+
 }
 
 window.onload = () => {
     new Area();
 }
 
-  fetch("http://127.0.0.1:8000/api/regions/?format=json/")
-  .then((response) => response.json())
-  .then((data) => console.log(data))
+fetch("http://127.0.0.1:8000/api/regions/?format=json/")
+    .then((response) => response.json())
+    .then((data) => console.log(data))
