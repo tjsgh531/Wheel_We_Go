@@ -1,0 +1,41 @@
+.resultBoard{
+    position: fixed;
+    bottom: 0; left: 0; z-index: 9990;
+
+    min-height: 45vh;
+    width: 100vw;
+
+    border-radius: 2rem;
+
+    background-color: white;
+}
+.drag_bar{
+    width: 20%;
+    height: 0.4rem;
+
+    margin: 1rem auto;
+
+    border-radius: 1rem;
+    
+
+    background-color: #ccc;
+}
+
+.result_sumary{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.result_sumary_item{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    padding: 1rem;
+
+    border-right: 1px solid #ccc;
+}
+.data_coin{
+    border-right: none;
+}
