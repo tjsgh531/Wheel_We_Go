@@ -19,7 +19,7 @@
     <script src="https://apis.openapi.sk.com/tmap/vectorjs?version=1&appKey=l7xxed2c734830ae4364975ef11e67a76e81"></script>
     
     <!-- base script -->
-    <script src= "{% static 'js/base.js' %}"></script>
+    <script src= "{% static 'js/base.js' %}" type="text/javascript"></script>
 
     <!-- personal Script -->
     {% block script %}{% endblock %}
@@ -92,6 +92,10 @@
 
         {% block content2 %}
 
+        {% endblock %}
+
+        {% block resultBoard %}
+        
         {% endblock %}
 
     </div>
