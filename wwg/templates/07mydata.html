@@ -12,7 +12,9 @@
 </head>
 
 <body>
+    <!-- 유저 저장용 삭제금지 수정금지 -->
     <div id="user-info" data-username="{{ user }}"></div>
+
 
     <div id="wrap">
         <div class="mydata-page-01">
@@ -22,14 +24,6 @@
             <div class="line"></div>
 
             <div class="filter-adress">
-                <!-- 필터 기능 - 장소 -->
-                <!-- <button class="filter-button">전체 <span class="arrow-down"></span></button>
-                <div class="filter-content">
-                    <button data-filter="all">전체</button>
-                    <button data-filter="category1">카테고리1</button>
-                    <button data-filter="category2">카테고리2</button>
-                    <button data-filter="category3">카테고리3</button>
-                </div> -->
             </div>
 
             <div class="square-container"> <!--그래프 색깔 구분표 -->
@@ -48,42 +42,14 @@
             </div>
             <div class="filter-time"></div>
 
-            <div> <!--데이터 내역-->
-                <div> <!--데이터 내역-->
+                <div> 
                     <div class="data-list">
-                        <h2>Records List</h2>
+                        <!-- 데이터 들어옴 자리-->
                         <ul class="records-list">
-                            <!-- Records 값들이 여기에 동적으로 추가될 것입니다 -->
                         </ul>
                     </div>
                 </div>
             
-                <div class="data-list">
-                    <h2>Records List</h2>
-                    <ul class="records-list">
-                        <!-- Records 값들이 여기에 동적으로 추가될 것입니다 -->
-                    </ul>
-                    <div class="route-data">
-                        <div class="route-data-time">일시</div>
-                        <div class="circle-container">
-                            <span class="circle-0"></span>
-                            <div class="route">
-                                <div>출발지</div> -> <div>도착지</div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="etc-data">
-                        <div><img src="{% static 'img/시간.png' %}" alt="시간">
-                            <div>시간</div>
-                        </div>
-                        <div><img src="{% static 'img/거리.png' %}" alt="거리">
-                            <div>거리</div>
-                        </div>
-                        <div><img src="{% static 'img/코인.png' %}" alt="코인">
-                            <div>코인</div>
-                        </div>
-                    </div>
-                </div>
             </div>
         </div>
         <div class="mydata-page-02">

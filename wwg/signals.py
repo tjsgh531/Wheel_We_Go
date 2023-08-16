@@ -27,6 +27,6 @@ def update_regions(sender, instance, created, **kwargs):
     except Regions.DoesNotExist:
         Regions.objects.create(
             regions=instance.start_location,
-            kms=instance.km,
+            kms=instance.kms,
             stacks=1
         )
