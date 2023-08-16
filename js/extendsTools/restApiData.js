@@ -54,7 +54,7 @@ export class RestApiData{
     // 지역 불러오기
     getRegionData(){
         return new Promise((resolve, reject)=>{
-            const apiUrl = 'http://127.0.0.1:8000/api/records/?format=json';
+            const apiUrl = 'http://127.0.0.1:8000/api/regions/?format=json';
 
             // fetch 함수를 사용하여 데이터 가져오기
             fetch(apiUrl)

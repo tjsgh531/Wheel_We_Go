@@ -229,7 +229,8 @@ export class Search {
         this.naviTool.eraseLineMarks(); // 네비에서 생성한 마커, 라인 지우기
 
         this.mapTool.setMapCenter(this.map, this.currentLat, this.currentLon);
-        this.naviDataCautionTool.allUnactive(); // 네비 데이터 경고창이 떠있을 때 'X'버튼 클릭 시 경고창 사라지게 하기
+        console.log("설마 여기니?...");
+        this.cautionAllUnactive(); // 네비 데이터 경고창이 떠있을 때 'X'버튼 클릭 시 경고창 사라지게 하기
     }
 
     //검색 결과중 하나 클릭시
@@ -285,7 +286,10 @@ export class Search {
                 console.log("여기 실행 되니?");
                 const expect_coin = this.naviTool.getExpactCoin();
                 this.naviDataCautionTool.setExpectCoin(expect_coin);
-                this.naviDataCautionTool.naviDataCaution(this.search_navi_info);
+                this.naviDataCautionTool.naviDataCaution(this.search_navi_info)
+                .then(()=>{
+                    this.clickNaviCautionBtn();
+                })
             })
             
         }
@@ -332,7 +336,7 @@ export class Search {
 
         addrdiv.textContent += `${addr}`;
 
-        startPointBtn.addEventListener('click', 
+        startPointBtn.addEventListener('click',
             this.searchNavi.bind(this, false, name, lat, lng)
         );
 
@@ -391,5 +395,59 @@ export class Search {
             console.log("마커지우기 : ", element);
             element.setMap(null);
         });
+    }
+
+    cautionAllUnactive(){
+        const backgroundBlur = document.querySelector(".backgroundBlur");
+        const lowData = document.querySelector(".lowData");
+        const iffyData = document.querySelector(".iffyData");
+        const enoughData = document.querySelector(".enoughData");
+
+        console.log("나 여깄다고!!!2");
+        backgroundBlur.classList.toggle("unactive", true);
+        lowData.classList.toggle("unactive", true);
+        iffyData.classList.toggle("unactive", true);
+        enoughData.classList.toggle("unactive", true);
+
+    }
+
+    clickNaviCautionBtn(){
+        const naviDataCautionBtn_Start1 = document.querySelector(".naviDataCautionBtn_Start1");
+        const naviDataCautionBtn_Start2 = document.querySelector(".naviDataCautionBtn_Start2");
+        const naviDataCautionBtn_Start3 = document.querySelector(".naviDataCautionBtn_Start3");
+        const naviDataCautionBtn_Record1 = document.querySelector(".naviDataCautionBtn_Record1");
+        const naviDataCautionBtn_Record2 = document.querySelector(".naviDataCautionBtn_Record2");
+        const naviDataCautionBtn_RecordNavi1 = document.querySelector(".naviDataCautionBtn_RecordNavi1");
+        const naviDataCautionBtn_RecordNavi2 = document.querySelector(".naviDataCautionBtn_RecordNavi2");
+
+        console.log("나 여깄다고!!!");
+        naviDataCautionBtn_Start1.addEventListener('click',()=>{
+            this.cautionAllUnactive();
+        });
+        naviDataCautionBtn_Start2.addEventListener('click',()=>{
+            this.cautionAllUnactive();
+        });
+        naviDataCautionBtn_Start3.addEventListener('click',()=>{
+            this.cautionAllUnactive();
+        });
+        naviDataCautionBtn_Record1.addEventListener('click',()=>{
+            this.naviTool.eraseLineMarks();
+            this.cautionAllUnactive();
+            this.naviTool.trackingPath();
+        });
+        naviDataCautionBtn_Record2.addEventListener('click',()=>{
+            this.naviTool.eraseLineMarks();
+            this.cautionAllUnactive();
+            this.naviTool.trackingPath();
+        });
+        naviDataCautionBtn_RecordNavi1.addEventListener('click',()=>{
+            this.cautionAllUnactive();
+            this.naviTool.trackingPath();
+        });
+        naviDataCautionBtn_RecordNavi2.addEventListener('click',()=>{
+            this.cautionAllUnactive();
+            this.naviTool.trackingPath();
+        });
+        
     }
 }
