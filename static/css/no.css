@@ -1,6 +1,9 @@
 body,
 html {
-    overflow-x: hidden;
+    overflow: hidden;
+    margin: 0;
+    padding: 0;
+
 }
 
 div {
@@ -8,25 +11,26 @@ div {
 }
 
 #wrap {
-    margin: 0 auto;
-    max-width: 767px;
-    min-height: 100vh;
-    background-color: #FAFAFA;
-    padding-top: 2rem;
+    display: flex;
+    width: 100vw;
+    margin-top: 3rem;
+    margin-bottom: 3rem;
+    justify-content: center;
 }
 
 .container {
-    max-width: 40rem;
-    margin: 4rem auto 0;
-    padding: 3rem;
+    display: flex;
+    flex-direction: column;
+    width: 90%;
+    height: fit-content;
+    padding: 1rem;
     background-color: white;
     border-radius: 2rem;
     box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
 }
 
 h1 {
-    font-size: 2.5rem;
-    margin-bottom: 2rem;
+    font-size: 1.5rem;
 }
 
 p {
