@@ -55,7 +55,7 @@ class Area {
 
     startLoadFile() {
         $.ajax({
-            url: "/static/json/seoul_jsonfile.json",
+            url: "/static/json/jinju_coordinates.json",
             type: 'GET',
             dataType: 'json',
             success: (data) => {
@@ -66,7 +66,7 @@ class Area {
 
                 for (let i = 0; i < this.data.length; i++) {
                     coordinates = this.data[i].geometry.coordinates;
-                    var name = this.data[i].properties.ADM_NM;
+                    var name = this.data[i].properties.EMD_NM;
 
                     this.name.push(name);
 
@@ -138,7 +138,7 @@ class Area {
             strokeColor: "#99ccff",
             strokeWeight: 1,
             map: this.map,
-            ADM_NM: admNm,
+            EMD_NM: admNm,
         });
 
         var polygonCenter = {
