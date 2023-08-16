@@ -454,3 +454,178 @@ div {
     background-color: #FFC573;
     cursor: pointer;
 }
+
+/*-------------------------------bottombar-------------------------------*/
+.bottomBar{
+    position: fixed;
+    bottom: 0; left: 0; z-index: 9980;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    width: 100%;
+    height: 20%;
+    box-shadow: 2px 2px 1rem rgba(0, 0, 0, 0.5);;
+    border-radius: 1.5rem 1.5rem 0 0;
+    
+    background-color: white;
+}
+.functionInfo{
+    position: relative;
+
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+
+    width: 90%;
+    height: 40%;
+    margin-bottom: 1rem;
+
+    font-size: 0.7rem;
+    color: black;
+}
+.fuctionDataRecord{
+    position: relative;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    width: 5rem;
+    height: 5rem;
+}
+.fuctionDataRecordImg{
+    position: relative;
+
+    width: 3rem;
+    height: 3rem;
+    margin-bottom: 0.5rem;
+}
+.functionRoadNavi{
+    position: relative;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    width: 5rem;
+    height: 5rem;
+}
+.functionRoadNaviImg{
+    position: relative;
+
+    width: 3rem;
+    height: 3rem;
+    margin-bottom: 0.5rem;
+}
+.funcitonArriveTime{
+    position: relative;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    width: 5rem;
+    height: 5rem;
+}
+.funcitonArriveTimeContent{
+    position: relative;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+
+    width: 7rem;
+    height: 2rem;
+    margin-bottom: 0.5rem;
+}
+.funcitonArriveTimeImg{
+    position: relative;
+
+    width: 2rem;
+    height: 2rem;
+    margin-bottom: 0.5rem;
+}
+.funcitonArriveTimeValue{
+    position: relative;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+
+    width: 2rem;
+    height: 2rem;
+
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+.functionGetCoin{
+    position: relative;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    width: 7rem;
+    height: 5rem;
+}
+.functionGetCoinContent{
+    position: relative;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+
+    width: 7rem;
+    height: 2rem;
+    margin-bottom: 0.5rem;
+}
+.functionGetCoinImg{
+    position: relative;
+
+    width: 2rem;
+    height: 2rem;
+}
+.functionGetCoinValue{
+    position: relative;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+
+    width: 2rem;
+    height: 2rem;
+
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+.startBtn{
+    position: relative;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    width: 15rem;
+    height: 3.3rem;
+
+    border: 0;
+    border-radius: 1rem;
+
+    font-size: 1.2rem;
+    font-weight: normal;
+
+    color: white;
+    background-color: #FFC573;
+    cursor: pointer;
+}

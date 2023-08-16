@@ -9,13 +9,13 @@ export class Search {
 
         this.naviDataCautionTool = new NaviDataCaution();
 
-
         this.currentLat, this.currentLon;
         this.map;
 
         this.gnbMode = "search"; //"search 와 navi 모드 있음"
         this.search_navi_info = [null, null];
         this.markers = [];
+        this.naviMode; // 1 -> "일반 경로 안내"  | 2 -> "이동 경로 기록하기" | 3 -> "기록하면서 경로 안내받기"
     }
 
     setMap(map){
@@ -202,6 +202,8 @@ export class Search {
         const search_result = document.querySelector('.search_result');
         const search_navi = document.querySelector('.search_navi');
 
+        const bottomBar = document.querySelector('.bottomBar'); // 하단바
+
         const gnb = document.querySelector('.gnb');
 
         sideBarBtn.classList.remove("unactive");
@@ -213,6 +215,8 @@ export class Search {
 
         search.classList.toggle("unactive", false);
         search_navi.classList.toggle("unactive", true);
+
+        bottomBar.classList.toggle("unactive", true);
         
 
         searchBoxs.forEach(element => {
@@ -397,7 +401,7 @@ export class Search {
         });
     }
 
-    cautionAllUnactive(){
+    cautionAllUnactive(){ // 경고 페이지 요소들 전부 안보이게 하기
         const backgroundBlur = document.querySelector(".backgroundBlur");
         const lowData = document.querySelector(".lowData");
         const iffyData = document.querySelector(".iffyData");
@@ -411,43 +415,116 @@ export class Search {
 
     }
 
+    bottomBarAllUnactive(){ // 하단바 요소들 전부 안보이게 하기
+        const bottomBar = document.querySelector(".bottomBar");
+        const fuctionDataRecord = document.querySelector(".fuctionDataRecord");
+        const functionRoadNavi = document.querySelector(".functionRoadNavi");
+        const funcitonArriveTime = document.querySelector(".funcitonArriveTime");
+        const functionGetCoin = document.querySelector(".functionGetCoin");
+
+        bottomBar.classList.toggle("unactive", true); 
+        fuctionDataRecord.classList.toggle("unactive", true); 
+        functionRoadNavi.classList.toggle("unactive", true); 
+        funcitonArriveTime.classList.toggle("unactive", true); 
+        functionGetCoin.classList.toggle("unactive", true); 
+    }
+
     clickNaviCautionBtn(){
+        // "일반 경로 안내받기" 버튼
         const naviDataCautionBtn_Start1 = document.querySelector(".naviDataCautionBtn_Start1");
         const naviDataCautionBtn_Start2 = document.querySelector(".naviDataCautionBtn_Start2");
         const naviDataCautionBtn_Start3 = document.querySelector(".naviDataCautionBtn_Start3");
+
+        // "이동 경로 기록하기" 버튼 
         const naviDataCautionBtn_Record1 = document.querySelector(".naviDataCautionBtn_Record1");
         const naviDataCautionBtn_Record2 = document.querySelector(".naviDataCautionBtn_Record2");
+
+        // "기록하면서 경로 안내 받기" 버튼
         const naviDataCautionBtn_RecordNavi1 = document.querySelector(".naviDataCautionBtn_RecordNavi1");
         const naviDataCautionBtn_RecordNavi2 = document.querySelector(".naviDataCautionBtn_RecordNavi2");
 
         console.log("나 여깄다고!!!");
         naviDataCautionBtn_Start1.addEventListener('click',()=>{
+            this.naviMode = 1;
             this.cautionAllUnactive();
+            this.startNaviBottomBar();
         });
         naviDataCautionBtn_Start2.addEventListener('click',()=>{
+            this.naviMode = 1;
             this.cautionAllUnactive();
+            this.startNaviBottomBar();
         });
         naviDataCautionBtn_Start3.addEventListener('click',()=>{
+            this.naviMode = 1;
             this.cautionAllUnactive();
+            this.startNaviBottomBar();
         });
         naviDataCautionBtn_Record1.addEventListener('click',()=>{
+            this.naviMode = 2;
             this.naviTool.eraseLineMarks();
             this.cautionAllUnactive();
-            this.naviTool.trackingPath();
+            this.startNaviBottomBar();
         });
         naviDataCautionBtn_Record2.addEventListener('click',()=>{
+            this.naviMode = 2;
             this.naviTool.eraseLineMarks();
             this.cautionAllUnactive();
-            this.naviTool.trackingPath();
+            this.startNaviBottomBar();
         });
         naviDataCautionBtn_RecordNavi1.addEventListener('click',()=>{
+            this.naviMode = 3;
             this.cautionAllUnactive();
-            this.naviTool.trackingPath();
+            this.startNaviBottomBar();
         });
         naviDataCautionBtn_RecordNavi2.addEventListener('click',()=>{
+            this.naviMode = 3;
             this.cautionAllUnactive();
-            this.naviTool.trackingPath();
-        });
-        
+            this.startNaviBottomBar();
+        });       
+    }
+
+    // 네비게이션 '시작하기'버튼 페이지 관련 함수
+    startNaviBottomBar(){
+        const bottomBar = document.querySelector(".bottomBar");
+
+        const fuctionDataRecord = document.querySelector(".fuctionDataRecord");
+        const functionRoadNavi = document.querySelector(".functionRoadNavi");
+        const funcitonArriveTime = document.querySelector(".funcitonArriveTime");
+        const functionGetCoin = document.querySelector(".functionGetCoin");
+
+        const startBtn = document.querySelector(".startBtn");
+
+        bottomBar.classList.toggle("unactive", false); // 하단바 보이게 하기
+
+        if(this.naviMode == 1){ // "일반 경로 안내받기" 버튼
+            fuctionDataRecord.classList.toggle("unactive", false); // "데이터 기록" 보이게 하기
+            funcitonArriveTime.classList.toggle("unactive", false); // "도착 예상 시간" 보이게 하기
+            functionGetCoin.classList.toggle("unactive", false); // "획득 예상 코인" 보이게 하기
+
+            startBtn.addEventListener('click', ()=>{ // "시작하기" 버튼 클릭
+                this.bottomBarAllUnactive();
+            });
+        }
+        else if(this.naviMode == 2){ // "이동 경로 기록하기" 버튼 
+            fuctionDataRecord.classList.toggle("unactive", false); 
+            funcitonArriveTime.classList.toggle("unactive", false); 
+            functionGetCoin.classList.toggle("unactive", false); 
+
+            startBtn.addEventListener('click', ()=>{
+                this.bottomBarAllUnactive();
+                this.naviTool.trackingPath();
+            });
+        }
+        else{ // "기록하면서 경로 안내 받기" 버튼
+            fuctionDataRecord.classList.toggle("unactive", false); 
+            functionRoadNavi.classList.toggle("unactive", false); // "휠체어 경로 안내" 보이게 하기
+            funcitonArriveTime.classList.toggle("unactive", false); 
+            functionGetCoin.classList.toggle("unactive", false); 
+
+            startBtn.addEventListener('click', ()=>{
+                this.bottomBarAllUnactive();
+                // this.naviTool.trackingPath();
+            });
+        }
     }
 }
