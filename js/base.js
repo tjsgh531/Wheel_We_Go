@@ -2,6 +2,7 @@ import { InitMap } from "./extendsTools/initmap.js";
 import { DrawShape } from "./extendsTools/drawShape.js";
 import { CurrentPos } from "./extendsTools/currentPos.js";
 import { Search } from "./extendsTools/search.js";
+// import { NaviResult } from "./extendsTools/naviResult.js";
 
 class MapBase{
     constructor(){
@@ -9,6 +10,7 @@ class MapBase{
         this.currentPos = new CurrentPos();
         this.drawShape = new DrawShape();
         this.searchTool = new Search();
+        // const naviResult = new NaviResult();
 
         this.map;
         this.currentLat, this.currentLon;
@@ -78,11 +80,11 @@ class MapBase{
                    
         // 사이드 바 나타내기
         sideBarBtn.addEventListener("click", ()=>{
-            sideBar.classList.remove('unactive');
+            sideBar.classList.toggle('unactive', false);
         });
  
         sideBar_cancle.addEventListener('click', ()=>{
-            sideBar.classList.add('unactive');
+            sideBar.classList.toggle('unactive', true);
         });
     }
 }
