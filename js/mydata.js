@@ -1,3 +1,6 @@
+import { RestApiData } from "./restApiData.js";
+
+
 class SectionManager {
   constructor() {
     this.sections = document.querySelectorAll('.section');
@@ -47,3 +50,6 @@ class SectionManager {
 
 // Initialize the SectionManager
 const sectionManager = new SectionManager();
+
+
+// 데이터불러오긱 
