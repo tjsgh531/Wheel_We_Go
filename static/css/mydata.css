@@ -157,12 +157,6 @@ div {
     font-size: 0.5rem;
 }
 
-/* .chart-shadow {
-    background-color: #333;
-    width: 5rem;
-    height: 2rem;
-} */
-
 .data-00 {
     width: 10rem;
     height: 4rem;
@@ -199,22 +193,6 @@ div {
     cursor: pointer;
 
 }
-
-/* .custom-button-all {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-    margin-bottom: 2rem;
-} */
-
-/* .custom-button {
-    display: inline-block;
-    padding: 0rem 1rem;
-    background-color: #FFFFFF;
-    border: none;
-    cursor: pointer;
-} */
 
 .data-container {
     position: absolute;
@@ -280,14 +258,6 @@ div {
     margin-bottom: 2rem;
 }
 
-
-/* .important-data {
-    width: 100vw;
-     height: 20rem; 
-    border: 0.5rem solid #000000; 
-
-} */
-
 .gap {
     margin-top: 2rem;
     justify-content: center;
@@ -313,6 +283,12 @@ div {
 
 }
 
+.location-reason {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+}
+
 .marking-location img {
     width: 1rem;
     height: 1rem;
@@ -321,8 +297,8 @@ div {
 }
 
 .marking-reason {
-    display: flex;
-    flex-direction: column;
+    /* display: flex;
+    flex-direction: column; */
     width: 90%;
     height: 3rem;
     /* border: 0.1rem solid black; */
@@ -376,12 +352,12 @@ div {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    height: 100vh;
 }
 
 .section {
     display: none;
     text-align: center;
+    width: 100vw;
 }
 
 .active {
@@ -390,18 +366,21 @@ div {
 
 .button-container {
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
     margin-top: 1rem;
+    width: 100%;
+    text-align: center;
 }
 
 .prev-button,
 .next-button {
     display: inline-block;
-    padding: 5px 10px;
-    background-color: #333;
-    color: white;
+    padding: 0.5rem 1rem;
+    background-color: #FFFFFF;
+    color: black;
     border: none;
     border-radius: 3px;
     cursor: pointer;
+    margin: 0.5rem;
 }
