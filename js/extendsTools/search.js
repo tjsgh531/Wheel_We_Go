@@ -229,7 +229,7 @@ export class Search {
         this.naviTool.eraseLineMarks(); // 네비에서 생성한 마커, 라인 지우기
 
         this.mapTool.setMapCenter(this.map, this.currentLat, this.currentLon);
-        
+        this.naviDataCautionTool.allUnactive(); // 네비 데이터 경고창이 떠있을 때 'X'버튼 클릭 시 경고창 사라지게 하기
     }
 
     //검색 결과중 하나 클릭시
