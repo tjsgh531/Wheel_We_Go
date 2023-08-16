@@ -6,7 +6,7 @@ export class RestApiData{
     //////////////////////////  create data  //////////////////////////////
     ///////////////////////////////////////////////////////////////////////
     // 지역(Regions) 생성
-    createRegion(regionData) {
+    async createRegion(regionData) {
         const apiUrl = 'http://127.0.0.1:8000/api/regions/';
 
         return fetch(apiUrl, {
@@ -20,7 +20,7 @@ export class RestApiData{
     }
 
     // 기록(Records) 생성
-    createRecord(recordData) {
+    async createRecord(recordData) {
         const apiUrl = 'http://127.0.0.1:8000/api/records/';
 
         return fetch(apiUrl, {
@@ -34,7 +34,7 @@ export class RestApiData{
     }
 
     // 한 건 당(saveRecords) 생성
-    createSaveRecord(saveRecordData) {
+    async createSaveRecord(saveRecordData) {
         const apiUrl = 'http://127.0.0.1:8000/api/saverecords/';
 
         return fetch(apiUrl, {
@@ -54,7 +54,7 @@ export class RestApiData{
     // 지역 불러오기
     getRegionData(){
         return new Promise((resolve, reject)=>{
-            const apiUrl = 'http://127.0.0.1:8000/api/records/?format=json';
+            const apiUrl = 'http://127.0.0.1:8000/api/regions/?format=json';
 
             // fetch 함수를 사용하여 데이터 가져오기
             fetch(apiUrl)

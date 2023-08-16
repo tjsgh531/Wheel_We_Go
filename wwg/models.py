@@ -32,7 +32,7 @@ class Records(models.Model):
     data_valid = models.IntegerField(choices=[(0, '0'), (1, '1'), (2, '2')], null=True)
     km = models.IntegerField(null=True)
 
-
+ 
     def __str__(self):
         return f"Record {self.records_id}: {self.start_location} to {self.end_location}"
 
