@@ -3,6 +3,51 @@ export class RestApiData{
 
     }
     ///////////////////////////////////////////////////////////////////////
+    //////////////////////////  create data  //////////////////////////////
+    ///////////////////////////////////////////////////////////////////////
+    // 지역(Regions) 생성
+    createRegion(regionData) {
+        const apiUrl = 'http://127.0.0.1:8000/api/regions/';
+
+        return fetch(apiUrl, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(regionData)
+        })
+        .then(response => response.json());
+    }
+
+    // 기록(Records) 생성
+    createRecord(recordData) {
+        const apiUrl = 'http://127.0.0.1:8000/api/records/';
+
+        return fetch(apiUrl, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(recordData)
+        })
+        .then(response => response.json());
+    }
+
+    // 한 건 당(saveRecords) 생성
+    createSaveRecord(saveRecordData) {
+        const apiUrl = 'http://127.0.0.1:8000/api/saverecords/';
+
+        return fetch(apiUrl, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(saveRecordData)
+        })
+        .then(response => response.json());
+    }
+
+    ///////////////////////////////////////////////////////////////////////
     ///////////////////////////// read data ///////////////////////////////
     ///////////////////////////////////////////////////////////////////////
 

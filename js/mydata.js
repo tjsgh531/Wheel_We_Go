@@ -52,4 +52,24 @@ class SectionManager {
 const sectionManager = new SectionManager();
 
 
-// 데이터불러오긱 
+// 데이터불러오기
+const api = new RestApiData();
+    
+// 업데이트할 유저의 식별자와 업데이트할 데이터를 정의
+const userId = 1;  // 업데이트할 유저의 식별자
+const updatedUserData = {
+    username: 'newUsername',
+    email: 'newEmail@example.com',
+    // ...
+};
+
+// 유저 정보 업데이트 요청 보내기
+api.updateUser(userId, updatedUserData)
+    .then(responseData => {
+        console.log('업데이트 성공:', responseData);
+        // 업데이트 성공 후 처리할 내용
+    })
+    .catch(error => {
+        console.error('업데이트 실패:', error);
+        // 업데이트 실패 시 처리할 내용
+    });
