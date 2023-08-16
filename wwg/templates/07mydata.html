@@ -12,15 +12,7 @@
 </head>
 
 <body>
-
-    {% block content %}
-    <h1>User Records</h1>
-    <ul>
-        {% for record in user_records %}
-        <li>{{ record.start_location }} to {{ record.end_location }}</li>
-        {% endfor %}
-    </ul>
-    {% endblock %}
+    <div id="user-info" data-username="{{ user }}"></div>
 
     <div id="wrap">
         <div class="mydata-page-01">
@@ -44,7 +36,7 @@
                 <div class="square">
                     <div><span class="square-0"></span> 전체 데이터</div>
 
-                    <div><span class="square-1"></span> {{ user.username }}님 데이터</div>
+                    <div><span class="square-1"></span> {{ user }}님 데이터</div>
 
                     <div><span class="square-2"></span> 오류 데이터</div>
                 </div>
@@ -57,9 +49,22 @@
             <div class="filter-time"></div>
 
             <div> <!--데이터 내역-->
+                <div> <!--데이터 내역-->
+                    <div class="data-list">
+                        <h2>Records List</h2>
+                        <ul class="records-list">
+                            <!-- Records 값들이 여기에 동적으로 추가될 것입니다 -->
+                        </ul>
+                    </div>
+                </div>
+            
                 <div class="data-list">
+                    <h2>Records List</h2>
+                    <ul class="records-list">
+                        <!-- Records 값들이 여기에 동적으로 추가될 것입니다 -->
+                    </ul>
                     <div class="route-data">
-                        <div class="route-data-time">일시 (ex.2023-07-31)</div>
+                        <div class="route-data-time">일시</div>
                         <div class="circle-container">
                             <span class="circle-0"></span>
                             <div class="route">

@@ -112,8 +112,7 @@ div {
     color: white;
 }
 
-
-/* content2 */
+/*-------------------------------content2-------------------------------*/
 .backgroundBlur{
     position: fixed;
     top: 0; left: 0; z-index: 9980;
@@ -127,7 +126,7 @@ div {
     
     background-color: rgba(0, 0, 0, 0.4);
 }
-
+/* 데이터 부족할 때(Low Data) */
 .lowData{
     position: relative;
     top: 5%;
@@ -165,6 +164,8 @@ div {
 .lowDataContentTxt{
     position: relative;
 
+    text-align: center;
+
     font-size: 1rem;
     font-weight: normal;
     color: black;
@@ -173,14 +174,14 @@ div {
     width: 2rem;
     height: 2rem;
 }
-.coin{
+.coin1{
     padding: 0 0.5rem;
 
-    font-size: 1rem;
+    font-size: 1.5rem;
     font-weight: bold;
     color: black;
 }
-.naviDataCautionBtn{
+.naviDataCautionBtn1{
     position: relative;
 
     display: flex;
@@ -190,42 +191,266 @@ div {
     text-align: center;
 
     width: 100%;
+    margin-top: 1rem;
 
     font-size: 1.2rem;
     font-weight: normal;
     color: black;
 }
-.naviDataCautionBtn_Start{
+.naviDataCautionBtn_Start1{
     position: relative;
     
     display: flex;
     justify-content: center;
     align-items: center;
 
-    width: 100%;
+    width: 20rem;
     height: 3.5rem;
+    margin-bottom: 1rem;
 
     border: 0;
     border-radius: 1rem;
-    margin: 1rem;
 
     background-color: #D9D9D9;
     cursor: pointer;
 }
 
-.naviDataCautionBtn_Record{
+.naviDataCautionBtn_Record1{
     position: relative;
 
     display: flex;
     justify-content: center;
     align-items: center;
 
-    width: 100%;
+    width: 20rem;
     height: 3.5rem;
 
     border: 0;
     border-radius: 1rem;
 
     background-color: #FFF8EA;
+    cursor: pointer;
+}
+
+/* 데이터 애매할 때(Iffy Data) */
+.iffyData{
+    position: relative;
+    top: 5%;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    border-radius: 2rem;
+
+    width: 60%;
+    height: 60%;
+
+    font-size: 2rem;
+    font-weight: bold;
+    color: black;
+
+    background-color: white;
+}
+
+.iffyDataContent{
+    position: relative;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.iffyDataImg{
+    width: 6rem;
+    height: 6rem;
+
+    margin: 1rem 0;
+}
+.iffyDataContentTxt{
+    position: relative;
+
+    text-align: center;
+
+    font-size: 1rem;
+    font-weight: normal;
+    color: black;
+}
+.coin2{
+    padding: 0 0.5rem;
+
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: black;
+}
+.naviDataCautionBtn2{
+    position: relative;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    text-align: center;
+
+    width: 100%;
+    margin-top: 1rem;
+
+    font-size: 1.2rem;
+    font-weight: normal;
+    color: black;
+}
+.naviDataCautionBtn_Start2{
+    position: relative;
+    
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    width: 20rem;
+    height: 3.5rem;
+
+    border: 0;
+    border-radius: 1rem;
+    margin-bottom: 1rem;
+
+    background-color: #D9D9D9;
+    cursor: pointer;
+}
+
+.naviDataCautionBtn_Record2{
+    position: relative;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    width: 20rem;
+    height: 3.5rem;
+
+    border: 0;
+    border-radius: 1rem;
+    margin-bottom: 1rem;
+
+    background-color: #FFF8EA;
+    cursor: pointer;
+}
+.naviDataCautionBtn_RecordNavi1{
+    position: relative;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    width: 20rem;
+    height: 3.5rem;
+
+    border: 0;
+    border-radius: 1rem;
+
+    color: white;
+    background-color: #FFC573;
+    cursor: pointer;
+}
+
+/* 데이터 충분할 때(Enough Data) */
+.enoughData{
+    position: relative;
+    top: 5%;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    border-radius: 2rem;
+
+    width: 60%;
+    height: 55%;
+
+    font-size: 2rem;
+    font-weight: bold;
+    color: black;
+
+    background-color: white;
+}
+
+.enoughDataContent{
+    position: relative;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.enoughDataImg{
+    width: 6rem;
+    height: 6rem;
+
+    margin: 1rem 0;
+}
+.enoughDataContentTxt{
+    position: relative;
+
+    text-align: center;
+
+    font-size: 1rem;
+    font-weight: normal;
+    color: black;
+}
+.coin3{
+    padding: 0 0.5rem;
+
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: black;
+}
+.naviDataCautionBtn3{
+    position: relative;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+
+    width: 100%;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+
+    font-size: 1.2rem;
+    font-weight: normal;
+    color: black;
+}
+.naviDataCautionBtn_Start3{
+    position: relative;
+    
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    width: 20rem;
+    height: 3.5rem;
+
+    border: 0;
+    border-radius: 1rem;
+    margin-bottom: 1rem;
+
+    background-color: #D9D9D9;
+    cursor: pointer;
+}
+.naviDataCautionBtn_RecordNavi2{
+    position: relative;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    width: 20rem;
+    height: 3.5rem;
+
+    border: 0;
+    border-radius: 1rem;
+
+    color: white;
+    background-color: #FFC573;
     cursor: pointer;
 }
