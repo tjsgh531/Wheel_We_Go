@@ -137,7 +137,11 @@ div {
     background-color: #333;
 
 }
-
+/*
+#user-info {
+    display: none;
+  }
+  */
 /* #map_div {
     position: fixed;
     left: 0;

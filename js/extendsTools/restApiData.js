@@ -1,5 +1,7 @@
+
 export class RestApiData{
     constructor(){
+
 
     }
     ///////////////////////////////////////////////////////////////////////
@@ -16,6 +18,7 @@ export class RestApiData{
             },
             body: JSON.stringify(regionData)
         })
+
         .then(response => response.json());
     }
 
@@ -30,7 +33,9 @@ export class RestApiData{
             },
             body: JSON.stringify(recordData)
         })
+
         .then(response => response.json());
+
     }
 
     // 한 건 당(saveRecords) 생성
@@ -44,7 +49,9 @@ export class RestApiData{
             },
             body: JSON.stringify(saveRecordData)
         })
+
         .then(response => response.json());
+
     }
 
     ///////////////////////////////////////////////////////////////////////
@@ -52,9 +59,10 @@ export class RestApiData{
     ///////////////////////////////////////////////////////////////////////
 
     // 지역 불러오기
+
     getRegionData(){
         return new Promise((resolve, reject)=>{
-            const apiUrl = 'http://127.0.0.1:8000/api/records/?format=json';
+            const apiUrl = 'http://127.0.0.1:8000/api/regions/?format=json';
 
             // fetch 함수를 사용하여 데이터 가져오기
             fetch(apiUrl)
@@ -104,7 +112,7 @@ export class RestApiData{
     ///////////////////////////////////////////////////////////////////////
     //////////////////////////  update data  //////////////////////////////
     ///////////////////////////////////////////////////////////////////////
-    
+
     // 유저 정보 업데이트 
     updateUser(userId, updatedUserData) {
         return new Promise((resolve, reject) => {
@@ -117,6 +125,7 @@ export class RestApiData{
                 },
                 body: JSON.stringify(updatedUserData)
             })
+
             .then(response => response.json())
             .then(data => {
                 resolve(data);
@@ -136,10 +145,12 @@ export class RestApiData{
                 },
                 body: JSON.stringify(updatedUserData)
             })
+
             .then(response => response.json())
             .then(data => {
                 resolve(data);
             });
+
         });
     }
 
@@ -155,10 +166,12 @@ export class RestApiData{
                 },
                 body: JSON.stringify(updatedUserData)
             })
+
             .then(response => response.json())
             .then(data => {
                 resolve(data);
             });
+
         });
     }
 
@@ -175,12 +188,13 @@ export class RestApiData{
                 },
                 body: JSON.stringify(updatedUserData)
             })
+
             .then(response => response.json())
             .then(data => {
                 resolve(data);
             });
+
         });
     }
 
 }
-
