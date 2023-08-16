@@ -2,12 +2,13 @@ import { DrawShape } from "./drawShape.js";
 import { InitMap } from "./initmap.js";
 import { CurrentPos } from "./currentPos.js";
 
+
 export class Navi {
     constructor() {
         this.drawTool = new DrawShape();
         this.mapTool = new InitMap();
         this.currentPos = new CurrentPos();
-
+        
         this.currentLat, this.currentLon;
         this.map;
         this.marker_SE = "";  
