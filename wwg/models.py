@@ -17,26 +17,6 @@ class kakaoUsers(models.Model):
     def __str__(self):
         return self.user_id
 
-###########################
-### 이동기록 데이터 모델  ###
-###########################
-class Records(models.Model):
-    records_id = models.AutoField(primary_key=True)
-    user_id = models.ForeignKey(kakaoUsers, on_delete=models.CASCADE)
-    start_location = models.CharField(max_length=255, null=True)
-    end_location = models.CharField(max_length=255, null=True)
-    hours = models.IntegerField(null=True)
-    feedback = models.CharField(max_length=255, null=True)
-    credits_earned = models.IntegerField(null=True)
-    record_date = models.DateField(null=True)
-    data_valid = models.IntegerField(choices=[(0, '0'), (1, '1'), (2, '2')], null=True)
-    kms = models.FloatField(null=True)
-
- 
-    def __str__(self):
-        return f"Record {self.records_id}: {self.start_location} to {self.end_location}"
-
-
 #######################################
 ###  지역별 총 이동거리와 데이터 개수 ###
 #######################################

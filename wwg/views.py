@@ -56,12 +56,6 @@ class UsersViewSet(viewsets.ModelViewSet):
     #필터 필요시 추가
     #filterset_fields=['']
 
-class RecordsViewSet(viewsets.ModelViewSet):
-    queryset = Records.objects.all()
-    serializer_class = RecordsSerializer
-    filter_backends=[DjangoFilterBackend]
-    #필터 필요시 추가
-    filterset_fields=['user_id','start_location']
 
 class RegionsViewSet(viewsets.ModelViewSet):
     queryset = Regions.objects.all()
@@ -91,36 +85,6 @@ class SaveRecordCreateView(generics.CreateAPIView):
         user = kakaoUsers.objects.get(user_id=user_id)
         user.user_coin += earned_coin
         user.save()
-    # 아래주석은 지워도 됨
-''' 
-@csrf_exempt
-def user_list(request):
-    if request.method =='GET':
-        users = Users.objects.all()
-        serializer = UsersSerializer(users, many = True)
-        return JsonResponse(serializer.data, safe=False)
-    elif request.method =='POST':
-        data = JSONParser().parse(request)
-        serializer = UsersSerializer(data=data)
-        if serializer.is_valid():
-            serializer.save()
-            return JsonResponse(serializer.data,status=201)
-        return JsonResponse(serializer.errors,status=400)
-        --------------------------------
-class RecordsFilter(filters.FilterSet):
-    start_location = filters.CharFilter(lookup_expr='exact')
-
-    class Meta:
-        model = Records
-        fields = ('start_location',)
-
-class RecordsFilterViewSet(viewsets.ReadOnlyModelViewSet):
-    queryset = Records.objects.all()
-    serializer_class = RecordsFilterSerializer
-    filterset_class = RecordsFilter
-
-        '''
-        
         
 import requests
 
@@ -167,11 +131,4 @@ from django.contrib.auth.decorators import login_required
 #     kakao_user = kakaoUsers.objects.all()
     
 #     return render(request,'03mydata.html',{'user':user,'kakao_user': kakao_user})
-@login_required  # 이 뷰는 로그인된 사용자만 접근 가능하도록 설정
-def user_records(request):
-    user = request.user  # 로그인된 사용자 정보 가져오기
-    user_kakao = kakaoUsers.objects.filter(user_id=user)  # 해당 사용자와 연관된 Records 필터링
-    records = Records.objects.filter(user_id = user_kakao)
-    return render(request, '07mydata.html', {'records': records})
-
 
