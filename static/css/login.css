@@ -1,18 +1,21 @@
 body,
 html {
     overflow-x: hidden;
+    margin: 0;
+    padding: 0;
+    background-color: #FAFAFA;
 }
 
 div {
     box-sizing: border-box;
 }
 
-#wrap {
+/* #wrap {
     margin: 0 auto;
     max-width: 767px;
     min-height: 100vh;
     background-color: #FAFAFA;
-}
+} */
 
 .container {
     display: flex;
@@ -57,6 +60,7 @@ div {
 }
 
 .logo {
-    display: fixed;;
+    display: fixed;
+    ;
     width: 20rem;
 }
