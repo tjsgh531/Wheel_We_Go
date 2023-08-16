@@ -25,12 +25,12 @@ class Records(models.Model):
     user_id = models.ForeignKey(kakaoUsers, on_delete=models.CASCADE)
     start_location = models.CharField(max_length=255, null=True)
     end_location = models.CharField(max_length=255, null=True)
-    TIME = models.TimeField(null=True)
+    hours = models.IntegerField(null=True)
     feedback = models.CharField(max_length=255, null=True)
     credits_earned = models.IntegerField(null=True)
-    record_date = models.DateTimeField(null=True)
+    record_date = models.DateField(null=True)
     data_valid = models.IntegerField(choices=[(0, '0'), (1, '1'), (2, '2')], null=True)
-    km = models.IntegerField(null=True)
+    kms = models.FloatField(null=True)
 
  
     def __str__(self):
