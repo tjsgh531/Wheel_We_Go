@@ -55,21 +55,61 @@ const sectionManager = new SectionManager();
 // 데이터불러오기
 const api = new RestApiData();
     
-// 업데이트할 유저의 식별자와 업데이트할 데이터를 정의
-const userId = 1;  // 업데이트할 유저의 식별자
-const updatedUserData = {
-    username: 'newUsername',
-    email: 'newEmail@example.com',
-    // ...
-};
+// 유저 정보 받아오기 
+const userInfo = document.getElementById('user-info')
+const user= userInfo.dataset.usernmae
 
-// 유저 정보 업데이트 요청 보내기
-api.updateUser(userId, updatedUserData)
-    .then(responseData => {
-        console.log('업데이트 성공:', responseData);
-        // 업데이트 성공 후 처리할 내용
+// 유저의 모든 레코드 가져오기
+api.getRecordData().then(data => {
+  // 유저 데이터만 필터링
+  const userRecords = data.filter(data=>data.user_id===user);
+  const recordsList = document.querySelector('.records-list');  
+  userRecords.forEach(record => {
+    const li = document.createElement('li');
+    li.textContent = `일시: ${record.record_date}, 이동시간: ${record.TIME}, 거리: ${record.km}, 코인: ${record.coin}`;
+    recordsList.appendChild(li);
+  });
+})
+
+import { RestApiData } from "./extendsTools/restApiData.js";
+import { NaviResult } from "./extendsTools/naviResult.js";
+class MyData{
+  //흐름
+  constructor(){
+
+    this.restApiTool = new RestApiData();
+    this.naviResultTool = new NaviResult();
+
+    this.getUserRecordsData();
+
+    this.createUserRecordsData();
+  }
+
+  //
+  getUserRecordsData(){
+    this.restApiTool.getRecordData().then(
+
+    )
+  }
+
+  //
+  createUserRecordsData(){
+    const data ;
+    const 
+
+    data.addEventListener("click", ()=>{
+
+        this.naviResultTool.createResultBoard();
     })
-    .catch(error => {
-        console.error('업데이트 실패:', error);
-        // 업데이트 실패 시 처리할 내용
-    });
+  }
+
+  createCircleChart(){
+
+  }
+
+
+}
+
+window.onload = ()=>{
+  new MyData();
+}
