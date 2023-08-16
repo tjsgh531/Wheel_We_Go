@@ -35,19 +35,19 @@
             </div>
         </div>
         <div class="main-container">
-            <a class="shop-ing" href="">
+            <a class="shop-ing" href="{% url 'shopping' %}">
                 <img src="{% static 'img/쇼핑하기.png' %}" alt="쇼핑">
                 <div>쇼핑하기</div>
             </a>
-            <a class="my-data" href="">
+            <a class="my-data" href="{% url 'mydata' %}">
                 <img src="{% static 'img/내데이터.png' %}" alt="내 데이터">
                 <div>내 데이터</div>
             </a>
-            <a class="coin-list" href="">
+            <a class="coin-list" href="{% url 'no' %}">
                 <img src="{% static 'img/코인내역.png' %}" alt="코인내역">
                 <div>코인내역</div>
             </a>
-            <a class="shop-list" href="">
+            <a class="shop-list" href="{% url 'no' %}">
                 <img src="{% static 'img/장바구니.png' %}" alt="장바구니">
                 <div>장바구니</div>
             </a>
