@@ -6,6 +6,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=640, user-scalable=yes">
     <title>Wheel We Go</title>
+    <link rel="icon" type="image/x-icon" href="{% static 'img/favicon.png' %}">
     <!-- JQuery CDN-->
     <script src="//code.jquery.com/jquery-3.2.1.min.js"></script>
     
@@ -57,7 +58,6 @@
                 </div>
 
                 <div class="sideBar_profile">
-
                     <div class="profile_image">
                         <img class="profile_img" src="{% static 'img/프로필.png' %}" alt="프로필">
                     </div>
@@ -73,7 +73,6 @@
                             {% endif %}
                         </div>
                     </div>
-
                 </div>
     
                 <div class="sideBarItems">
@@ -94,7 +93,16 @@
 
         {% endblock %}
 
+        {% block bottomBar %}
+
+        {% endblock %}
+
         {% block resultBoard %}
+        
+        {% endblock %}
+
+                
+        {% block writeMarking %}
         
         {% endblock %}
 

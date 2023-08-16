@@ -3,7 +3,7 @@
 {% block script %}
    
     <link rel="stylesheet" href="{% static 'css/search.css' %}" type = "text/css">
-    <link rel="stylesheet" href="{% static 'css/searchResult.css' %}"
+    <link rel="stylesheet" href="{% static 'css/searchResult.css' %}">
 
 {% endblock %}
 
@@ -52,7 +52,7 @@
                 </div>
                 <div class="naviDataCautionBtn1">
                     <div class="naviDataCautionBtn_Start1">일반 경로 안내받기</div>
-                    <div class="naviDataCautionBtn_Record1">이동경로 기록하기</div>
+                    <div class="naviDataCautionBtn_Record1">이동 경로 기록하기</div>
                 </div>
             </div>
         </div>
@@ -73,7 +73,7 @@
                 </div>
                 <div class="naviDataCautionBtn2">
                     <div class="naviDataCautionBtn_Start2">일반 경로 안내받기</div>
-                    <div class="naviDataCautionBtn_Record2">이동경로 기록하기</div>
+                    <div class="naviDataCautionBtn_Record2">이동 경로 기록하기</div>
                     <div class="naviDataCautionBtn_RecordNavi1">기록하면서 경로 안내받기</div>
                 </div>
             </div>
@@ -87,7 +87,7 @@
                     <span class="dataCount3">1,234</span>
                     개 있습니다 <br>
                     더 완벽한 내비게이션을 위해 <br>
-                    당신의 이동경로를 기록해 주세요.
+                    당신의 이동 경로를 기록해 주세요.
                 </div>
                 <div style="display: flex; justify-content: center; align-items: center; margin: 1rem;">
                     <img class="coinImg" src="{% static 'img/코인.png' %}">
@@ -102,43 +102,100 @@
     </div>
 {% endblock %}
 
+{% block bottomBar %}
+    <div class="bottomBar unactive">
+        <div class="functionInfo">
+            <div class="fuctionDataRecord unactive">
+                <img class="fuctionDataRecordImg" src="{% static 'img/데이터기록.png' %}">
+                <div class="fuctionDataRecordTxt">데이터 기록</div>
+            </div>
+            <div class="functionRoadNavi unactive">
+                <img class="functionRoadNaviImg" src="{% static 'img/시간.png' %}">
+                <div class="functionRoadNaviTxt">휠체어 경로 안내</div>
+            </div>
+            <div class="funcitonArriveTime unactive">
+                <div class="funcitonArriveTimeContent">
+                    <img class="funcitonArriveTimeImg" src="{% static 'img/타이머.png' %}">
+                    <div class="funcitonArriveTimeValue">18</div>
+                    분
+                </div>
+                <div class="funcitonArriveTimeTxt">도착 예상 시간</div>
+            </div>
+            <div class="functionGetCoin unactive">
+                <div class="functionGetCoinContent">
+                    <img class="functionGetCoinImg" src="{% static 'img/코인.png' %}">
+                    <span class="functionGetCoinValue">180</span>
+                </div>
+                <div class="functionGetCoinTxt">획득 예상 코인</div>
+            </div>
+        </div>
+        <div class="startBtn">
+            시작하기
+        </div>
+    </div>
+{% endblock %}
 
 {% block resultBoard %}
 <div class="resultBoard unactive">
     <div class="drag_bar"></div>
-    <div class="result_sumary">
-    
+    <div class="result_summary">
+
         <!-- 데이터 상태 -->
-        <div class="result_sumary_item data_valid">
+        <div class="result_summary_item data_valid">
             <div class="data_valid_text">데이터 상태</div>
-            <div class="data_valid_item"></div>
+            <div class="data_valid_item data_item"></div>
         </div>
 
         <!-- 이동시간 -->
-        <div class="result_sumary_item data_time">
+        <div class="result_summary_item data_time">
             <div class="data_time_text">이동 시간</div>
-            <div class="data_time_item"></div>
+            <div class="data_time_item data_item"></div>
         </div>
         
         <!-- 이동 거리 -->
-        <div class="result_sumary_item data_distance">
+        <div class="result_summary_item data_distance">
             <div class="data_distance_text">이동 거리</div>
-            <div class="data_distance_item"></div>
+            <div class="data_distance_item data_item"></div>
         </div>
 
         <!-- 획득 코인 -->
-        <div class="result_sumary_item data_coin">
+        <div class="result_summary_item data_coin">
             <div class="data_coin_text">획득 코인</div>
-            <div class="data_coin_item"></div>
+            <div class="data_coin_item data_item"></div>
         </div>
     </div>
-    <div class="result_content">
-        <div class="marking_state">
 
+    <div class="result_content">
+        <div class="result_content_title"> 
+            <div class="result_left_arrow"><i class="fa-solid fa-caret-left"></i></div>
+            <div class="result_title_text">마킹지역</div> 
+            <div class="result_right_arrow"><i class="fa-solid fa-caret-right"></i></div>
         </div>
+        
+        <div class="marking_content">
+            <div class="marking_state">
+
+                
+            </div>
+            <div class="marking_state_page">
+                    
+            </div>
+        </div>
+
         <div class="compare_time">
 
         </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block writeMarking %}
+<div class="marking_write_board unactive">
+    <div class="marking_write_title"></div>
+    <textarea  class="marking_write_content"></textarea>
+    <div class="marking_write_btns">
+        <div class="marking_write_cancle_btn">작성 취소</div>
+        <div class="marking_write_submit_btn">작성 완료</div>
     </div>
 </div>
 {% endblock %}
