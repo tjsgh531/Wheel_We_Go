@@ -3,8 +3,6 @@
 {% block script %}
    
     <link rel="stylesheet" href="{% static 'css/search.css' %}" type = "text/css">
-    <script src = "base.js"></script>
-    <script src = "navi.js"></script>
 
 {% endblock %}
 
@@ -43,27 +41,62 @@
                 데이터가 부족해요!
                 <img class="lowDataImg" src="{% static 'img/부족이모티콘.png' %}">
                 <div class="lowDataContentTxt"><br>해당 지역의 휠체어 기록이 
-                    <span class="dataCount">36</span>
+                    <span class="dataCount1">36</span>
                     개 있습니다 <br>
                     당신의 기록으로 내비게이션을 완성해주세요.
                 </div>
                 <div style="display: flex; justify-content: center; align-items: center; margin: 1rem;">
                     <img class="coinImg" src="{% static 'img/코인.png' %}">
-                    <span class="coin">240</span>
+                    <span class="coin1">240</span>
                 </div>
-                <div class="naviDataCautionBtn">
-                    <div class="naviDataCautionBtn_Start">일반 경로 안내받기</div>
-                    <div class="naviDataCautionBtn_Record">이동경로 기록하기</div>
+                <div class="naviDataCautionBtn1">
+                    <div class="naviDataCautionBtn_Start1">일반 경로 안내받기</div>
+                    <div class="naviDataCautionBtn_Record1">이동경로 기록하기</div>
                 </div>
             </div>
         </div>
 
-        <div class="iffyData">
-
+        <div class="iffyData unactive">
+            <div class="iffyDataContent">
+                데이터가 애매해요!
+                <img class="iffyDataImg" src="{% static 'img/애매이모티콘.png' %}">
+                <div class="iffyDataContentTxt"><br>해당 지역의 휠체어 기록이 
+                    <span class="dataCount2">98</span>
+                    개 있습니다 <br>
+                    완전한 휠체어 내비게이션을 위해서 <br>
+                    당신의 기록을 주세요!
+                </div>
+                <div style="display: flex; justify-content: center; align-items: center; margin: 1rem;">
+                    <img class="coinImg" src="{% static 'img/코인.png' %}">
+                    <span class="coin2">240</span>
+                </div>
+                <div class="naviDataCautionBtn2">
+                    <div class="naviDataCautionBtn_Start2">일반 경로 안내받기</div>
+                    <div class="naviDataCautionBtn_Record2">이동경로 기록하기</div>
+                    <div class="naviDataCautionBtn_RecordNavi1">기록하면서 경로 안내받기</div>
+                </div>
+            </div>
         </div>
 
-        <div class="fullData">
-            
+        <div class="enoughData unactive">
+            <div class="enoughDataContent">
+                데이터가 충분해요!
+                <img class="enoughDataImg" src="{% static 'img/충분이모티콘.png' %}">
+                <div class="enoughDataContentTxt"><br>해당 지역의 휠체어 기록이 
+                    <span class="dataCount3">1,234</span>
+                    개 있습니다 <br>
+                    더 완벽한 내비게이션을 위해 <br>
+                    당신의 이동경로를 기록해 주세요.
+                </div>
+                <div style="display: flex; justify-content: center; align-items: center; margin: 1rem;">
+                    <img class="coinImg" src="{% static 'img/코인.png' %}">
+                    <span class="coin3">240</span>
+                </div>
+                <div class="naviDataCautionBtn3">
+                    <div class="naviDataCautionBtn_Start3">일반 경로 안내받기</div>
+                    <div class="naviDataCautionBtn_RecordNavi2">기록하면서 경로 안내받기</div>
+                </div>
+            </div>
         </div>
     </div>
 {% endblock %}
