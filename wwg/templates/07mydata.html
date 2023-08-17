@@ -35,6 +35,26 @@
                     <div><span class="square-2"></span> 오류 데이터</div>
                 </div>
             </div>
+
+            <!-- 동 필터링 -->
+            <select id="startNameFilter">
+                <option value="">전체</option>
+                <!-- 유저의 startName 옵션들이 동적으로 추가 -->
+            </select>
+
+            <!-- 날짜 범위 필터링 -->
+            <select id="dateRangeFilter">
+                <option value="1">1개월</option>
+                <option value="3">3개월</option>
+                <option value="6">6개월</option>
+                <option value="12">12개월</option>
+            </select>
+            <!-- 정렬 옵션 -->
+            <select id="sortOption">
+                <option value="latest">최신순</option>
+                <option value="oldest">오래된 순</option>
+            </select>
+
             <!-- 그래프 -->
             <div class="chart-container">
                 <span class="chart"></span>
@@ -42,11 +62,13 @@
             </div>
             <div class="filter-time"></div>
 
-            <div>
-                <div class="data-list">
-                    <!-- 데이터 들어옴 자리-->
-                    <ul class="records-list">
-                    </ul>
+
+                <div> 
+                    <div class="data-list">
+            <!-- 선택된 startName에 해당하는 기록들을 나타낼 영역 -->
+                        <ul class="records-list">
+                        </ul>
+                    </div>
                 </div>
             </div>
         </div>
