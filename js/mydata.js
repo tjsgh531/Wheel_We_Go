@@ -43,7 +43,6 @@ class MyData {
 
       // 우선 정렬 화면에 표시
       this.displayRecords(userRecords);
-      saveCurrentNormalDataNum("None");
 
       /////// 동 필터링 설정( html에서 필터링 id가져오기 )
       const startNameFilter = document.getElementById('startNameFilter');

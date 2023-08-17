@@ -123,7 +123,6 @@ export class Navi {
             const strdata = tData.getAddressFromGeoJson(`${lat}`,`${lon}`, optionObj, params);
             resolve(strdata);
         });
-
     }
     //트래킹 시작
     trackingPath(){
@@ -206,7 +205,6 @@ export class Navi {
             this.loadGetLonLatFromAddress(endpoint[0], endpoint[1])
             .then((end_addr_str)=>{
                 const end_str = end_addr_str;
-
 
                 //데이터 저장 하기
 
@@ -470,7 +468,7 @@ export class Navi {
         
         // "기록 삭제하고 중단하기" 버튼 클릭 시
         abortRecordDeleteAbortBtn.addEventListener('click', ()=>{
-            
+
         });
 
         // "기록 저장하고 중단하기" 버튼 클릭 시

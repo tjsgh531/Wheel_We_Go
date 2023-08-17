@@ -495,11 +495,7 @@ export class Search {
         const functionGetCoin = document.querySelector(".functionGetCoin");
 
         const startBtn = document.querySelector(".startBtn");
-        const search_cancle = document.querySelector(".search_cancle")
-
-        const funcitonArriveTimeValue = document.querySelector(".funcitonArriveTimeValue");
-        const functionGetCoinValue = document.querySelector(".functionGetCoinValue");
-        
+        const search_cancle = document.querySelector(".search_cancle");        
 
         const funcitonArriveTimeValue = document.querySelector(".funcitonArriveTimeValue");
         const functionGetCoinValue = document.querySelector(".functionGetCoinValue");
