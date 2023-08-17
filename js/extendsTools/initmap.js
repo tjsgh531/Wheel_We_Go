@@ -14,6 +14,7 @@ export class InitMap {
                     width: "100vw",
                     height: "100vh",
                     zoom: 18,
+                    scaleBar: true
                 });
                 
                 resolve(map);
