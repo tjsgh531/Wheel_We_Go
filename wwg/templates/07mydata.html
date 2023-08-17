@@ -23,8 +23,12 @@
             </a>
             <div class="line"></div>
 
-            <div class="filter-adress">
-            </div>
+            <!-- 동 필터링 -->
+            <select id="startNameFilter">
+                <option value="">전체</option>
+                <!-- 유저의 startName 옵션들이 동적으로 추가 -->
+            </select>
+
 
             <div class="square-container"> <!--그래프 색깔 구분표 -->
                 <div class="square">
@@ -36,43 +40,35 @@
                 </div>
             </div>
 
-            <!-- 동 필터링 -->
-            <select id="startNameFilter">
-                <option value="">전체</option>
-                <!-- 유저의 startName 옵션들이 동적으로 추가 -->
-            </select>
-
-            <!-- 날짜 범위 필터링 -->
-            <select id="dateRangeFilter">
-                <option value="1">1개월</option>
-                <option value="3">3개월</option>
-                <option value="6">6개월</option>
-                <option value="12">12개월</option>
-            </select>
-            <!-- 정렬 옵션 -->
-            <select id="sortOption">
-                <option value="latest">최신순</option>
-                <option value="oldest">오래된 순</option>
-            </select>
-
             <!-- 그래프 -->
             <div class="chart-container">
                 <span class="chart"></span>
                 <span class="chart-shadow"></span>
             </div>
-            <div class="filter-time"></div>
+            <div class="dateFilter">
+                <!-- 날짜 범위 필터링 -->
+                <select id="dateRangeFilter">
+                    <option value="1">1개월</option>
+                    <option value="3">3개월</option>
+                    <option value="6">6개월</option>
+                    <option value="12">12개월</option>
+                </select>
 
+                <!-- 정렬 옵션 -->
+                <select id="sortOption">
+                    <option value="latest">최신순</option>
+                    <option value="oldest">오래된 순</option>
+                </select>
+            </div>
 
-                <div> 
-                    <div class="data-list">
-            <!-- 선택된 startName에 해당하는 기록들을 나타낼 영역 -->
-                        <ul class="records-list">
-                        </ul>
-                    </div>
-                </div>
+            <div class="data-list">
+                <!-- 선택된 startName에 해당하는 기록들을 나타낼 영역 -->
+                <ul class="records-list">
+                </ul>
             </div>
         </div>
-        <!--
+    </div>
+    <!--
         <div class="mydata-page-02">
             <div id="map_div"></div>
             <div class="choice-route">
@@ -93,8 +89,8 @@
             </div>
             <div class="data-container">
                 <div class="bar"></div>-->
-        <!-- 데이터상태&이동시간&이동거리&획득코인 -->
-        <!-- <div class="all-data">
+    <!-- 데이터상태&이동시간&이동거리&획득코인 -->
+    <!-- <div class="all-data">
                     <div class="data-00">
                         <div>데이터 상태</div>
                         <div>-</div>
@@ -113,10 +109,10 @@
                     </div>
                 </div>
                 <div class="container"> -->
-        <!--비장애인과의 이동시간 차이 -->
-        <!-- <div class="important-data"> -->
+    <!--비장애인과의 이동시간 차이 -->
+    <!-- <div class="important-data"> -->
 
-        <!-- <div class="section gap active">
+    <!-- <div class="section gap active">
 
                         <div class="button-container">
                             <div>비장애인과의 이동시간 차이</div>
@@ -135,8 +131,8 @@
                         </div>
                     </div> -->
 
-        <!-- 이 지역 지도 완성도 -->
-        <!--<div class="section complete">
+    <!-- 이 지역 지도 완성도 -->
+    <!--<div class="section complete">
                         <div class="button-container">
                             <button class="prev-button">&lt;</button>
                             <div>완성도</div>
@@ -152,8 +148,8 @@
                             </div>
                         </div>
                     </div> -->
-        <!-- 마킹 지역 -->
-        <!--  <div class="section marking">
+    <!-- 마킹 지역 -->
+    <!--  <div class="section marking">
 
                         <div class="button-container">
                             <button class="prev-button">&lt;</button>
