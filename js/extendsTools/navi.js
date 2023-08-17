@@ -20,6 +20,7 @@ export class Navi {
         this.pType = "";
         this.size;
         this.expectCoin;
+        this.expectTime;
 
         this.totalMarkerArr = [];
         this.drawInfoArr =[];
@@ -299,6 +300,7 @@ export class Navi {
                     console.log(tDistance + tTime);
                     console.log("navi :", this);
                     this.expectCoin = Math.floor(((resultData[0].properties.totalDistance) / 1000).toFixed(1) * 10);
+                    this.expectTime = ((resultData[0].properties.totalTime) / 60).toFixed(0);
                     console.log("coin :", this.expectCoin);
                     
                     // $("#result").text(tDistance + tTime);

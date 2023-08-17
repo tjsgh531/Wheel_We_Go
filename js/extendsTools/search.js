@@ -494,12 +494,19 @@ export class Search {
 
         const startBtn = document.querySelector(".startBtn");
 
+        const funcitonArriveTimeValue = document.querySelector(".funcitonArriveTimeValue");
+        const functionGetCoinValue = document.querySelector(".functionGetCoinValue");
+        
+
         bottomBar.classList.toggle("unactive", false); // 하단바 보이게 하기
 
         if(this.naviMode == 1){ // "일반 경로 안내받기" 버튼
             fuctionDataRecord.classList.toggle("unactive", false); // "데이터 기록" 보이게 하기
             funcitonArriveTime.classList.toggle("unactive", false); // "도착 예상 시간" 보이게 하기
             functionGetCoin.classList.toggle("unactive", false); // "획득 예상 코인" 보이게 하기
+            console.log("expectTime : " ,this.naviTool.expectTime);
+            funcitonArriveTimeValue.textContent = `${this.naviTool.expectTime}`;
+            functionGetCoinValue.textContent = `${this.naviDataCautionTool.expectCoin}`;
 
             startBtn.addEventListener('click', ()=>{ // "시작하기" 버튼 클릭
                 this.bottomBarAllUnactive();
@@ -509,6 +516,9 @@ export class Search {
             fuctionDataRecord.classList.toggle("unactive", false); 
             funcitonArriveTime.classList.toggle("unactive", false); 
             functionGetCoin.classList.toggle("unactive", false); 
+            console.log("expectTime : " ,this.naviTool.expectTime);
+            funcitonArriveTimeValue.textContent = `${this.naviTool.expectTime}`;
+            functionGetCoinValue.textContent = `${this.naviDataCautionTool.expectCoin}`;
 
             startBtn.addEventListener('click', ()=>{
                 this.bottomBarAllUnactive();
@@ -520,10 +530,13 @@ export class Search {
             functionRoadNavi.classList.toggle("unactive", false); // "휠체어 경로 안내" 보이게 하기
             funcitonArriveTime.classList.toggle("unactive", false); 
             functionGetCoin.classList.toggle("unactive", false); 
+            console.log("expectTime : " ,this.naviTool.expectTime);
+            funcitonArriveTimeValue.textContent = `${this.naviTool.expectTime}`;
+            functionGetCoinValue.textContent = `${this.naviDataCautionTool.expectCoin}`;
 
             startBtn.addEventListener('click', ()=>{
                 this.bottomBarAllUnactive();
-                // this.naviTool.trackingPath();
+                this.naviTool.trackingPath();
             });
         }
     }
