@@ -2,7 +2,6 @@ import { InitMap } from "./extendsTools/initmap.js";
 import { DrawShape } from "./extendsTools/drawShape.js";
 import { CurrentPos } from "./extendsTools/currentPos.js";
 import { Search } from "./extendsTools/search.js";
-// import { NaviResult } from "./extendsTools/naviResult.js";
 
 class MapBase{
     constructor(){
@@ -10,11 +9,11 @@ class MapBase{
         this.currentPos = new CurrentPos();
         this.drawShape = new DrawShape();
         this.searchTool = new Search();
-        // const naviResult = new NaviResult();
 
         this.map;
         this.currentLat, this.currentLon;
         this.centerCircle;
+        this.istrackingCenter = true;
         this.start();
     }
 
@@ -37,14 +36,17 @@ class MapBase{
     }
 
     updateSetCenterCircle(latitude, longitude, newPosition){
-        this.map.setCenter(newPosition);
+        if(this.istrackingCenter){
+            this.map.setCenter(newPosition);
 
-        if(this.centerCircle){
-           this.centerCircle = this.drawShape.moveCircle(this.centerCircle, latitude, longitude);
+            if(this.centerCircle){
+               this.centerCircle = this.drawShape.moveCircle(this.centerCircle, latitude, longitude);
+            }
+            else{
+                this.centerCircle = this.drawShape.addCircle(latitude, longitude, 4);
+            }
         }
-        else{
-            this.centerCircle = this.drawShape.addCircle(latitude, longitude, 4);
-        }
+
     }
 
     initSetMap(){
@@ -59,6 +61,14 @@ class MapBase{
                 map.on("ConfigLoad", ()=>{  
                     this.drawShape.setMap(map);
                     this.searchTool.setMap(map);
+
+                    /*
+                    // map을 클릭하면 현재위치를 센터링 하지말고 맵이 움직이게
+                    this.map.addEventListener("mousedown", ()=>{
+                        console.log("마우스 다운!!");
+                        this.istrackingCenter = false;
+                    })
+                    */
                     this.watchid = this.currentPos.watchLocation(this.update.bind(this));
                 }); 
             });

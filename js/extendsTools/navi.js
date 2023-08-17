@@ -430,6 +430,11 @@ export class Navi {
         return this.expectCoin
     }
 
+    // navi 하단 바 활성화 함수
+    onNaviFooter(){
+
+    }
+
     // 기록 중단(네비, 트래킹)
     abortRecord(){
         const abortRecordBackgroundBlur = document.querySelector(".abortRecordBackgroundBlur");
