@@ -627,7 +627,7 @@ export class Navi {
             dataRecordAbortblur.classList.toggle("unactive", true);
             this.resetGnb(); // main 페이지의 초기 화면으로 세팅
             
-            
+
         });
 
         submitResultAbortBtn.addEventListener("click", ()=>{
