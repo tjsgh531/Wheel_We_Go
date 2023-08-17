@@ -40,6 +40,7 @@ export class NaviDataCaution{
         
                 backgroundBlur.classList.toggle("unactive", false);
                 console.log(data[1]["kms"]);
+                console.log("아무거나쳐",data);
 
                 // 데이터의 총 km를 기준으로 출력 화면 변화
                 if( data[1]["kms"] <= 10) {

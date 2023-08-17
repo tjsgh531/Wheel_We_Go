@@ -36,7 +36,7 @@ export class Navi {
         this.trackingCoords = [];
         this.trackingMarkers = [];
         this.trackingMarkersCoords = [];
-        this.trackingMarkStr ="";
+        
 
         this.tracking_dis = 0;
 
@@ -227,7 +227,7 @@ export class Navi {
     }
 
     // tracking 데이터 생성
-    createTrackingData(){
+    async createTrackingData(){
         //날짜 정보 생성
         const currentDate = this.createDateInfo();
 
@@ -238,7 +238,7 @@ export class Navi {
         const startpoint = this.trackingCoords[0];
         const endpoint = this.trackingCoords[this.trackingCoords.length -1];
 
-        this.loadGetLonLatFromAddress(startpoint[0], startpoint[1])
+        return this.loadGetLonLatFromAddress(startpoint[0], startpoint[1])
         .then((start_addr_str)=>{
             const start_str = start_addr_str;
             this.loadGetLonLatFromAddress(endpoint[0], endpoint[1])
@@ -246,7 +246,7 @@ export class Navi {
                 const end_str = end_addr_str;
 
                 //데이터 저장 하기
-
+                const markerStr = this.naviResult.getMarkerStr();
                 this.trackingData = {
                     startpoint: startpoint,
                     endpoint : endpoint,
@@ -260,7 +260,7 @@ export class Navi {
                     coords: this.trackingCoords,//[[lat,lon],[...]....]
                     data_valid : 0,//int 0~1
                     markings : this.trackingMarkersCoords, //coords 동일
-                    markingStr : this.trackingMarkStr, //string
+                    markingStr : markerStr, //string
                     date : currentDate, //날짜
                 }
 
@@ -656,23 +656,32 @@ export class Navi {
         dataRecordAbortblur.classList.toggle("unactive", false);
 
         myDataBtn.addEventListener("click", ()=>{
-            const saveData = this.createTrackingData();
-            this.restApiData.createSaveRecord(saveData);
-            console.log("트래킹 데이터", this.trackingData);
-            this.eraseTrackingLine(); // 
-            dataRecordAbortblur.classList.toggle("unactive", true);
-            this.resetGnb(); // main 페이지의 초기 화면으로 세팅
-            
+            this.createTrackingData().then((saveData)=>{
+                // this.restApiData.createSaveRecord(saveData); // 트래킹 데이터 DB 저장
+                console.log("트래킹 데이터", this.trackingData); 
+                this.eraseTrackingLine(); // 트래킹 라인 삭제
+                this.resetMarkers();
+                dataRecordAbortblur.classList.toggle("unactive", true); // 마지막 화면 끄기
+                this.resetGnb(); // main 페이지의 초기 화면으로 세팅
 
+                window.location.href = "http://127.0.0.1:8000/mydata";
+                /*
+                const goMyData = document.querySelector(".goMyData");
+                goMyData.click();
+                */
+            }); // 트래킹 데이터 생성
         });
 
         submitResultAbortBtn.addEventListener("click", ()=>{
-            const saveData = this.createTrackingData();
-            this.restApiData.createSaveRecord(saveData);
-            console.log("트래킹 데이터", this.trackingData);
-            this.eraseTrackingLine(); // 
-            dataRecordAbortblur.classList.toggle("unactive", true);
-            this.resetGnb(); // main 페이지의 초기 화면으로 전환
+            this.createTrackingData().then((saveData)=>{
+                this.restApiData.createSaveRecord(saveData);
+                console.log("트래킹 데이터", this.trackingData);
+                console.log("트래킹 데이터 마커 스트링", this.trackingData.markingStr);
+                this.eraseTrackingLine(); //
+                this.resetMarkers(); 
+                dataRecordAbortblur.classList.toggle("unactive", true);
+                this.resetGnb(); // main 페이지의 초기 화면으로 전환
+            });
         });   
     }
 }
