@@ -209,21 +209,22 @@ export class Navi {
 
 
                 //데이터 저장 하기
+
                 this.trackingData = {
                     startpoint: startpoint,
                     endpoint : endpoint,
 
-                    startName : start_str,
+                    startName : start_str, 
                     endName : end_str,
 
-                    AtTime : this.costTime,
-                    distance : this.tracking_dis,
-                    coin : coin,
-                    coords: this.trackingCoords,
-                    data_valid : 0,
-                    markings : this.trackingMarkersCoords,
-                    markingStr : this.trackingMarkStr,
-                    date : currentDate,
+                    AtTime : this.costTime, //int
+                    distance : this.tracking_dis, //float
+                    coin : coin,//int
+                    coords: this.trackingCoords,//[[lat,lon],[...]....]
+                    data_valid : 0,//int 0~1
+                    markings : this.trackingMarkersCoords, //coords 동일
+                    markingStr : this.trackingMarkStr, //string
+                    date : currentDate, //날짜
                 }
 
                 const saveJsonData = JSON.stringify(this.trackingData);
