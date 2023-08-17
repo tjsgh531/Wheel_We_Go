@@ -134,6 +134,9 @@ export class Search {
                 search_result.classList.toggle("unactive", false);
     
                 gnb.classList.toggle("search_gnb", true);
+
+                search_result.innerHTML = ""; //내용 제거
+                this.createCurPosSearchBlock(); //내 위치 넣기
             });
             
             // 검색어 입력시
@@ -157,6 +160,8 @@ export class Search {
                         const newresult = result;
     
                         search_result.innerHTML = ""; //내용 제거
+                        this.createCurPosSearchBlock(); //내 위치 넣기
+
                         console.log("검색 결과 : ", newresult);
     
                         for(let i in newresult.name_list){
@@ -175,6 +180,7 @@ export class Search {
                             // 검색 결과를 클릭 한 경우
                             searchBlock.addEventListener('click',()=>{
                                 search_result.innerHTML = ""; //내용 제거
+                                this.createCurPosSearchBlock(); //내 위치 넣기
 
                                 sideBarBtn.classList.toggle("unactive", false);
                                 searchIcon.classList.toggle('unactive', false);
@@ -191,6 +197,33 @@ export class Search {
 
         // 검색 취소 버튼 클릭
         search_cancle.addEventListener('click', this.clickSearchCancleBtn.bind(this));
+    }
+
+    createCurPosSearchBlock(){
+        const search_result = document.querySelector('.search_result'); // 검색 결과창
+        const sideBarBtn = document.querySelector('.sideBarBtn');
+        const searchIcon = document.querySelector('.searchIcon');
+
+        const searchBlock = document.createElement('div');
+        searchBlock.classList.add("searchBlock");
+        searchBlock.innerHTML = `<div class="search_cur_pos">내 위치</div>`;
+    
+        search_result.appendChild(searchBlock);
+    
+        // 검색 결과를 클릭 한 경우
+        searchBlock.addEventListener('click',()=>{
+            search_result.innerHTML = ""; //내용 제거
+            this.createCurPosSearchBlock(); //내 위치 넣기
+
+            sideBarBtn.classList.toggle("unactive", false);
+            searchIcon.classList.toggle('unactive', false);
+            search_result.classList.toggle("unactive", true);                
+
+            // 내위치 관련 블락 클릭 이벤트
+            this.naviTool.loadGetLonLatFromAddress(this.currentLat, this.currentLon).then((cur_addr)=>{
+                this.clickSearchBlock(this.currentLat, this.currentLon, "내 위치", cur_addr, "");
+            });
+        });
     }
 
     clickSearchCancleBtn(){
@@ -227,6 +260,8 @@ export class Search {
         });
        
         search_result.innerHTML = ""; //내용 제거
+        this.createCurPosSearchBlock(); //내 위치 넣기
+
         this.search_navi_info = [null, null]; //검색 내용 초기화
       
         this.eraseAllMarkers.bind(this); // 마커 지우기

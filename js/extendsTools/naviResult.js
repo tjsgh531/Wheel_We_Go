@@ -75,7 +75,7 @@ export class NaviResult{
 
         for(let i = 0; i < marker_length; i++){
             this.markString.push("");
-            if(i % 4 == 0){
+            if(i % 3 == 0){
                 if(marking_group){
                     marking_state.appendChild(marking_group);
                     pageNum++;
@@ -208,4 +208,5 @@ export class NaviResult{
             all_state_div[i].textContent = `${this.markString[i]}`;
         }
     }
+
 }
