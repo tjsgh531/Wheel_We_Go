@@ -474,6 +474,7 @@ export class Navi {
         const navi_marking_btn = document.querySelector(".navi_marking_btn");
         const arrive_btn = document.querySelector(".arrive_btn");
         const resultBoard = document.querySelector(".resultBoard");
+        const submit_result = document.querySelector(".submit_result");
 
         //초기화
         navi_footer.classList.toggle("unactive", false); // 네비 footer 보이게 하기
@@ -481,7 +482,7 @@ export class Navi {
         navi_marking_btn.classList.toggle("unactive", true);
         arrive_btn.classList.toggle("unactive", true);
 
-        //경로 추적만 일경우 네비 지우기
+        //경로 추적만일 경우 네비 지우기
         if(naviMode == 2){
             this.eraseLineMarks();
         }
@@ -491,6 +492,7 @@ export class Navi {
             navi_terminate_btn.classList.toggle("unactive", false);
             arrive_btn.classList.toggle("unactive", false);
         }
+        
         //트래킹만 하기 & 트래킹+경로안내
         else{
             navi_terminate_btn.classList.toggle("unactive", false);
@@ -525,6 +527,11 @@ export class Navi {
                 this.naviResult.createResultContentBoard(this.trackingMarkers);
 
                 resultBoard.classList.toggle("unactive", false); // 결과창 화면 상에 표시
+
+                submit_result.addEventListener("click", ()=>{ // 결과창의 "데이터 저장하고 종료하기" 버튼 를릭 시
+                    resultBoard.classList.toggle("unactive", true); // 결과창 화면 끄기
+                    this.resultSaveSubmit();
+                });
             }
 
             navi_footer.classList.toggle("unactive", true); // footer 안보이게 하기
@@ -541,6 +548,7 @@ export class Navi {
         const abortRecordBackBtn = document.querySelector(".abortRecordBackBtn");
         const abortRecordAbortBtn = document.querySelector(".abortRecordAbortBtn");
         const resultBoard = document.querySelector(".resultBoard");
+        const submit_result = document.querySelector(".submit_result");
 
         //초기화
         abortRecordBackgroundBlur.classList.toggle("unactive", false); // 블러 보이게 하기
@@ -586,6 +594,10 @@ export class Navi {
 
             resultBoard.classList.toggle("unactive", false); // 결과창 화면 상에 표시
             navi_footer.classList.toggle("unactive", true); // footer 안보이게 하기
+            submit_result.addEventListener("click", ()=>{ // 결과창의 "데이터 저장하고 종료하기" 버튼 를릭 시
+                resultBoard.classList.toggle("unactive", true); // 결과창 화면 끄기
+                        this.resultSaveSubmit();                    
+            });
 
         });
 
@@ -633,5 +645,34 @@ export class Navi {
         this.trackingMarkers.forEach(element => {
             element.setMap(null);
         });
+    }
+
+    // "데이터 저장하고 종료하기" 버튼 클릭 시
+    resultSaveSubmit(){
+        const dataRecordAbortblur = document.querySelector(".dataRecordAbortblur");
+        const submitResultAbortBtn = document.querySelector(".submitResultAbortBtn");
+        const myDataBtn = document.querySelector(".myDataBtn");
+        
+        dataRecordAbortblur.classList.toggle("unactive", false);
+
+        myDataBtn.addEventListener("click", ()=>{
+            const saveData = this.createTrackingData();
+            this.restApiData.createSaveRecord(saveData);
+            console.log("트래킹 데이터", this.trackingData);
+            this.eraseTrackingLine(); // 
+            dataRecordAbortblur.classList.toggle("unactive", true);
+            this.resetGnb(); // main 페이지의 초기 화면으로 세팅
+            
+            
+        });
+
+        submitResultAbortBtn.addEventListener("click", ()=>{
+            const saveData = this.createTrackingData();
+            this.restApiData.createSaveRecord(saveData);
+            console.log("트래킹 데이터", this.trackingData);
+            this.eraseTrackingLine(); // 
+            dataRecordAbortblur.classList.toggle("unactive", true);
+            this.resetGnb(); // main 페이지의 초기 화면으로 전환
+        });   
     }
 }
