@@ -123,6 +123,11 @@ def callback_view(request):
 def index_name_mydata(request):
     user= request.user.username
     return render(request,'07mydata.html',{'user':user})
+def index_name_mypage(request):
+    user= request.user.username
+    return render(request,'03mypage.html',{'user':user})
+
+
 
 from django.contrib.auth.decorators import login_required
 
