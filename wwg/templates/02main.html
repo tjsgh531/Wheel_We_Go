@@ -4,6 +4,7 @@
    
     <link rel="stylesheet" href="{% static 'css/search.css' %}" type = "text/css">
     <link rel="stylesheet" href="{% static 'css/searchResult.css' %}">
+    <link rel="stylesheet" href="{% static 'css/abortRecord.css' %}">
 
 {% endblock %}
 
@@ -13,8 +14,6 @@
     <div class="search_result unactive">
  
     </div>
-    
-
 
     <div class="placeInfo unactive">
         <div class="downbar"></div>
@@ -135,6 +134,31 @@
     </div>
 {% endblock %}
 
+
+{% block abortRecord %}
+    <div class="abortRecordBackgroundBlur unactive">
+        <div class="abortRecord">
+            <div class="abortRecordTxtTitle">
+                내비게이션 중단
+            </div>
+            <div class="abortRecordTxtContent">
+                경로 기록과 내비게이션을 중단 하시겠습니까?
+            </div>
+            <div class="abortRecordBtn">
+                <div class="abortRecordDeleteAbortBtn">
+                    기록 삭제하고 중단하기
+                </div>
+                <div class="abortRecordSaveAbortBtn">
+                    기록 저장하고 중단하기
+                </div>
+                <div class="abortRecordBackBtn">
+                    돌아가기
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
 {% block resultBoard %}
 <div class="resultBoard unactive">
     <div class="drag_bar"></div>
@@ -196,6 +220,37 @@
     <div class="marking_write_btns">
         <div class="marking_write_cancle_btn">작성 취소</div>
         <div class="marking_write_submit_btn">작성 완료</div>
+    </div>
+</div>
+{% endblock %}
+
+{% block naviFooter %}
+<div class="navi_footer unactive">
+    <div class="drag_bar"></div>
+
+    <div class="navi_footer_content">    
+        <div class="navi_tools_btns">
+            <!-- 중단 버튼 -->
+            <div class="navi_tools_btns_item navi_terminate_btn">
+                <i class="fa-solid fa-ban" style="margin-right: 1rem;"></i>
+                <div class="navi_terminate_btn_text">중단</div>
+            </div>
+            <!-- 마킹 버튼 -->
+            <div class="navi_tools_btns_item navi_marking_btn">
+                <i class='fa-solid fa-thumbtack' style="margin-right: 1rem;"></i>
+                <div class="navi_marking_btn_text">마킹 하기</div>
+            </div>
+        </div>
+
+        <!-- 도착 버튼 -->
+        <div class="arrive_btn">
+            <div class="arrive_btn_icon">
+                <i class="fa-regular fa-flag"></i>
+            </div>
+            <div class="arrive_btn_text">
+                도착
+            </div>
+        </div>
     </div>
 </div>
 {% endblock %}

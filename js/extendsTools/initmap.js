@@ -1,16 +1,19 @@
+
+
 export class InitMap {
     constructor() {
       
     }
   
     createTmap(lat, lon) {
+
         try {
             return new Promise((resolve, reject)=>{
                 let map = new Tmapv3.Map("map_div", {
                     center: new Tmapv3.LatLng(lat, lon),
                     width: "100vw",
                     height: "100vh",
-                    zoom: 15,
+                    zoom: 18,
                 });
                 
                 resolve(map);

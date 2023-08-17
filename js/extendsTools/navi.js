@@ -20,6 +20,7 @@ export class Navi {
         this.pType = "";
         this.size;
         this.expectCoin;
+        this.expectTime;
 
         this.totalMarkerArr = [];
         this.drawInfoArr =[];
@@ -299,6 +300,7 @@ export class Navi {
                     console.log(tDistance + tTime);
                     console.log("navi :", this);
                     this.expectCoin = Math.floor(((resultData[0].properties.totalDistance) / 1000).toFixed(1) * 10);
+                    this.expectTime = ((resultData[0].properties.totalTime) / 60).toFixed(0);
                     console.log("coin :", this.expectCoin);
                     
                     // $("#result").text(tDistance + tTime);
@@ -377,7 +379,6 @@ export class Navi {
             }) 
         });
     }
-
     
     makeMark(lat, lng){
 
@@ -429,4 +430,15 @@ export class Navi {
         return this.expectCoin
     }
 
+    // navi 하단 바 활성화 함수
+    onNaviFooter(){
+
+    }
+
+    // 기록 중단(네비, 트래킹)
+    abortRecord(){
+        const abortRecordBackgroundBlur = document.querySelector(".abortRecordBackgroundBlur");
+
+        abortRecordBackgroundBlur.classList.toggle("unactive", false); // 블러 보이게 하기
+    }
 }
