@@ -39,6 +39,7 @@ export class Navi {
         this.trackingMarkStr ="";
 
         this.tracking_dis = 0;
+
     }
     
     setMap(map){
@@ -96,33 +97,68 @@ export class Navi {
 
     //위경도에 따른 주소 가져오기
     loadGetLonLatFromAddress(lat, lon) {
-		// TData 객체 생성
-		var tData = new Tmapv3.extension.TData();
+        let headers = {};
+        headers["appKey"] = "l7xxed2c734830ae4364975ef11e67a76e81";
 
-		var optionObj = {
-			coordType: "WGS84GEO",       //응답좌표 타입 옵션 설정 입니다.
-			addressType: "A04"           //주소타입 옵션 설정 입니다.
-		};
-
-		var params = {
-			onComplete: function(){
-                return this._responseData.addressInfo.fullAddress; //출력될 결과 주소 정보 입니다.
-            },      //데이터 로드가 성공적으로 완료 되었을때 실행하는 함수 입니다.
-			//데이터 로드 중에 실행하는 함수 입니다.
-            onProgress: function(){
-                console.log("위경도 -> 주소 변환중...")
-            },
-            //데이터 로드가 실패했을때 실행하는 함수 입니다.      
-			onError: function(){
-                alert("onError")
-            } 
-		};
-
-		// TData 객체의 리버스지오코딩 함수
         return new Promise((resolve, reject)=>{
-            const strdata = tData.getAddressFromGeoJson(`${lat}`,`${lon}`, optionObj, params);
-            resolve(strdata);
+            $.ajax({
+                method : "GET",
+                headers : headers,
+                url : "https://apis.openapi.sk.com/tmap/geo/reversegeocoding?version=1&format=json&callback=result",
+                async : false,
+                data : {
+                    "coordType" : "WGS84GEO",
+                    "addressType" : "A10",
+                    "lon" : lon,
+                    "lat" : lat
+                },
+                success : function(response) {
+                    // 3. json에서 주소 파싱
+                    let arrResult = response.addressInfo;
+
+                    //법정동 마지막 문자 
+                    let lastLegal = arrResult.legalDong
+                            .charAt(arrResult.legalDong.length - 1);
+
+                    // 새주소
+                    let newRoadAddr = arrResult.city_do + ' '
+                            + arrResult.gu_gun + ' ';
+
+                    
+                    if (arrResult.eup_myun == ''
+                            && (lastLegal == "읍" || lastLegal == "면")) {//읍면
+                        newRoadAddr += arrResult.legalDong;
+                    } else {
+                        newRoadAddr += arrResult.eup_myun;
+                    }
+                    newRoadAddr += ' ' + arrResult.roadName + ' '
+                            + arrResult.buildingIndex;
+
+                    // 새주소 법정동& 건물명 체크
+                    if (arrResult.legalDong != ''
+                            && (lastLegal != "읍" && lastLegal != "면")) {//법정동과 읍면이 같은 경우
+
+                        if (arrResult.buildingName != '') {//빌딩명 존재하는 경우
+                            newRoadAddr += (' (' + arrResult.legalDong
+                                    + ', ' + arrResult.buildingName + ') ');
+                        } else {
+                            newRoadAddr += (' (' + arrResult.legalDong + ')');
+                        }
+                    } else if (arrResult.buildingName != '') {//빌딩명만 존재하는 경우
+                        newRoadAddr += (' (' + arrResult.buildingName + ') ');
+                    }
+
+                    console.log("주소!!!! :", newRoadAddr);
+                    resolve(newRoadAddr)
+                },
+                error : function(request, status, error) {
+                    console.log("code:" + request.status + "\n"
+                            + "message:" + request.responseText + "\n"
+                            + "error:" + error);
+                }
+            });
         });
+
     }
     //트래킹 시작
     trackingPath(){
