@@ -24,11 +24,15 @@ div {
     width: 80%;
     display: flex;
     margin: 1rem;
+    align-items: center;
+    justify-content: space-between;
 }
 
 .shop-name {
     display: flex;
-    padding-right: 80%;
+    align-items: center;
+    margin-top: 1rem;
+
 }
 
 .shop-ing img {
