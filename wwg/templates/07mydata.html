@@ -24,11 +24,7 @@
             </a>
             <div class="line"></div>
 
-            <!-- 동 필터링 -->
-            <select id="startNameFilter">
-                <option value="">전체</option>
-                <!-- 유저의 startName 옵션들이 동적으로 추가 -->
-            </select>
+
 
 
             <div class="square-container"> <!--그래프 색깔 구분표 -->
@@ -42,12 +38,25 @@
             </div>
 
             <!-- 그래프 -->
+
             <div class="chart">
-                <div class="chart-container" ,id="doughnutChart">
-                    <canvas id="doughnutChartCanvas"></canvas>
+                <div class="chart-container">
+                <canvas id="doughnutChartCanvas"></canvas>
+                <div class="chart-text-container">
+                    <div class="chart-text"></div>
+                    <div class="chart-percent"></div>
+                </div>
                 </div>
             </div>
+
+
+
             <div class="dateFilter">
+                <!-- 동 필터링 -->
+                <select id="startNameFilter">
+                    <option value="">전체</option>
+                    <!-- 유저의 startName 옵션들이 동적으로 추가 -->
+                </select>
                 <!-- 날짜 범위 필터링 -->
                 <select id="dateRangeFilter">
                     <option value="0">전체</option>

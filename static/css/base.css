@@ -81,9 +81,10 @@ div {
     align-items: center;
 }
 
-.returnToCurPosBtn {
-    width: 3rem;
-    height: 3rem;
+
+.returnToCurPosBtn{
+    width: 4rem;
+    height: 4rem;
 
     display: flex;
     flex-direction: column;

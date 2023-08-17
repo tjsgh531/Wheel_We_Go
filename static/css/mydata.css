@@ -25,34 +25,87 @@ div {
 }
 
 #startNameFilter {
-    border: none;
-    margin-top: 0.5rem;
-    margin-left: 1rem;
-    width: fit-content;
-    height: 1.5rem;
-    border-radius: 0.2rem;
+
+
+      /* 생략 */
+  font-family: "Noto Sansf KR", sans-serif;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5;
+
+  color: #444;
+  background-color: #fff;
+
+  padding: 0.6em 1.4em 0.5em 0.8em;
+  margin: 0;
+
+  border: 0px solid #aaa;
+  border-radius: 0.5em;
+  box-shadow: 0 1px 10px 2px rgba(0, 0, 0, 0.1);
+  display: flex;
+  justify-content:initial;
+
+  /* 박스 내부 여백과 가운데 정렬 설정 */
+  padding: 0.5rem 1rem; /* 위아래 여백 0.2rem, 좌우 여백 1rem */
+  align-items: center; /* 세로 가운데 정렬 */
+
 
 }
-
+.li_box{
+    display: flex;
+}
 #dateRangeFilter {
-    border: none;
-    margin-top: 1rem;
-    width: fit-content;
-    height: 1.5rem;
-    border-radius: 0.2rem;
+      /* 생략 */
+      font-family: "Noto Sansf KR", sans-serif;
+      font-size: 1rem;
+      font-weight: 400;
+      line-height: 1.5;
+    
+      color: #444;
+      background-color: #fff;
+    
+      padding: 0.6em 1.4em 0.5em 0.8em;
+      margin: 0;
+    
+      border: 0px solid #aaa;
+      border-radius: 0.5em;
+      box-shadow: 0 1px 10px 2px rgba(0, 0, 0, 0.1);
+      justify-content:space-around;
+    
+      /* 박스 내부 여백과 가운데 정렬 설정 */
+      padding: 0.5rem 1rem; /* 위아래 여백 0.2rem, 좌우 여백 1rem */
+      align-items: center; /* 세로 가운데 정렬 */
+
 }
 
 #sortOption {
-    border: none;
-    margin-top: 1rem;
-    width: fit-content;
-    height: 1.5rem;
-    border-radius: 0.2rem;
+      /* 생략 */
+      font-family: "Noto Sansf KR", sans-serif;
+      font-size: 1rem;
+      font-weight: 400;
+      line-height: 1.5;
+    
+      color: #444;
+      background-color: #fff;
+    
+      padding: 0.6em 1.4em 0.5em 0.8em;
+      margin: 0;
+    
+      border: 0px solid #aaa;
+      border-radius: 0.5em;
+      box-shadow: 0 1px 10px 2px rgba(0, 0, 0, 0.1);
+      justify-content:space-around;
+    
+      /* 박스 내부 여백과 가운데 정렬 설정 */
+      padding: 0.5rem 1rem; /* 위아래 여백 0.2rem, 좌우 여백 1rem */
+      align-items: center; /* 세로 가운데 정렬 */
+
 }
 
 .dateFilter {
     text-align: end;
     margin: 0.5rem;
+    z-index: 999999;
 }
 
 
@@ -163,19 +216,33 @@ li {
     margin-top: 2rem;
     align-items: center;
 }
-
+.chart-text-container {
+    position: absolute;
+    width: fit-content;
+    height: fit-content;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    
+  }
+  
+  .chart-text {
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin-top: -1rem; /* 텍스트를 더 위로 올리려면 음수 값으로 조정 */
+  }
+  
+  .chart-percent {
+    font-size: 2rem;
+    font-weight: bold;
+  }
 .chart-container {
     display: flex;
-    width: 10rem;
-    height: 10em;
-    justify-content: center;
-    align-items: center;
     flex-direction: column;
-
-    background-repeat: no-repeat;
-    background-position: center center;
-    background-size: cover;
-
+    align-items: center;
+    justify-content: center;
+    height: 100%;
 }
 
 .chart {
