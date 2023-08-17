@@ -31,6 +31,7 @@ class Area {
     }
 
     start() {
+        this.sideBar();
         this.initTmap();
     }
 
@@ -84,7 +85,7 @@ class Area {
                 for (const key in user_data) {
                     console.log(key, user_data[key]);
 
-                    if (user_data[key] < 3 && user_data[key]>=0) {
+                    if (user_data[key] < 3 && user_data[key] >= 0) {
                         color.push("#FF0000");
                     } else if (user_data[key] >= 3 && user_data[key] < 10) {
                         color.push("#FFFF00");
@@ -221,9 +222,9 @@ class Area {
         if (closestIndex !== -1) {
             console.log("법정동 index :", closestIndex);
             console.log(this.polygons[closestIndex].center.lat, this.polygons[closestIndex].center.lng);
-    
+
             const closestNameElement = document.getElementById('closestName');
-            const correspondingName = this.name[closestIndex]; 
+            const correspondingName = this.name[closestIndex];
             console.log("법정동 이름 :", correspondingName);
             closestNameElement.textContent = correspondingName + " 데이터 현황";
         }
@@ -254,6 +255,21 @@ class Area {
 
         const distance = earthRadius * c;
         return distance;
+    }
+
+    sideBar() {
+        const sideBarBtn = document.querySelector('.sideBarBtn');
+        const sideBar = document.querySelector('.sideBar');
+        const sideBar_cancle = document.querySelector('.sideBar_cancle')
+
+        // 사이드 바 나타내기
+        sideBarBtn.addEventListener("click", () => {
+            sideBar.classList.toggle('unactive', false);
+        });
+
+        sideBar_cancle.addEventListener('click', () => {
+            sideBar.classList.toggle('unactive', true);
+        });
     }
 }
 
