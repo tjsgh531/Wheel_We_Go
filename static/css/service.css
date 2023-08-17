@@ -7,6 +7,7 @@ div {
     box-sizing: border-box;
 }
 
+
 #wrap {
     margin: 0 auto;
     max-width: 100vw;
@@ -20,7 +21,7 @@ div {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 500px;
+    /* height: 500px; */
     width: 100vw;
     z-index: 999;
     text-align: center;
@@ -28,11 +29,11 @@ div {
 
 .inform {
     position: absolute;
-/* <<<<<<< HEAD:static/css/service.css */
+    /* <<<<<<< HEAD:static/css/service.css */
     width: 200px;
-/* ======= */
+    /* ======= */
     min-width: 200px;
-/* >>>>>>> main:css/service.css */
+    /* >>>>>>> main:css/service.css */
     height: 120px;
     background-color: #FFFFFF;
     border-radius: 16px;
@@ -48,9 +49,9 @@ div {
 
 .data-count {
     display: inline-flex;
-/* <<<<<<< HEAD:static/css/service.css */
+    /* <<<<<<< HEAD:static/css/service.css */
     font-size: 8px;
-/* ======= */
+    /* ======= */
 }
 
 .dc0,
@@ -67,18 +68,77 @@ div {
 .data-count div {
     margin-right: 5px;
     /* 원하는 간격 설정 */
-/* >>>>>>> main:css/service.css */
+    /* >>>>>>> main:css/service.css */
 }
 
 .km {
     display: inline-flex;
     font-size: 8px;
-/* <<<<<<< HEAD:static/css/service.css */
-/* ======= */
+    /* <<<<<<< HEAD:static/css/service.css */
+    /* ======= */
 }
 
 .km div {
     margin-right: 5px;
     /* 원하는 간격 설정 */
-/* >>>>>>> main:css/service.css */
+    /* >>>>>>> main:css/service.css */
 }
+
+.searchBar{
+    display: flex;
+    position: absolute;
+    top: 50px;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    height: 5rem;
+    width: 60vw;
+
+    padding: 1rem;
+    justify-content: center;
+    align-items: center;
+    z-index: 999;
+    text-align: center;
+    
+}
+/* input{
+    margin: 0;
+} */
+
+
+.searchText{
+    width: 85%;
+    height: 100%;
+    border: none;
+    font-size: 1rem;
+    padding-left: 2rem;
+    display: inline;
+    outline: none;
+    box-sizing: border-box;
+    color: black;
+    margin: 0;
+    border-top-left-radius: 2rem;
+    border-bottom-left-radius: 2rem;
+}
+
+.searchBtn{
+    width: 15%;
+    height: 100%;
+    background-color: white;
+    border: none;
+    font-size: 1rem;
+    color: blue;
+    outline: none;
+    display: inline;
+    margin-left: -10px;
+    box-sizing: border-box;
+    margin: 0;
+    border-top-right-radius: 2rem;
+    border-bottom-right-radius: 2rem;
+}
+.searchBtn img{
+    width: 1.5rem;
+    height: 1rem;
+}
+/* .searchBtn:hover{
+    background-color: lightgrey;
+} */
