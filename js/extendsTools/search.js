@@ -149,6 +149,7 @@ export class Search {
                     clearTimeout(this.searchtime);
                 }
                  
+                //검색 결과 표현
                 this.searchtime = setTimeout(()=>{
                     this.getList(this.currentLat, this.currentLon, value)
                     .then((result)=>{
