@@ -40,7 +40,7 @@ export class RestApiData{
 
     // 한 건 당(saveRecords) 생성
     async createSaveRecord(saveRecordData) {
-        const apiUrl = 'http://127.0.0.1:8000/api/saverecords/';
+        const apiUrl = 'http://127.0.0.1:8000/api/saveRecords/';
 
         return fetch(apiUrl, {
             method: 'POST',
@@ -99,7 +99,7 @@ export class RestApiData{
     //건 당 기록 불러오기
     getsaveRecordsData(){
         return new Promise((resolve,reject)=>{
-            const apiUrl= 'http://127.0.0.1:8000/api/users/?format=json'
+            const apiUrl= 'http://127.0.0.1:8000/api/saveRecords/?format=json'
 
             fetch(apiUrl)
             .then(response => response.json())
