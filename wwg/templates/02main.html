@@ -4,6 +4,7 @@
    
     <link rel="stylesheet" href="{% static 'css/search.css' %}" type = "text/css">
     <link rel="stylesheet" href="{% static 'css/searchResult.css' %}">
+    <link rel="stylesheet" href="{% static 'css/abortRecord.css' %}">
 
 {% endblock %}
 
@@ -133,7 +134,29 @@
     </div>
 {% endblock %}
 
-{% block navitools %}
+
+{% block abortRecord %}
+    <div class="abortRecordBackgroundBlur unactive">
+        <div class="abortRecord">
+            <div class="abortRecordTxtTitle">
+                내비게이션 중단
+            </div>
+            <div class="abortRecordTxtContent">
+                경로 기록과 내비게이션을 중단 하시겠습니까?
+            </div>
+            <div class="abortRecordBtn">
+                <div class="abortRecordDeleteAbortBtn">
+                    기록 삭제하고 중단하기
+                </div>
+                <div class="abortRecordSaveAbortBtn">
+                    기록 저장하고 중단하기
+                </div>
+                <div class="abortRecordBackBtn">
+                    돌아가기
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock %}
 
 {% block resultBoard %}
