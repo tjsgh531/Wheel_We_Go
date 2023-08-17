@@ -629,3 +629,82 @@ div {
     background-color: #FFC573;
     cursor: pointer;
 }
+
+/*------------------ navi footer CSS ------------------*/
+.drag_bar{
+    width: 20%;
+    height: 0.4rem;
+
+    margin: 1rem auto;
+
+    border-radius: 1rem;
+    
+
+    background-color: #ccc;
+}
+
+.navi_footer{
+    position: fixed;
+    bottom: 0; left: 0; z-index: 9990;
+
+    width: 100vw;
+    height: 25vh;
+
+    background-color: rgba(255, 255, 255, 0.4);
+    
+ 
+}
+.navi_footer_content{
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+
+    width: 100vw;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.navi_tools_btns{
+    padding: 0 2rem;
+}
+.navi_tools_btns_item{
+    width: 13rem;
+    height: 4rem;
+
+    border-radius: 1rem;
+
+    font-size: 1.2rem;
+    color: white;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.navi_terminate_btn{
+    background-color: red;
+    margin-bottom: 1rem;
+}
+.navi_marking_btn{
+    background-color: #FFC573;
+    margin-top: 1rem;
+}
+.arrive_btn{
+    width: 10rem;
+    height: 10rem;
+
+    margin-left: 1rem;
+
+    border: 2px solid #FFC573;
+    border-radius: 1rem;
+
+    background-color: white;
+
+    color: #FFC573;
+    font-size: 2rem;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}

@@ -429,4 +429,8 @@ export class Navi {
         return this.expectCoin
     }
 
+    // navi 하단 바 활성화 함수
+    onNaviFooter(){
+
+    }
 }
