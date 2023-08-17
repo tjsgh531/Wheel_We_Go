@@ -188,7 +188,10 @@ export class Navi {
     endTrackingPath(){
         this.istracking = false 
         clearInterval(this.track); // 선그리기 인터벌 종료
+    }
 
+    // tracking 데이터 생성
+    createTrackingData(){
         //날짜 정보 생성
         const currentDate = this.createDateInfo();
 
@@ -232,17 +235,22 @@ export class Navi {
                     info : saveJsonData,
                 }
 
-                //데이터 초기화
-                this.costTime = 0;
-                this.tracking_dis = 0;
-
-                // 라인 지우기
-                this.trackingLines.forEach(element => {
-                    element.setMap(null);
-                });
-                this.trackingLines = [];
+                return saveData;
             })
         })
+    }
+
+    // tracking 라인 삭제
+    eraseTrackingLine(){
+        //데이터 초기화
+        this.costTime = 0;
+        this.tracking_dis = 0;
+
+        // 라인 지우기
+        this.trackingLines.forEach(element => {
+            element.setMap(null);
+        });
+        this.trackingLines = [];
     }
 
 
@@ -424,19 +432,39 @@ export class Navi {
     }
 
     // navi 하단바 활성화 함수
-    onNaviFooter(){
+    onNaviFooter(naviMode){
         const navi_footer = document.querySelector(".navi_footer");
         const navi_terminate_btn = document.querySelector(".navi_terminate_btn");
         const navi_marking_btn = document.querySelector(".navi_marking_btn");
         const arrive_btn = document.querySelector(".arrive_btn");
         const resultBoard = document.querySelector(".resultBoard");
 
+        //초기화
         navi_footer.classList.toggle("unactive", false); // 네비 footer 보이게 하기
+        navi_terminate_btn.classList.toggle("unactive", true);
+        navi_marking_btn.classList.toggle("unactive", true);
+        arrive_btn.classList.toggle("unactive", true);
 
+        //경로 추적만 일경우 네비 지우기
+        if(naviMode == 2){
+            this.eraseLineMarks();
+        }
+
+        //일반 경로 안내 모드
+        if(naviMode == 1){
+            navi_terminate_btn.classList.toggle("unactive", false);
+            arrive_btn.classList.toggle("unactive", false);
+        }
+        //트래킹만 하기 & 트래킹+경로안내
+        else{
+            navi_terminate_btn.classList.toggle("unactive", false);
+            navi_marking_btn.classList.toggle("unactive", false);
+            arrive_btn.classList.toggle("unactive", false);
+        }
+      
         // "중단" 버튼 클릭 시
         navi_terminate_btn.addEventListener('click', ()=>{
-            navi_footer.classList.toggle("unactive", true); 
-            this.abortRecord();
+            this.abortRecord(naviMode); // 기록중지
         });
 
         // "마킹 하기" 버튼 클릭 시
@@ -446,40 +474,128 @@ export class Navi {
 
         // "도착" 버튼 클릭 시
         arrive_btn.addEventListener('click', ()=>{
-            this.endTrackingPath(); // 트래킹 종료
-            this.naviResult.initResultPage(); // 결과 페이지에 이전 정보 삭제
-            // 결과창에 표시될 데이터 요소들 삽입
-            this.naviResult.createResultSummaryBoard(true, this.trackingData.AtTime, this.trackingData.distance, this.trackingData.coin);
-            this.naviResult.createResultContentBoard(this.trackingMarkers);
+            if(naviMode == 1){
+                this.resetGnb();
+                this.eraseLineMarks();
+            }
+            else{
+                this.endTrackingPath(); // 트래킹 종료
+                this.eraseLineMarks(); // navi 라인 지우기
+                this.naviResult.initResultPage(); // 결과 페이지에 이전 정보 삭제
+
+
+                // 결과창에 표시될 데이터 요소들 삽입
+                this.naviResult.createResultSummaryBoard(true, this.trackingData.AtTime, this.trackingData.distance, this.trackingData.coin);
+                this.naviResult.createResultContentBoard(this.trackingMarkers);
+
+                resultBoard.classList.toggle("unactive", false); // 결과창 화면 상에 표시
+            }
+
             navi_footer.classList.toggle("unactive", true); // footer 안보이게 하기
-            resultBoard.classList.toggle("unactive", false); // 결과창 화면 상에 표시
+
         });
     }
 
     // 기록 중단(네비, 트래킹)
-    abortRecord(){
+    abortRecord(navimode){
+        const navi_footer = document.querySelector(".navi_footer");
         const abortRecordBackgroundBlur = document.querySelector(".abortRecordBackgroundBlur");
         const abortRecordDeleteAbortBtn = document.querySelector(".abortRecordDeleteAbortBtn");
         const abortRecordSaveAbortBtn = document.querySelector(".abortRecordSaveAbortBtn");
         const abortRecordBackBtn = document.querySelector(".abortRecordBackBtn");
-        const navi_footer = document.querySelector(".navi_footer");
+        const abortRecordAbortBtn = document.querySelector(".abortRecordAbortBtn");
+        const resultBoard = document.querySelector(".resultBoard");
 
+        //초기화
         abortRecordBackgroundBlur.classList.toggle("unactive", false); // 블러 보이게 하기
-        
+        abortRecordDeleteAbortBtn.classList.toggle("unactive", true);
+        abortRecordSaveAbortBtn.classList.toggle("unactive", true);
+        abortRecordBackBtn.classList.toggle("unactive", true);
+        abortRecordAbortBtn.classList.toggle("unactive", true);
+
+        //일반 경로만 네비 
+        if(navimode == 1){
+            abortRecordAbortBtn.classList.toggle("unactive", false);
+            abortRecordBackBtn.classList.toggle("unactive", false);
+        }
+        else{
+            abortRecordDeleteAbortBtn.classList.toggle("unactive", false);
+            abortRecordSaveAbortBtn.classList.toggle("unactive", false);
+            abortRecordBackBtn.classList.toggle("unactive", false);
+        }
+
         // "기록 삭제하고 중단하기" 버튼 클릭 시
         abortRecordDeleteAbortBtn.addEventListener('click', ()=>{
+            this.endTrackingPath(); // 트래킹 종료
+            this.eraseTrackingLine();
 
+            this.eraseLineMarks();
+            this.resetGnb();
+            navi_footer.classList.toggle("unactive", true);
+            this.resetMarkers();
+            abortRecordBackgroundBlur.classList.toggle("unactive", true);
         });
 
         // "기록 저장하고 중단하기" 버튼 클릭 시
         abortRecordSaveAbortBtn.addEventListener('click', ()=>{
+            this.endTrackingPath(); // 트래킹 종료
+            this.eraseLineMarks();
+
+            this.naviResult.initResultPage(); // 결과 페이지에 이전 정보 삭제
+
+            abortRecordBackgroundBlur.classList.toggle("unactive", true);
+            // 결과창에 표시될 데이터 요소들 삽입
+            this.naviResult.createResultSummaryBoard(true, this.trackingData.AtTime, this.trackingData.distance, this.trackingData.coin);
+            this.naviResult.createResultContentBoard(this.trackingMarkers);
+
+            resultBoard.classList.toggle("unactive", false); // 결과창 화면 상에 표시
+            navi_footer.classList.toggle("unactive", true); // footer 안보이게 하기
 
         });
 
         // "돌아가기" 버튼 클릭 시
         abortRecordBackBtn.addEventListener('click', ()=>{
             abortRecordBackgroundBlur.classList.toggle("unactive", true);
-            navi_footer.classList.toggle("unactive", false); 
+
+        });
+
+        // navi 중단하기(tracking 없음)
+        abortRecordAbortBtn.addEventListener("click", ()=>{
+            abortRecordBackgroundBlur.classList.toggle("unactive", true);
+            this.eraseLineMarks();
+            
+            //gnb 초기화
+            this.resetGnb();
+
+            navi_footer.classList.toggle("unactive", true);
+        });
+    }
+
+    resetGnb(){
+        const gnb = document.querySelector(".gnb");
+        const search = document.querySelector(".search");
+        const search_navi = document.querySelector(".search_navi");
+        const searchBoxs = document.querySelectorAll(".searchBox");
+        const searchCancle = document.querySelector(".search_cancle");
+        const sideBarBtn = document.querySelector(".sideBarBtn");
+        const sideBar = document.querySelector(".sideBar");
+
+        gnb.classList.toggle("search_gnb", false);
+        search.classList.toggle("unactive", false);
+        search_navi.classList.toggle("unactive", true);
+        searchCancle.classList.toggle("unactive", true);
+        sideBarBtn.classList.toggle("unactive", false);
+        sideBar.classList.toggle("unactive", true);
+
+        //검색어 초기화
+        searchBoxs.forEach(element => {
+            element.value = "";
+        });
+    }
+
+    resetMarkers(){
+        this.trackingMarkers.forEach(element => {
+            element.setMap(null);
         });
     }
 }
