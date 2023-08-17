@@ -24,6 +24,38 @@ div {
     border: 0.05rem solid #D9D9D9;
 }
 
+#startNameFilter {
+    border: none;
+    margin-top: 0.5rem;
+    margin-left: 1rem;
+    width: fit-content;
+    height: 1.5rem;
+    border-radius: 0.2rem;
+
+}
+
+#dateRangeFilter {
+    border: none;
+    margin-top: 1rem;
+    width: fit-content;
+    height: 1.5rem;
+    border-radius: 0.2rem;
+}
+
+#sortOption {
+    border: none;
+    margin-top: 1rem;
+    width: fit-content;
+    height: 1.5rem;
+    border-radius: 0.2rem;
+}
+
+.dateFilter {
+    text-align: end;
+    margin: 0.5rem;
+}
+
+
 .square-container {
     position: relative;
     display: flex;
@@ -65,14 +97,6 @@ div {
     width: 100vw;
 }
 
-.circle-container {
-    display: flex;
-    align-items: center;
-    width: 100%;
-    margin-left: 1rem;
-
-}
-
 .circle-0 {
     display: inline-block;
     width: 1rem;
@@ -85,8 +109,21 @@ div {
 .route {
     display: flex;
     font-size: 1rem;
-    margin: 0 auto;
-    width: fit-content;
+}
+
+.circle-route-etc {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+ul {
+    padding: 0;
+    width: 100vw
+}
+
+li {
+    width: 100%;
 }
 
 .etc-data img {
@@ -100,19 +137,14 @@ div {
 }
 
 .etc-data {
-    position: absolute;
-    right: 3rem;
+    padding-bottom: 0.5rem;
 }
-
 
 .data-list {
     position: relative;
     display: flex;
-    border-bottom: 0.1rem solid #D9D9D9;
     margin-top: 2rem;
     align-items: center;
-    height:fit-content
-
 }
 
 .chart-container {

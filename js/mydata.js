@@ -38,25 +38,25 @@ class MyData {
 
       // 우선 오래된 것 부터 정렬( 동 필터링 미적용시 날짜순으로 정렬하기)
       userRecords.sort((a, b) => a.info.date.localeCompare(b.info.date));
-      
+
       // 우선 정렬 화면에 표시
       this.displayRecords(userRecords);
 
 
       /////// 동 필터링 설정( html에서 필터링 id가져오기 )
       const startNameFilter = document.getElementById('startNameFilter');
-          // 현재 로그인 유저에서 시작 동 이름이 같은 기록만 가져와서 set으로 저장
+      // 현재 로그인 유저에서 시작 동 이름이 같은 기록만 가져와서 set으로 저장
       const startNames = new Set(userRecords.map(record => record.info.startName));
-          // 동 선택 추가를 위해 프리셋 설정 ( 아래 for문을 돌며 전체 부분이 startName으로 바뀌어 추가)
+      // 동 선택 추가를 위해 프리셋 설정 ( 아래 for문을 돌며 전체 부분이 startName으로 바뀌어 추가)
       startNameFilter.innerHTML = '<option value="">전체</option>';
-          // 시작 동 추가해주기 
+      // 시작 동 추가해주기 
       startNames.forEach(startName => {
         const option = document.createElement('option');
         option.value = startName;
         option.textContent = startName;
         startNameFilter.appendChild(option);
       });
-          // 시작 동 바뀌면 그 시작 필터로 가기
+      // 시작 동 바뀌면 그 시작 필터로 가기
       startNameFilter.addEventListener('change', () => {
         const selectedStartName = startNameFilter.value;
         this.filterAndDisplayRecords(userRecords, selectedStartName);
@@ -80,7 +80,7 @@ class MyData {
   filterAndDisplayRecords(records, selectedStartName) {
     // 출발지 이름이 선택되었을 때 필터링을 저장, 선택되지 않았을 땐 배열 그대로 사용
     const filteredRecords = selectedStartName
-    // 조건...연산자...
+      // 조건...연산자...
       ? records.filter(record => record.info.startName === selectedStartName)
       : records;
     // class records-list추가 ( 이하 내용은 위의 기본 셋과 동일 )
@@ -89,65 +89,76 @@ class MyData {
 
   // 날짜 범위 필터링 함수
   filterAndDisplayDateRange(records, selectedRange) {
-  const today = new Date();
-  const oneMonthAgo = new Date(today);
-  oneMonthAgo.setMonth(oneMonthAgo.getMonth() - selectedRange);
+    const today = new Date();
+    const oneMonthAgo = new Date(today);
+    oneMonthAgo.setMonth(oneMonthAgo.getMonth() - selectedRange);
 
-  const filteredRecords = records.filter(record => {
-    const recordDate = new Date(record.info.date.replace(/\./g, '-'));
-    return recordDate >= oneMonthAgo && recordDate <= today;
-  });
+    const filteredRecords = records.filter(record => {
+      const recordDate = new Date(record.info.date.replace(/\./g, '-'));
+      return recordDate >= oneMonthAgo && recordDate <= today;
+    });
 
-  this.displayRecords(filteredRecords);
+    this.displayRecords(filteredRecords);
   }
 
-// 정렬 옵션 적용 함수
+  // 정렬 옵션 적용 함수
   sortAndDisplayRecords(records, selectedSort) {
-  if (selectedSort === 'latest') {
-    records.sort((a, b) => b.info.date.localeCompare(a.info.date));
-  } else if (selectedSort === 'oldest') {
-    records.sort((a, b) => a.info.date.localeCompare(b.info.date));
+    if (selectedSort === 'latest') {
+      records.sort((a, b) => b.info.date.localeCompare(a.info.date));
+    } else if (selectedSort === 'oldest') {
+      records.sort((a, b) => a.info.date.localeCompare(b.info.date));
+    }
+
+    this.displayRecords(records);
   }
 
-  this.displayRecords(records);
-  }
 
-// 데이터 표시 함수
+
+  // 데이터 표시 함수
   displayRecords(records) {
-  const recordsList = document.querySelector('.records-list');
-  recordsList.innerHTML = '';
+    const recordsList = document.querySelector('.records-list');
+    recordsList.innerHTML = '';
 
-  records.forEach(infoData => {
 
-    const recordDate = new Date(infoData.info.date.replace(/\./g, '-'));
-    const start = infoData.info.startName;
-    const end = infoData.info.endName;
-    const time = infoData.info.AtTime;
-    const km = infoData.info.distance;
-    const credit = infoData.earnedCoin;
-    const listItem = document.createElement('li');
-    listItem.style.listStyle = 'none';
-    listItem.innerHTML = `
+    records.forEach(infoData => {
+
+      const recordDate = new Date(infoData.info.date.replace(/\./g, '-'));
+      const start = infoData.info.startName;
+      const end = infoData.info.endName;
+      const time = infoData.info.AtTime;
+      const km = infoData.info.distance;
+      const credit = infoData.earnedCoin;
+      const listItem = document.createElement('li');
+      listItem.style.listStyle = 'none';
+      listItem.innerHTML = `
       <div class="route-data-time">${recordDate.toLocaleDateString()}</div>
-      <div class="circle-container">
-        <span class="circle-0"></span>
-        <div class="route">
-          <div class='start_location'>${start}</div> -> <div class ='end_location'>${end}</div>
-        </div>
+      <div class="circle-route-etc">
+          <div class="circle-container">
+              <span class="circle-0"></span>
+          </div>
+      
+          <div class="route">
+              <div class='start_location'>${start}</div> -> <div class='end_location'>${end}</div>
+          </div>
+      
+          <div class="etc-data">
+              <div>
+                  <img src="../static/img/시간.png" alt="시간">
+                  <div class='take_time'>${time}분</div>
+              </div>
+              <div>
+                  <img src="../static/img/거리.png" alt="거리">
+                  <div class='kms'>${km}km</div>
+              </div>
+              <div>
+                  <img src="../static/img/코인.png" alt="코인">
+                  <div class='coins'>${credit}</div>
+              </div>
+          </div>
       </div>
-      <div class="etc-data">
-        <div><img src="../static/img/시간.png" alt="시간">
-          <div class='take_time'>${time}분</div>
-        </div>
-        <div><img src="../static/img/거리.png" alt="거리">
-          <div class='kms'>${km}km</div>
-        </div>
-        <div><img src="../static/img/코인.png" alt="코인">
-          <div class='coins'>${credit}</div>
-        </div>
-      </div>
+      <div class="line"></div>
     `;
-    recordsList.appendChild(listItem);  
+      recordsList.appendChild(listItem);
     });
   }
 
@@ -198,6 +209,6 @@ class MyData {
 
 
 /////////////////////////////// 출력 ///////////////////////////////
-window.onload = ()=>{
+window.onload = () => {
   new MyData();
 }
