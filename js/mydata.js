@@ -10,8 +10,10 @@ class MyData{
     this.naviResultTool = new NaviResult();
     //현재 로그인 된 유저 가져오기
     this.username = this.getCurrentLoginUser();
-    this.setArrayRegion();
-    this.setArrayTime();
+
+
+    // this.setArrayRegion();
+    // this.setArrayTime();
     //현재 로그인 된 유저의 모든 데이터 가져오기
     this.PrintUserRecordsAllData();
     
@@ -43,17 +45,18 @@ class MyData{
   ////////////////////// 로그인 된 사용자의 기록 저장 순으로 출력 /////////////////////
 
   PrintUserRecordsAllData() {
-    this.restApiTool.getRecordData().then(data => {
+    this.restApiTool.getsaveRecordsData().then(data => {
       // 유저 데이터만 필터링해줌
       const userRecords = data.filter(record => record.user_id === this.username);
+
       // 필요한 값 가져오기
-      userRecords.forEach(record => {
-        const recordDate = record.record_date;
-        const start = record.start_location;
-        const end = record.end_location;
-        const time = record.hours;
-        const km = record.kms;
-        const credit = record.credit_earned;
+      userRecords.forEach(infoData => {
+        const recordDate = infoData.info.date;
+        const start = infoData.info.startName;
+        const end = infoData.info.endName;
+        const time = infoData.info.AtTime;
+        const km = infoData.info.distance;
+        const credit =infoData.earnedCoin;
         const listItem = document.createElement('li');
         listItem.style.listStyle = 'none';
         listItem.innerHTML = `

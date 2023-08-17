@@ -22,22 +22,6 @@ export class RestApiData{
         .then(response => response.json());
     }
 
-    // 기록(Records) 생성
-    async createRecord(recordData) {
-        const apiUrl = 'http://127.0.0.1:8000/api/records/';
-
-        return fetch(apiUrl, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(recordData)
-        })
-
-        .then(response => response.json());
-
-    }
-
     // 한 건 당(saveRecords) 생성
     async createSaveRecord(saveRecordData) {
         const apiUrl = 'http://127.0.0.1:8000/api/saverecords/';
@@ -84,22 +68,10 @@ export class RestApiData{
             });
         });
     };
-    //지금까지의 기록 불러오기 
-    getRecordData(){
-        return new Promise((resolve,reject)=>{
-            const apiUrl= 'http://127.0.0.1:8000/api/records/?format=json'
-
-            fetch(apiUrl)
-            .then(response => response.json())
-            .then(data=> {
-                resolve(data);
-            });
-        });
-    };
-    //건 당 기록 불러오기
+    //기록 불러오기
     getsaveRecordsData(){
         return new Promise((resolve,reject)=>{
-            const apiUrl= 'http://127.0.0.1:8000/api/users/?format=json'
+            const apiUrl= 'http://127.0.0.1:8000/api/saveRecords/?format=json'
 
             fetch(apiUrl)
             .then(response => response.json())
@@ -154,30 +126,8 @@ export class RestApiData{
         });
     }
 
-    // 기록(Records) 정보 업데이트 
-    updateUser(records_id, updatedUserData) {
-        return new Promise((resolve, reject) => {
-            const apiUrl = `http://127.0.0.1:8000/api/regionos/${records_id}/`;
-
-            fetch(apiUrl, {
-                method: 'PUT',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(updatedUserData)
-            })
-
-            .then(response => response.json())
-            .then(data => {
-                resolve(data);
-            });
-
-        });
-    }
-
-
     // 한 건 당(saveRecords) 정보 업데이트 
-    updateUser(saveRecords, updatedUserData) {
+    updatesaveRecords(saveRecords, updatedUserData) {
         return new Promise((resolve, reject) => {
             const apiUrl = `http://127.0.0.1:8000/api/regionos/${saveRecords}/`;
 
