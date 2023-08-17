@@ -28,6 +28,13 @@ export class NaviResult{
 
     }
 
+    unactiveResultBoard(){
+        const resultBoard = document.querySelector(".resultBoard");
+
+        this.initResultPage();
+        resultBoard.classList.toggle("unactivate", true)
+    }
+
     // map 위치 설정
     settingMapPosition(){
 
