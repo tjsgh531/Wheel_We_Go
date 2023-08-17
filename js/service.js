@@ -33,6 +33,7 @@ class Area {
     }
 
     start() {
+        this.sideBar();
         this.initTmap();
     }
 
@@ -206,12 +207,14 @@ class Area {
         }
 
         if (closestIndex !== -1) {
+
             // console.log("법정동 index :", closestIndex);
             // console.log(this.polygons[closestIndex].center.lat, this.polygons[closestIndex].center.lng);
 
             const closestNameElement = document.getElementById('closestName');
             const correspondingName = this.name[closestIndex];
             // console.log("법정동 이름 :", correspondingName);
+
             closestNameElement.textContent = correspondingName + " 데이터 현황";
         }
         // console.log(name[closestIndex]);
@@ -240,6 +243,21 @@ class Area {
 
         const distance = earthRadius * c;
         return distance;
+    }
+
+    sideBar() {
+        const sideBarBtn = document.querySelector('.sideBarBtn');
+        const sideBar = document.querySelector('.sideBar');
+        const sideBar_cancle = document.querySelector('.sideBar_cancle')
+
+        // 사이드 바 나타내기
+        sideBarBtn.addEventListener("click", () => {
+            sideBar.classList.toggle('unactive', false);
+        });
+
+        sideBar_cancle.addEventListener('click', () => {
+            sideBar.classList.toggle('unactive', true);
+        });
     }
 }
 

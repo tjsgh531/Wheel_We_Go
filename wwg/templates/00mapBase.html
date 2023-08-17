@@ -9,7 +9,7 @@
     <link rel="icon" type="image/x-icon" href="{% static 'img/favicon.png' %}">
     <!-- JQuery CDN-->
     <script src="//code.jquery.com/jquery-3.2.1.min.js"></script>
-    
+
     <!-- font awesome CDN -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     
@@ -17,18 +17,20 @@
     <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
     
     <!-- base css Style -->
-    <link rel="stylesheet" href= "{% static 'css/base.css' %}"  type = "text/css">
-    
+    <link rel="stylesheet" href="{% static 'css/base.css' %}" type="text/css">
+
     <!-- Tmap API -->
-    <script src="https://apis.openapi.sk.com/tmap/vectorjs?version=1&appKey=l7xxed2c734830ae4364975ef11e67a76e81"></script>
-    
+    <script
+        src="https://apis.openapi.sk.com/tmap/vectorjs?version=1&appKey=l7xxed2c734830ae4364975ef11e67a76e81"></script>
+
     <!-- base script -->
-    <script src= "{% static 'js/base.js' %}" type="text/javascript"></script>
+    <script src="{% static 'js/base.js' %}" type="text/javascript"></script>
 
     <!-- personal Script -->
     {% block script %}{% endblock %}
 
 </head>
+
 <body>
     <div class="loader unactive">
         <i class='bx bx-loader bx-spin'></i>
@@ -51,7 +53,7 @@
             <div class="search_cancle unactive">
                 <i class="fa-solid fa-xmark"></i>
             </div>
-            
+
             <div class="sideBarBtn">
                 <i class="fa-solid fa-bars"></i>
             </div>
@@ -60,7 +62,7 @@
 
         <div class="sideBar unactive">
             <div class="sideBar_content">
-                
+
                 <div class="sideBar_cancle">
                     <i class="fa-solid fa-xmark"></i>
                 </div>
@@ -72,7 +74,7 @@
 
                     <div class="profile_text">
                         <div class="sideBar_profile_text">어디든 자유롭게 가봐요.</div>
-                    
+
                         <div class="sideBar_profile_content">
                             {% if user %}
                             <span style="font-size: 1.5rem; font-weight: 900;">{{ user.username }}</span><span>님</span>
@@ -82,8 +84,9 @@
                         </div>
                     </div>
                 </div>
-    
+
                 <div class="sideBarItems">
+                    <div class="sideBar_item"><a class="hmwa" href="{% url 'main' %}">홈</a></div>
                     <div class="sideBar_item"><a class="hmwa" href="{% url 'mypage' %}">마이페이지</a></div>
                     <div class="sideBar_item"><a class="hmwa" href="{% url 'serviceRegion' %}">서비스 지역 보기</a></div>
                 </div>
@@ -117,15 +120,16 @@
         {% endblock %}
 
         {% block resultBoard %}
-        
+
         {% endblock %}
 
-                
+
         {% block writeMarking %}
 
         {% endblock %}
 
         {% block naviFooter %}
+
         {% endblock %}
 
     </div>

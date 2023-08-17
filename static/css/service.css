@@ -1,6 +1,8 @@
 body,
 html {
     overflow-x: hidden;
+    margin: 0;
+    padding: 0;
 }
 
 div {
@@ -8,13 +10,27 @@ div {
 }
 
 
-#wrap {
+a,
+a:visited,
+a:active {
+    color: inherit;
+    /* 상속된 색상 사용 */
+    text-decoration: none;
+    /* 밑줄 제거 */
+}
+
+a:hover {
+    cursor: pointer;
+}
+
+/* #wrap {
+
     margin: 0 auto;
     max-width: 100vw;
     min-height: 90vh;
     background-color: #c9c9c9;
 
-}
+} */
 
 .container {
     position: fixed;
@@ -84,6 +100,81 @@ div {
     /* >>>>>>> main:css/service.css */
 }
 
+.unactive {
+    display: none !important;
+}
+
+.sideBarBtn {
+    width: 3rem;
+    height: 3rem;
+
+    background-color: white;
+
+    border-radius: 50%;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    font-size: 1.5rem;
+}
+
+.sideBar {
+    position: fixed;
+    left: 0;
+    top: 0;
+    z-index: 9999;
+    width: 100vw;
+    height: 100vh;
+
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+.sideBar_content {
+    position: absolute;
+    right: 0;
+    top: 0;
+
+    height: 100vh;
+    width: 50vw;
+
+    padding: 1rem;
+
+    background-color: white;
+}
+
+.sideBar_profile {
+    display: flex;
+    align-items: center;
+
+    padding: 1rem 0.5rem;
+
+    border-bottom: 1px solid #A7A7A7;
+}
+
+.sideBar_cancle {
+    display: flex;
+    justify-content: flex-end;
+
+    font-size: 2rem;
+}
+
+.profile_img {
+    width: 4rem;
+    height: 4rem;
+
+    margin-right: 0.5rem;
+}
+
+.sideBarItems {
+    margin-top: 0.5rem;
+}
+
+.sideBar_item {
+    padding: 0.5rem;
+    font-size: 1.2rem;
+}
+
 .searchBar{
     display: flex;
     position: absolute;
@@ -142,3 +233,4 @@ div {
 /* .searchBtn:hover{
     background-color: lightgrey;
 } */
+

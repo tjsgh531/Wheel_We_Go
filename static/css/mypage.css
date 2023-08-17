@@ -9,6 +9,20 @@ div {
     box-sizing: border-box;
 }
 
+a,
+a:visited,
+a:active {
+    color: inherit;
+    /* 상속된 색상 사용 */
+    text-decoration: none;
+    /* 밑줄 제거 */
+}
+
+a:hover {
+    cursor: pointer;
+}
+
+
 
 .shop-container {
     width: 100vw;
@@ -24,11 +38,15 @@ div {
     width: 80%;
     display: flex;
     margin: 1rem;
+    align-items: center;
+    justify-content: space-between;
 }
 
 .shop-name {
     display: flex;
-    padding-right: 80%;
+    align-items: center;
+    margin-top: 1rem;
+
 }
 
 .shop-ing img {
@@ -149,22 +167,92 @@ a {
     flex-direction: column;
 }
 
+
 .logout {
     margin-top: 2rem;
     margin-left: 1rem;
     margin-right: 1rem;
-    border-top: 0.1rem solid #000000;
-    border-bottom: 0.1rem solid #D9D9D9;
     height: 2rem;
-    padding-top: 0.5rem;
-    padding-left: 0.5rem;
+    color: #a9a9a9;
+    padding-left: 0.5vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration-line: underline;
 }
 
-.withdraw,
-.empty {
-    margin: 0 1rem;
-    border-bottom: 0.1rem solid #D9D9D9;
-    height: 2rem;
-    padding-top: 0.5rem;
-    padding-left: 0.5rem;
+
+.unactive {
+    display: none !important;
+}
+
+.sideBarBtn {
+    width: 3rem;
+    height: 3rem;
+
+    background-color: white;
+
+    border-radius: 50%;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    font-size: 1.5rem;
+}
+
+.sideBar {
+    position: fixed;
+    left: 0;
+    top: 0;
+    z-index: 9999;
+    width: 100vw;
+    height: 100vh;
+
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+.sideBar_content {
+    position: absolute;
+    right: 0;
+    top: 0;
+
+    height: 100vh;
+    width: 50vw;
+
+    padding: 1rem;
+
+    background-color: white;
+}
+
+.sideBar_profile {
+    display: flex;
+    align-items: center;
+
+    padding: 1rem 0.5rem;
+
+    border-bottom: 1px solid #A7A7A7;
+}
+
+.sideBar_cancle {
+    display: flex;
+    justify-content: flex-end;
+
+    font-size: 2rem;
+}
+
+.profile_img {
+    width: 4rem;
+    height: 4rem;
+
+    margin-right: 0.5rem;
+}
+
+.sideBarItems {
+    margin-top: 0.5rem;
+}
+
+.sideBar_item {
+    padding: 0.5rem;
+    font-size: 1.2rem;
 }
