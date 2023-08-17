@@ -1,6 +1,8 @@
 import { DrawShape } from "./drawShape.js";
 import { InitMap } from "./initmap.js";
 import { CurrentPos } from "./currentPos.js";
+import { NaviResult } from "./naviResult.js";
+import { RestApiData } from "./restApiData.js";
 
 
 export class Navi {
@@ -8,6 +10,8 @@ export class Navi {
         this.drawTool = new DrawShape();
         this.mapTool = new InitMap();
         this.currentPos = new CurrentPos();
+        this.naviResult = new NaviResult();
+        this.restApiData = new RestApiData();
         
         this.currentLat, this.currentLon;
         this.map;
@@ -20,6 +24,7 @@ export class Navi {
         this.pType = "";
         this.size;
         this.expectCoin;
+        this.expectTime;
 
         this.totalMarkerArr = [];
         this.drawInfoArr =[];
@@ -46,59 +51,11 @@ export class Navi {
         this.currentLon = lon;
     }
 
-    //트래킹 시작
-    trackingPath(){
-        if(!this.istracking){
-            this.istracking = true;
-            
-            this.trackingLines = []; //트래킹 라인 초기화
-
-            //초 시계 초기화
-            this.costTime = 0;
-
-            // 거리 초기화
-            this.tracking_dis = 0;
-            
-            // 좌표 초기화 
-            let preLat = this.currentLat;
-            let preLon = this.currentLon;
-            
-            this.trackingCoords.push([preLat, preLon]);
-
-            // 라인 그리기 시작
-            this.track = setInterval(()=>{
-                console.log("현재위치 업데이트 되니? :",this.currentLat, this.currentLon);
-                // 시간 계산
-                this.costTime += 1;
-                if(preLat == this.currentLat && preLat == this.currentLat){
-                    console.log("이전 좌표와 동일");
-                }
-                else{
-                    //거리계산
-                    this.tracking_dis += this.caculateDistance(preLat, preLon, this.currentLat, this.currentLon);
-                    
-                    //선 그리기
-                    const polyline = this.drawTool.addPolyline(preLat, preLon, this.currentLat, this.currentLon);
-                    preLat = this.currentLat;
-                    preLon = this.currentLon;
-
-                    this.trackingCoords.push([preLat, preLon]);
-                    this.trackingLines.push(polyline);
-                }
-            },1000);
-        }
-    }
-
     // 마커 버튼 클릭시 작동
     clickMarkBtn(){
-        this.currentPos.getCurrentLocation().then((position)=>{
-            const latitude = position.coords.latitude;
-            const logitude = position.coords.longitude;
-
-            const marker = this.mapTool.createMark(this.map, latitude, logitude);
-            this.trackingMarkers.push(marker);
-            this.trackingMarkersCoords.push([latitude, logitude]);
-        });
+        const marker = this.mapTool.createMark(this.map, this.currentLat, this.currentLon);
+        this.trackingMarkers.push(marker);
+        this.trackingMarkersCoords.push([this.currentLat, this.currentLon]);
     }
 
     // 날짜&시간 데이터 생성
@@ -168,6 +125,65 @@ export class Navi {
         });
 
     }
+    //트래킹 시작
+    trackingPath(){
+        if(!this.istracking){
+            this.trackingData = {
+                startpoint: [0, 0],
+                endpoint : [0, 0],
+
+                startName : "",
+                endName : "",
+
+                AtTime : 0,
+                distance : 0.0,
+                coin : 0,
+                coords: [],
+                data_valid : 0,
+                markings : [],
+                markingStr : "",
+                date : "",
+            }
+
+            this.istracking = true;
+            
+            this.trackingLines = []; //트래킹 라인 초기화
+
+            //초 시계 초기화
+            this.costTime = 0;
+
+            // 거리 초기화
+            this.tracking_dis = 0;
+            
+            // 좌표 초기화 
+            let preLat = this.currentLat;
+            let preLon = this.currentLon;
+            
+            this.trackingCoords.push([preLat, preLon]);
+
+            // 라인 그리기 시작
+            this.track = setInterval(()=>{
+                console.log("현재위치 업데이트 되니? :",this.currentLat, this.currentLon);
+                // 시간 계산
+                this.costTime += 1;
+                if(preLat == this.currentLat && preLat == this.currentLat){
+                    console.log("이전 좌표와 동일");
+                }
+                else{
+                    //거리계산
+                    this.tracking_dis += this.caculateDistance(preLat, preLon, this.currentLat, this.currentLon);
+                    
+                    //선 그리기
+                    const polyline = this.drawTool.addPolyline(preLat, preLon, this.currentLat, this.currentLon);
+                    preLat = this.currentLat;
+                    preLon = this.currentLon;
+
+                    this.trackingCoords.push([preLat, preLon]);
+                    this.trackingLines.push(polyline);
+                }
+            },1000);
+        }
+    }
 
     // 트래킹 종료 -> 트래킹 데이터 반환
     endTrackingPath(){
@@ -193,24 +209,25 @@ export class Navi {
 
 
                 //데이터 저장 하기
-                const trackingData = {
+
+                this.trackingData = {
                     startpoint: startpoint,
                     endpoint : endpoint,
 
-                    startName : start_str,
+                    startName : start_str, 
                     endName : end_str,
 
-                    AtTime : this.costTime,
-                    distance : this.tracking_dis,
-                    coin : coin,
-                    coords: this.trackingCoords,
-                    data_valid : 0,
-                    markings : this.trackingMarkersCoords,
-                    markingStr : this.trackingMarkStr,
-                    date : currentDate,
+                    AtTime : this.costTime, //int
+                    distance : this.tracking_dis, //float
+                    coin : coin,//int
+                    coords: this.trackingCoords,//[[lat,lon],[...]....]
+                    data_valid : 0,//int 0~1
+                    markings : this.trackingMarkersCoords, //coords 동일
+                    markingStr : this.trackingMarkStr, //string
+                    date : currentDate, //날짜
                 }
 
-                const saveJsonData = JSON.stringify(trackingData);
+                const saveJsonData = JSON.stringify(this.trackingData);
                 
                 const saveData = {
                     earnedCoin : coin,
@@ -226,31 +243,10 @@ export class Navi {
                     element.setMap(null);
                 });
                 this.trackingLines = [];
-
-                this.saveTrackingData(saveData);
             })
         })
     }
 
-    saveTrackingData(data){
-        const apiUrl = `http://127.0.0.1:8000/api/saveRecords/`; // 업데이트할 API의 URL
-
-        // 업데이트 요청 보내기
-        fetch(apiUrl, {
-            method: "PUT", // HTTP 메서드 설정 (또는 "PATCH"를 사용할 수도 있음)
-            headers: {
-                "Content-Type": "trakingData/json", // JSON 데이터 전송을 위한 헤더 설정
-            },
-            body: JSON.stringify(data), // 업데이트할 데이터를 JSON 문자열로 변환하여 전송
-        })
-        .then(response => response.json()) // 응답을 JSON으로 변환
-        .then(updatedUser => {
-            console.log("업데이트된 사용자 정보:", updatedUser);
-        })
-        .catch(error => {
-            console.error("업데이트 실패:", error);
-        });
-    }
 
     navi(navi_info){
         const startLat = navi_info[0].latitude;
@@ -299,6 +295,7 @@ export class Navi {
                     console.log(tDistance + tTime);
                     console.log("navi :", this);
                     this.expectCoin = Math.floor(((resultData[0].properties.totalDistance) / 1000).toFixed(1) * 10);
+                    this.expectTime = ((resultData[0].properties.totalTime) / 60).toFixed(0);
                     console.log("coin :", this.expectCoin);
                     
                     // $("#result").text(tDistance + tTime);
@@ -377,7 +374,6 @@ export class Navi {
             }) 
         });
     }
-
     
     makeMark(lat, lng){
 
@@ -404,8 +400,8 @@ export class Navi {
     drawLine(){
         this.polyline_ = new Tmapv3.Polyline({
             path : this.drawInfoArr,
-            strokeColor : "#dd00dd",
-            strokeWeight : 6,
+            strokeColor : "#027BFC",
+            strokeWeight : 9,
             direction : true,
             map : this.map
         });
@@ -429,4 +425,63 @@ export class Navi {
         return this.expectCoin
     }
 
+    // navi 하단바 활성화 함수
+    onNaviFooter(){
+        const navi_footer = document.querySelector(".navi_footer");
+        const navi_terminate_btn = document.querySelector(".navi_terminate_btn");
+        const navi_marking_btn = document.querySelector(".navi_marking_btn");
+        const arrive_btn = document.querySelector(".arrive_btn");
+        const resultBoard = document.querySelector(".resultBoard");
+
+        navi_footer.classList.toggle("unactive", false); // 네비 footer 보이게 하기
+
+        // "중단" 버튼 클릭 시
+        navi_terminate_btn.addEventListener('click', ()=>{
+            navi_footer.classList.toggle("unactive", true); 
+            this.abortRecord();
+        });
+
+        // "마킹 하기" 버튼 클릭 시
+        navi_marking_btn.addEventListener('click', ()=>{
+            this.clickMarkBtn()
+        });
+
+        // "도착" 버튼 클릭 시
+        arrive_btn.addEventListener('click', ()=>{
+            this.endTrackingPath(); // 트래킹 종료
+            this.naviResult.initResultPage(); // 결과 페이지에 이전 정보 삭제
+            // 결과창에 표시될 데이터 요소들 삽입
+            this.naviResult.createResultSummaryBoard(true, this.trackingData.AtTime, this.trackingData.distance, this.trackingData.coin);
+            this.naviResult.createResultContentBoard(this.trackingMarkers);
+            navi_footer.classList.toggle("unactive", true); // footer 안보이게 하기
+            resultBoard.classList.toggle("unactive", false); // 결과창 화면 상에 표시
+        });
+    }
+
+    // 기록 중단(네비, 트래킹)
+    abortRecord(){
+        const abortRecordBackgroundBlur = document.querySelector(".abortRecordBackgroundBlur");
+        const abortRecordDeleteAbortBtn = document.querySelector(".abortRecordDeleteAbortBtn");
+        const abortRecordSaveAbortBtn = document.querySelector(".abortRecordSaveAbortBtn");
+        const abortRecordBackBtn = document.querySelector(".abortRecordBackBtn");
+        const navi_footer = document.querySelector(".navi_footer");
+
+        abortRecordBackgroundBlur.classList.toggle("unactive", false); // 블러 보이게 하기
+        
+        // "기록 삭제하고 중단하기" 버튼 클릭 시
+        abortRecordDeleteAbortBtn.addEventListener('click', ()=>{
+
+        });
+
+        // "기록 저장하고 중단하기" 버튼 클릭 시
+        abortRecordSaveAbortBtn.addEventListener('click', ()=>{
+
+        });
+
+        // "돌아가기" 버튼 클릭 시
+        abortRecordBackBtn.addEventListener('click', ()=>{
+            abortRecordBackgroundBlur.classList.toggle("unactive", true);
+            navi_footer.classList.toggle("unactive", false); 
+        });
+    }
 }

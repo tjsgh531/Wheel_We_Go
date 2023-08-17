@@ -9,6 +9,7 @@ div {
     box-sizing: border-box;
 }
 
+
 a,
 a:visited,
 a:active {
@@ -23,6 +24,7 @@ a:hover {
 }
 
 /* #wrap {
+
     margin: 0 auto;
     max-width: 100vw;
     min-height: 90vh;
@@ -35,7 +37,7 @@ a:hover {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 500px;
+    /* height: 500px; */
     width: 100vw;
     z-index: 999;
     text-align: center;
@@ -97,7 +99,6 @@ a:hover {
     /* 원하는 간격 설정 */
     /* >>>>>>> main:css/service.css */
 }
-
 
 .unactive {
     display: none !important;
@@ -173,3 +174,63 @@ a:hover {
     padding: 0.5rem;
     font-size: 1.2rem;
 }
+
+.searchBar{
+    display: flex;
+    position: absolute;
+    top: 50px;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    height: 5rem;
+    width: 60vw;
+
+    padding: 1rem;
+    justify-content: center;
+    align-items: center;
+    z-index: 999;
+    text-align: center;
+    
+}
+/* input{
+    margin: 0;
+} */
+
+
+.searchText{
+    width: 85%;
+    height: 100%;
+    border: none;
+    font-size: 1rem;
+    padding-left: 2rem;
+    display: inline;
+    outline: none;
+    box-sizing: border-box;
+    color: black;
+    margin: 0;
+    border-top-left-radius: 2rem;
+    border-bottom-left-radius: 2rem;
+}
+
+.searchBtn{
+    width: 15%;
+    height: 100%;
+    background-color: white;
+    border: none;
+    font-size: 1rem;
+    color: blue;
+    outline: none;
+    display: inline;
+    margin-left: -10px;
+    box-sizing: border-box;
+    margin: 0;
+    border-top-right-radius: 2rem;
+    border-bottom-right-radius: 2rem;
+}
+.searchBtn img{
+    width: 1.5rem;
+    height: 1rem;
+}
+/* .searchBtn:hover{
+    background-color: lightgrey;
+} */
+
