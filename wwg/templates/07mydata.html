@@ -9,6 +9,7 @@
     <link rel="icon" type="image/x-icon" href="{% static 'img/favicon.png' %}">
     <link rel="stylesheet" href="{% static 'css/mydata.css' %}">
     <script src="{% static 'js/mydata.js' %}" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"defer></script>
 </head>
 
 <body>
@@ -41,9 +42,8 @@
             </div>
 
             <!-- 그래프 -->
-            <div class="chart-container">
-                <span class="chart"></span>
-                <span class="chart-shadow"></span>
+            <div class="chart-container",id ="doughnutChart">
+                <canvas id="doughnutChartCanvas"></canvas>
             </div>
             <div class="dateFilter">
                 <!-- 날짜 범위 필터링 -->
@@ -60,6 +60,7 @@
                     <option value="oldest">오래된 순</option>
                 </select>
             </div>
+
 
             <div class="data-list">
                 <!-- 선택된 startName에 해당하는 기록들을 나타낼 영역 -->

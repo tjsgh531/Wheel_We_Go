@@ -10,7 +10,7 @@ html {
 div {
     box-sizing: border-box;
 }
-
+ 
 .back-button {
     display: inline-block;
     padding: 1rem;
@@ -149,30 +149,18 @@ li {
 
 .chart-container {
     display: flex;
+    width: 10rem;
+    height: 10em;
     justify-content: center;
     align-items: center;
     flex-direction: column;
-}
-
-
-.chart {
-    display: inline-block;
-    width: 10rem;
-    height: 10em;
-    background-color: #dadada;
-    border-radius: 50%;
-    margin-top: 2rem;
-}
-
-.chart-shadow {
-    margin-top: 1rem;
-    border-radius: 50%;
-    width: 7rem;
-    height: 0.5rem;
-    filter: blur(0.7rem);
-    background-color: #333;
+    background: url("./images/doughnutBackground.svg");
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
 
 }
+
 
 
 /*
