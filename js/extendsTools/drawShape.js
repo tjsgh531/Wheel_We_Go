@@ -11,7 +11,10 @@ export class DrawShape{
     addCircle(lat, lon, radius){
         const circle = new Tmapv3.Circle({
 			center: new Tmapv3.LatLng(lat, lon),
+            fillColor : "#027bfc",
 			radius: radius,
+            strokeColor :"#FFFFFF",
+            strokeWeight : 2,
 			map: this.map
 		});
 
@@ -24,7 +27,10 @@ export class DrawShape{
         const newCircle = new Tmapv3.Circle({
 			center: new Tmapv3.LatLng(lat, lon),
 			radius: circle._shape_data.radius,
-			map: this.map
+            fillColor : "#027bfc",
+            strokeColor :"#FFFFFF",
+            strokeWeight : 2,
+            map: this.map
 		});
 
         circle.setMap(null);
