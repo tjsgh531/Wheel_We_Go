@@ -511,7 +511,7 @@ export class Search {
 
             startBtn.addEventListener('click', ()=>{ // "시작하기" 버튼 클릭
                 this.bottomBarAllUnactive();
-                this.naviTool.onNaviFooter();
+                this.naviTool.onNaviFooter(this.naviMode);
                 search_cancle.classList.toggle("unactive", true); // 검색창에 "X" 버튼 없애기
             });
         }
@@ -525,7 +525,7 @@ export class Search {
 
             startBtn.addEventListener('click', ()=>{
                 this.bottomBarAllUnactive();
-                this.naviTool.onNaviFooter();
+                this.naviTool.onNaviFooter(this.naviMode);
                 this.naviTool.trackingPath();
                 search_cancle.classList.toggle("unactive", true);
             });
@@ -541,7 +541,7 @@ export class Search {
 
             startBtn.addEventListener('click', ()=>{
                 this.bottomBarAllUnactive();
-                this.naviTool.onNaviFooter();
+                this.naviTool.onNaviFooter(this.naviMode);
                 this.naviTool.trackingPath();
                 search_cancle.classList.toggle("unactive", true);
             });
