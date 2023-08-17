@@ -7,11 +7,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Wheel_We_Go.마이페이지</title>
     <link rel="icon" type="image/x-icon" href="{% static 'img/favicon.png' %}">
-    <link rel="stylesheet" href="{% static 'css/mypage.css' %}?after" type="text/css">
-    <!-- font awesome CDN -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
-    integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
-    crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="{% static 'css/mypage.css' %}" type="text/css">
     <script type="module" src="../static/js/mypage.js"></script>
 </head>
 
@@ -23,49 +20,11 @@
                     <div class="name">{{user.username}}</div>
                     <div>님</div>
                 </div>
-             <!-- 햄버거 버튼 시작 -->
+                <!-- 햄버거 버튼 시작 -->
                 <div class="sideBarBtn">
                     <i class="fa-solid fa-bars"></i>
                 </div>
             </div>
-
-            <div class="sideBar unactive">
-                <div class="sideBar_content">
-
-                    <div class="sideBar_cancle">
-                        <i class="fa-solid fa-xmark"></i>
-                    </div>
-
-                    <div class="sideBar_profile">
-                        <div class="profile_image">
-                            <img class="profile_img" src="{% static 'img/프로필.png' %}" alt="프로필">
-                        </div>
-
-                        <div class="profile_text">
-                            <div class="sideBar_profile_text">어디든 자유롭게 가봐요.</div>
-
-                            <div class="sideBar_profile_content">
-                                {% if user %}
-                                <span style="font-size: 1.5rem; font-weight: 900;">{{ user.username
-                                    }}</span><span>님</span>
-                                {% else %}
-                                <p>지나가는 멋쟁이 호랑이 님</p>
-                                {% endif %}
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="sideBarItems">
-                        <div class="sideBar_item"><a class="hmwa" href="{% url 'main' %}">홈</a></div>
-                        <div class="sideBar_item"><a class="hmwa" href="{% url 'mypage' %}">마이페이지</a></div>
-                        <div class="sideBar_item"><a class="hmwa" href="{% url 'serviceRegion' %}">서비스 지역 보기</a></div>
-                    </div>
-                </div>
-            </div>
-
-            <!--햄버거 끝-->
-
-
             <div class="coin-container">
                 <div class="coin">
                     <div class="coin-img">
@@ -79,6 +38,43 @@
                 </div>
             </div>
         </div>
+
+        <!--햄버거 시작-->
+        <div class="sideBar unactive">
+            <div class="sideBar_content">
+
+                <div class="sideBar_cancle">
+                    <i class="fa-solid fa-xmark"></i>
+                </div>
+
+                <div class="sideBar_profile">
+                    <div class="profile_image">
+                        <img class="profile_img" src="{% static 'img/프로필.png' %}" alt="프로필">
+                    </div>
+
+                    <div class="profile_text">
+                        <div class="sideBar_profile_text">어디든 자유롭게 가봐요.</div>
+
+                        <div class="sideBar_profile_content">
+                            {% if user %}
+                            <span style="font-size: 1.5rem; font-weight: 900;">{{user.username}}</span>
+                            <span>님</span>
+                            {% else %}
+                            <p>지나가는 멋쟁이 호랑이 님</p>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="sideBarItems">
+                    <div class="sideBar_item"><a class="hmwa" href="{% url 'main' %}">홈</a></div>
+                    <div class="sideBar_item"><a class="hmwa" href="{% url 'mypage' %}">마이페이지</a></div>
+                    <div class="sideBar_item"><a class="hmwa" href="{% url 'serviceRegion' %}">서비스 지역 보기</a></div>
+                </div>
+            </div>
+        </div>
+
+        <!--햄버거 끝-->
         <div class="main-container">
             <a class="shop-ing" href="{% url 'shopping' %}">
                 <img src="{% static 'img/쇼핑하기.png' %}" alt="쇼핑">
