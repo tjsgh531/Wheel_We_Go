@@ -149,6 +149,7 @@ export class Search {
                     clearTimeout(this.searchtime);
                 }
                  
+                //검색 결과 표현
                 this.searchtime = setTimeout(()=>{
                     this.getList(this.currentLat, this.currentLon, value)
                     .then((result)=>{
@@ -493,6 +494,11 @@ export class Search {
         const functionGetCoin = document.querySelector(".functionGetCoin");
 
         const startBtn = document.querySelector(".startBtn");
+        const search_cancle = document.querySelector(".search_cancle")
+
+        const funcitonArriveTimeValue = document.querySelector(".funcitonArriveTimeValue");
+        const functionGetCoinValue = document.querySelector(".functionGetCoinValue");
+        
 
         const funcitonArriveTimeValue = document.querySelector(".funcitonArriveTimeValue");
         const functionGetCoinValue = document.querySelector(".functionGetCoinValue");
@@ -510,6 +516,8 @@ export class Search {
 
             startBtn.addEventListener('click', ()=>{ // "시작하기" 버튼 클릭
                 this.bottomBarAllUnactive();
+                this.naviTool.onNaviFooter();
+                search_cancle.classList.toggle("unactive", true); // 검색창에 "X" 버튼 없애기
             });
         }
         else if(this.naviMode == 2){ // "이동 경로 기록하기" 버튼 
@@ -522,7 +530,9 @@ export class Search {
 
             startBtn.addEventListener('click', ()=>{
                 this.bottomBarAllUnactive();
+                this.naviTool.onNaviFooter();
                 this.naviTool.trackingPath();
+                search_cancle.classList.toggle("unactive", true);
             });
         }
         else{ // "기록하면서 경로 안내 받기" 버튼
@@ -536,7 +546,9 @@ export class Search {
 
             startBtn.addEventListener('click', ()=>{
                 this.bottomBarAllUnactive();
+                this.naviTool.onNaviFooter();
                 this.naviTool.trackingPath();
+                search_cancle.classList.toggle("unactive", true);
             });
         }
     }

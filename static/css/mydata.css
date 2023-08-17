@@ -10,7 +10,7 @@ html {
 div {
     box-sizing: border-box;
 }
- 
+
 .back-button {
     display: inline-block;
     padding: 1rem;
@@ -175,6 +175,14 @@ li {
     background-repeat: no-repeat;
     background-position: center center;
     background-size: cover;
+
+}
+
+.chart {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
 
 }
 

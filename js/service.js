@@ -20,6 +20,8 @@ class Area {
 
         this.markers = [];
 
+        this.user_data = {};
+
         document.getElementById('searchBtn').addEventListener('click', () => {
             const searchWord = document.getElementById('searchInput').value;
             this.search(searchWord);
@@ -31,12 +33,13 @@ class Area {
     }
 
     start() {
+        this.sideBar();
         this.initTmap();
     }
 
     initTmap() {
         this.currentPos.getCurrentLocation().then((position) => {
-            console.log("position : ", position);
+            // console.log("position : ", position);
 
             this.currentLat = position.coords.latitude;
             this.currentLon = position.coords.longitude;
@@ -55,65 +58,46 @@ class Area {
 
     startLoadFile() {
         $.ajax({
-            url: "/static/json/jinju_coordinates.json",
+            url: "/static/json/jinju_coord_json.json",
             type: 'GET',
             dataType: 'json',
             success: (data) => {
                 this.data = data.features;
 
-                var coordinates = [];
-                var user_data = {};
+                let coordinates = [];
 
                 for (let i = 0; i < this.data.length; i++) {
                     coordinates = this.data[i].geometry.coordinates;
-                    var name = this.data[i].properties.EMD_NM;
+                    let name = this.data[i].properties.EMD_NM;
 
                     this.name.push(name);
-
-                    user_data[this.name[i]] = 0;
-
-                    // if (this.name[i] == "사직동" || this.name[i] == "구로4동") {
-                    //     user_data[name[i]] = '50';
-                    // } else {
-                    //     user_data[name[i]] = '0';
-                    // }
+                    this.user_data[name] = 0;
                 }
-
-                var color = [];
-
-                for (const key in user_data) {
-                    console.log(key, user_data[key]);
-
-                    if (user_data[key] < 3 && user_data[key]>=0) {
-                        color.push("#FF0000");
-                    } else if (user_data[key] >= 3 && user_data[key] < 10) {
-                        color.push("#FFFF00");
-                    } else if (user_data[key] >= 10) {
-                        color.push("#FFFFFF");
-                    }
-                }
+                console.log(this.user_data);
 
                 for (let i = 0; i < this.data.length; i++) {
                     coordinates = this.data[i].geometry.coordinates;
-                    this.displayArea(coordinates, color[i]);
+
+                    this.displayArea(coordinates, this.name[i]);
+
                 }
             }
         });
     }
 
-    displayArea(coordinates, color, admNm) {
-        var path = [];
-        var point = [];
-        var points = [];
+    displayArea(coordinates, emdNm) {
+        let path = [];
+        let point = [];
+        let points = [];
 
-        var latSum = 0;
-        var lngSum = 0;
+        let latSum = 0;
+        let lngSum = 0;
 
         for (let j = 0; j < coordinates.length; j++) {
             for (let z = 0; z < coordinates[j].length; z++) {
                 points = coordinates[j][z];
 
-                var temp = points[1];
+                let temp = points[1];
                 points[1] = points[0];
                 points[0] = temp;
 
@@ -123,25 +107,22 @@ class Area {
 
                 latSum += points[0];
                 lngSum += points[1];
-
             }
-
         }
-        // console.log(point);
 
-        var avgLat = latSum / point.length;
-        var avgLng = lngSum / point.length;
+        let avgLat = latSum / point.length;
+        let avgLng = lngSum / point.length;
 
-        var polygon = new Tmapv3.Polygon({
+        let polygon = new Tmapv3.Polygon({
             paths: path,
-            fillColor: color,
+            fillColor: this.getPolygonColor(this.user_data[emdNm]),
             strokeColor: "#99ccff",
             strokeWeight: 1,
             map: this.map,
-            EMD_NM: admNm,
+            EMD_NM: emdNm,
         });
 
-        var polygonCenter = {
+        let polygonCenter = {
             lat: avgLat,
             lng: avgLng
         }
@@ -152,12 +133,23 @@ class Area {
         });
     }
 
+    getPolygonColor(value) {
+        if (value >= 0 && value < 3) {
+            return "#FFF000";
+        } else if (value >= 3 && value < 10) {
+            return "#FFFF00";
+        } else if (value > 10) {
+            return "#FFFFFF";
+        }
+
+    }
+
     search(search_word) {
         this.clearMarker();
 
         this.searchTool.getList(this.currentlat, this.currentLon, search_word).then((result) => {
             const nameList = result.name_list;
-            const add = result.addr;
+            // const add = result.addr;
 
             for (const coords of result.coords) {
                 const marker = new Tmapv3.Marker({
@@ -167,17 +159,14 @@ class Area {
                 });
                 this.markers.push(marker);
             }
-            console.log(nameList);
-            console.log(add);
 
             if (this.markers.length > 0) {
-                var markerPosition = this.markers[0].getPosition();
-                var latitude = markerPosition.lat();
-                var longitude = markerPosition.lng();
+                let markerPosition = this.markers[0].getPosition();
+                let latitude = markerPosition.lat();
+                let longitude = markerPosition.lng();
 
                 this.map.setCenter(this.markers[0].getPosition());
-
-                console.log(latitude, longitude);
+                this.map.setZoom(15);
             }
         });
     }
@@ -190,8 +179,7 @@ class Area {
     }
 
     getMapCenter() {
-        var center = this.map.getCenter();
-        console.log(center.lat(), center.lng());
+        let center = this.map.getCenter();
 
         return {
             latitude: center.lat(),
@@ -200,17 +188,17 @@ class Area {
     }
 
     displayMapCenter() {
-        var center = this.getMapCenter();
-        console.log(center.latitude, center.longitude);
+        let center = this.getMapCenter();
+        // console.log(center.latitude, center.longitude);
 
-        var closestDistance = Number.MAX_VALUE;
-        var closestIndex = -1;
+        let closestDistance = Number.MAX_VALUE;
+        let closestIndex = -1;
 
         for (let i = 0; i < this.polygons.length; i++) {
-            var polygonData = this.polygons[i];
-            var polygonCenter = polygonData.center;
+            let polygonData = this.polygons[i];
+            let polygonCenter = polygonData.center;
 
-            var distance = this.calculateDistance(center.latitude, center.longitude, polygonCenter.lat, polygonCenter.lng);
+            let distance = this.calculateDistance(center.latitude, center.longitude, polygonCenter.lat, polygonCenter.lng);
 
             if (distance < closestDistance) {
                 closestDistance = distance;
@@ -219,15 +207,16 @@ class Area {
         }
 
         if (closestIndex !== -1) {
-            console.log("법정동 index :", closestIndex);
-            console.log(this.polygons[closestIndex].center.lat, this.polygons[closestIndex].center.lng);
-    
+
+            // console.log("법정동 index :", closestIndex);
+            // console.log(this.polygons[closestIndex].center.lat, this.polygons[closestIndex].center.lng);
+
             const closestNameElement = document.getElementById('closestName');
-            const correspondingName = this.name[closestIndex]; 
-            console.log("법정동 이름 :", correspondingName);
+            const correspondingName = this.name[closestIndex];
+            // console.log("법정동 이름 :", correspondingName);
+
             closestNameElement.textContent = correspondingName + " 데이터 현황";
         }
-        // console.log(closestIndex);
         // console.log(name[closestIndex]);
     }
 
@@ -254,6 +243,21 @@ class Area {
 
         const distance = earthRadius * c;
         return distance;
+    }
+
+    sideBar() {
+        const sideBarBtn = document.querySelector('.sideBarBtn');
+        const sideBar = document.querySelector('.sideBar');
+        const sideBar_cancle = document.querySelector('.sideBar_cancle')
+
+        // 사이드 바 나타내기
+        sideBarBtn.addEventListener("click", () => {
+            sideBar.classList.toggle('unactive', false);
+        });
+
+        sideBar_cancle.addEventListener('click', () => {
+            sideBar.classList.toggle('unactive', true);
+        });
     }
 }
 
