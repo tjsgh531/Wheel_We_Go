@@ -153,22 +153,16 @@ a {
     flex-direction: column;
 }
 
+
 .logout {
     margin-top: 2rem;
     margin-left: 1rem;
     margin-right: 1rem;
-    border-top: 0.1rem solid #000000;
-    border-bottom: 0.1rem solid #D9D9D9;
     height: 2rem;
-    padding-top: 0.5rem;
-    padding-left: 0.5rem;
-}
-
-.withdraw,
-.empty {
-    margin: 0 1rem;
-    border-bottom: 0.1rem solid #D9D9D9;
-    height: 2rem;
-    padding-top: 0.5rem;
-    padding-left: 0.5rem;
+    color: #a9a9a9;
+    padding-left: 0.5vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration-line: underline;
 }
