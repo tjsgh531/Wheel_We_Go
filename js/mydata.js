@@ -44,11 +44,15 @@ class MyData {
       // 우선 정렬 화면에 표시
       this.displayRecords(userRecords);
 
-      /////// 동 필터링 설정( html에서 필터링 id가져오기 )
+      // 동 필터링 설정( html에서 필터링 id가져오기 )
       const startNameFilter = document.getElementById('startNameFilter');
-      // 현재 로그인 유저에서 시작 동 이름이 같은 기록만 가져와서 set으로 저장
-      const startNames = new Set(userRecords.map(record => record.info.startName));
-      // 동 선택 추가를 위해 프리셋 설정 ( 아래 for문을 돌며 전체 부분이 startName으로 바뀌어 추가)
+      // 현재 로그인 유저에서 시작 동 이름이 같은 기록만 가져와서 중복 제거 후 저장
+      const startNames = Array.from(new Set(userRecords.map(record => {
+        const startNameParts = record.info.startName.split(' ').slice(0, 2).join(' ');
+        return startNameParts;
+      })));
+
+      // 시작 동 추가를 위해 프리셋 설정 ( 아래 for문을 돌며 전체 부분이 startName으로 바뀌어 추가)
       startNameFilter.innerHTML = '<option value="">전체</option>';
       // 시작 동 추가해주기 
       startNames.forEach(startName => {
@@ -57,11 +61,13 @@ class MyData {
         option.textContent = startName;
         startNameFilter.appendChild(option);
       });
+
       // 시작 동 바뀌면 그 시작 필터로 가기
       startNameFilter.addEventListener('change', () => {
         const selectedStartName = startNameFilter.value;
         this.filterAndDisplayRecords(userRecords, selectedStartName);
       });
+
       /////// 날짜 범위 필터링 리스너 설정 (동필터링과 유사하게 감)
       const dateFilter = document.getElementById('dateRangeFilter');
       dateFilter.addEventListener('change', () => {
@@ -79,17 +85,18 @@ class MyData {
 
   // 동필터링 된 내용 출력 함수 ( 필터링 레코드와 시작 이름을 받아옴)
   filterAndDisplayRecords(records, selectedStartName) {
-    // 출발지 이름이 선택되었을 때 필터링을 저장, 선택되지 않았을 땐 배열 그대로 사용
-    const filteredRecords = selectedStartName
-      // 조건...연산자...
-      ? records.filter(record => record.info.startName === selectedStartName)
-      : records;
-    // class records-list추가 ( 이하 내용은 위의 기본 셋과 동일 )
-    this.displayRecords(filteredRecords);
-    saveCurrentNormalDataNum(filteredRecords);
-
-  }
-
+  // 출발지 이름이 선택되었을 때 필터링을 저장, 선택되지 않았을 땐 배열 그대로 사용
+  const filteredRecords = selectedStartName
+    // 조건...연산자...
+    ? records.filter(record => {
+        const startName = record.info.startName.split(' ').slice(0, 2).join(' ');
+        return startName === selectedStartName;
+      })
+    : records;
+  // class records-list추가 ( 이하 내용은 위의 기본 셋과 동일 )
+  this.displayRecords(filteredRecords);
+  saveCurrentNormalDataNum(filteredRecords);
+}
   // 날짜 범위 필터링 함수
   filterAndDisplayDateRange(records, selectedRange) {
     const today = new Date();
