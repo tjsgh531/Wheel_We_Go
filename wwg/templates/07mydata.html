@@ -9,6 +9,7 @@
     <link rel="icon" type="image/x-icon" href="{% static 'img/favicon.png' %}">
     <link rel="stylesheet" href="{% static 'css/mydata.css' %}">
     <script src="{% static 'js/mydata.js' %}" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"defer></script>
 </head>
 
 <body>
@@ -56,10 +57,12 @@
             </select>
 
             <!-- 그래프 -->
-            <div class="chart-container">
-                <span class="chart"></span>
-                <span class="chart-shadow"></span>
+            <div class="chart-container",id ="doughnutChart">
+                <canvas id="doughnutChartCanvas"></canvas>
             </div>
+
+
+
             <div class="filter-time"></div>
 
 

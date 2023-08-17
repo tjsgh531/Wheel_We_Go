@@ -10,13 +10,15 @@ class MyData {
     this.naviResultTool = new NaviResult();
     //현재 로그인 된 유저 가져오기
     this.username = this.getCurrentLoginUser();
-    //현재 로그인 된 유저의 데이터가져오기(필터링 추가)
+    //현재 로그인 된 유저의 데이터가져오기(모든 필터링)
     this.PrintUserRecordsAllData();
-
+    //현재 유저의 차트 가져오기
+    this.chart();
   }
 
+  ////////////////////////////////////////////////////////////////////////////
   ////////////////////// 현재 로그인 된 유저 가져오기 함수 /////////////////////
-
+  ///////////////////////////////////////////////////////////////////////////
   getCurrentLoginUser() {
     //userinfo에 html에 있는 id가져오기
     let userinfo = document.getElementById('user-info');
@@ -27,8 +29,9 @@ class MyData {
   }
 
 
-
-  ////////////////////// 현재 로그인 된 유저의 데이터가져오기(필터링 추가) /////////////////////
+  ///////////////////////////////////////////////////////////////////////////////////////////////
+  ////////////////////// 현재 로그인 된 유저의 데이터가져오기(모든 필터링 포함) /////////////////////
+  ///////////////////////////////////////////////////////////////////////////////////////////////
   PrintUserRecordsAllData() {
     this.restApiTool.getsaveRecordsData().then(data => {
       const userRecords = data.filter(record => record.user_id === this.username);
@@ -109,9 +112,8 @@ class MyData {
   this.displayRecords(records);
   }
 
-
 // 데이터 표시 함수
-displayRecords(records) {
+  displayRecords(records) {
   const recordsList = document.querySelector('.records-list');
   recordsList.innerHTML = '';
 
@@ -148,6 +150,47 @@ displayRecords(records) {
     recordsList.appendChild(listItem);  
     });
   }
+
+
+
+
+  ///////////////////////////////////////////////////////////////////////////////////////////////
+  //////////////////////                  도넛차트                    /////////////////////
+  ///////////////////////////////////////////////////////////////////////////////////////////////
+  chart(){
+    const canvas = document.getElementById("doughnutChartCanvas");
+    const value = 60;
+    const data = {
+      labels:["전체 데이터"," ${this.username} 님 데이터","오류 데이터"],
+      datasets:[
+        {
+          data : [value, 100-value],
+          backgroundColor:["#e15449", "#ffffff00"],
+          borderWidth: 0,
+        },
+      ],
+    };
+    const options = {
+      // 도넛 굵기
+      cutout:'78%',
+      hover:{model:null},
+      plugins:{
+        legend:{
+          display:false,
+        },
+        tooltip:{
+          enabled:false,
+        },
+      },
+    }
+    new Chart(canvas,{
+      type : "doughnut",
+      data,
+      options,
+    });
+  }
+
+
 }
 
 
