@@ -16,6 +16,7 @@ export class Search {
         this.search_navi_info = [null, null];
         this.markers = [];
         this.naviMode; // 1 -> "일반 경로 안내"  | 2 -> "이동 경로 기록하기" | 3 -> "기록하면서 경로 안내받기"
+    
     }
 
     setMap(map){
@@ -503,9 +504,7 @@ export class Search {
         bottomBar.classList.toggle("unactive", false); // 하단바 보이게 하기
 
         if(this.naviMode == 1){ // "일반 경로 안내받기" 버튼
-            fuctionDataRecord.classList.toggle("unactive", false); // "데이터 기록" 보이게 하기
             funcitonArriveTime.classList.toggle("unactive", false); // "도착 예상 시간" 보이게 하기
-            functionGetCoin.classList.toggle("unactive", false); // "획득 예상 코인" 보이게 하기
             console.log("expectTime : " ,this.naviTool.expectTime);
             funcitonArriveTimeValue.textContent = `${this.naviTool.expectTime}`;
             functionGetCoinValue.textContent = `${this.naviDataCautionTool.expectCoin}`;

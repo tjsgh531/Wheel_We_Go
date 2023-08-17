@@ -469,7 +469,7 @@ export class Navi {
         
         // "기록 삭제하고 중단하기" 버튼 클릭 시
         abortRecordDeleteAbortBtn.addEventListener('click', ()=>{
-
+            
         });
 
         // "기록 저장하고 중단하기" 버튼 클릭 시
