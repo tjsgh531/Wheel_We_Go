@@ -1,9 +1,9 @@
 import { RestApiData } from "./extendsTools/restApiData.js";
 import { NaviResult } from "./extendsTools/naviResult.js";
 
-class MyData{
+class MyData {
   //흐름
-  constructor(){
+  constructor() {
     //restApiData.js에서 함수를 쓰기 위한 추가
     this.restApiTool = new RestApiData();
     //naveResultTool.js에서 함수를 쓰기 위한 추가
@@ -12,19 +12,20 @@ class MyData{
     this.username = this.getCurrentLoginUser();
     //현재 로그인 된 유저의 데이터가져오기(필터링 추가)
     this.PrintUserRecordsAllData();
-    
+
   }
 
   ////////////////////// 현재 로그인 된 유저 가져오기 함수 /////////////////////
 
-  getCurrentLoginUser(){
-      //userinfo에 html에 있는 id가져오기
-      let userinfo = document.getElementById('user-info');
-      // user에 data-username에 있는 유저네임 저장  
-      let user = userinfo.dataset.username;
-      // 이후 user 변수를 활용하여 필요한 작업을 수행할 수 있습니다.
-      return user;
+  getCurrentLoginUser() {
+    //userinfo에 html에 있는 id가져오기
+    let userinfo = document.getElementById('user-info');
+    // user에 data-username에 있는 유저네임 저장  
+    let user = userinfo.dataset.username;
+    // 이후 user 변수를 활용하여 필요한 작업을 수행할 수 있습니다.
+    return user;
   }
+
 
 
   ////////////////////// 현재 로그인 된 유저의 데이터가져오기(필터링 추가) /////////////////////
@@ -82,6 +83,7 @@ class MyData{
     // class records-list추가 ( 이하 내용은 위의 기본 셋과 동일 )
     this.displayRecords(filteredRecords);
   }
+
   // 날짜 범위 필터링 함수
   filterAndDisplayDateRange(records, selectedRange) {
   const today = new Date();
@@ -106,6 +108,7 @@ class MyData{
 
   this.displayRecords(records);
   }
+
 
 // 데이터 표시 함수
 displayRecords(records) {
@@ -146,9 +149,6 @@ displayRecords(records) {
     });
   }
 }
-
-
-
 
 
 
