@@ -500,6 +500,10 @@ export class Search {
         const functionGetCoinValue = document.querySelector(".functionGetCoinValue");
         
 
+        const funcitonArriveTimeValue = document.querySelector(".funcitonArriveTimeValue");
+        const functionGetCoinValue = document.querySelector(".functionGetCoinValue");
+        
+
         bottomBar.classList.toggle("unactive", false); // 하단바 보이게 하기
 
         if(this.naviMode == 1){ // "일반 경로 안내받기" 버튼

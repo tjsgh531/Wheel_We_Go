@@ -10,6 +10,8 @@ class MyData {
     this.naviResultTool = new NaviResult();
     //현재 로그인 된 유저 가져오기
     this.username = this.getCurrentLoginUser();
+    this.currentAllDataNum = 0;
+    this.currentErrorDataNum= 0;
     //현재 로그인 된 유저의 데이터가져오기(모든 필터링)
     this.PrintUserRecordsAllData();
     //현재 유저의 차트 가져오기
@@ -41,7 +43,7 @@ class MyData {
 
       // 우선 정렬 화면에 표시
       this.displayRecords(userRecords);
-
+      saveCurrentNormalDataNum("None");
 
       /////// 동 필터링 설정( html에서 필터링 id가져오기 )
       const startNameFilter = document.getElementById('startNameFilter');
@@ -85,6 +87,8 @@ class MyData {
       : records;
     // class records-list추가 ( 이하 내용은 위의 기본 셋과 동일 )
     this.displayRecords(filteredRecords);
+    saveCurrentNormalDataNum(filteredRecords);
+
   }
 
   // 날짜 범위 필터링 함수
@@ -128,13 +132,14 @@ class MyData {
       const time = infoData.info.AtTime;
       const km = infoData.info.distance;
       const credit = infoData.earnedCoin;
+      const valid_check = infoData.data_valid;
       const listItem = document.createElement('li');
       listItem.style.listStyle = 'none';
       listItem.innerHTML = `
       <div class="route-data-time">${recordDate.toLocaleDateString()}</div>
       <div class="circle-route-etc">
           <div class="circle-container">
-              <span class="circle-0"></span>
+              <span class="circle-${valid_check}"></span>
           </div>
       
           <div class="route">
@@ -162,7 +167,47 @@ class MyData {
     });
   }
 
+  saveCurrentAllDataNum(selectedStartName){
+    if (selectedStartName === "None"){
+      currentAllDataNum = 0;
+      this.restApiTool.getsaveRecordsData().then(data => {
+        const userRecords = data.filter(record => record.user_id === this.username);
+        userRecords.foreach(record =>{
+          currentAllDataNum++;
+        });
+      })
+    }else{
+    this.restApiTool.getsaveRecordsData().then(data =>{
+      currentAllDataNum = 0;
+      const userRecords=data.filter(record => record.user_id===this.username &&record.info.startName===selectedStartName);
+      userRecords.forEach(record=>{
+        currentAllDataNum++;
+      });
+    })
+    }
 
+  }
+
+  savecurrentErrorDataNum(selectedStartName){
+    if (selectedStartName === "None"){
+      currentErrorDataNum=0;
+      this.restApiTool.getsaveRecordsData().then(data => {
+        const userRecords = data.filter(record => record.user_id === this.username&& record.info.data_valid===2);
+        userRecords.foreach(record =>{
+          currentErrorDataNum++;
+        });
+      })
+    }else{
+    this.restApiTool.getsaveRecordsData().then(data =>{
+      currentErrorDataNum=0;
+      const userRecords=data.filter(record => record.user_id===this.username &&record.info.startName===selectedStartName&&record.info.data_valid===2);
+      userRecords.forEach(record=>{
+        currentErrorDataNum++;
+      });
+    })
+    }
+
+  }
 
 
   ///////////////////////////////////////////////////////////////////////////////////////////////
@@ -170,13 +215,15 @@ class MyData {
   ///////////////////////////////////////////////////////////////////////////////////////////////
   chart(){
     const canvas = document.getElementById("doughnutChartCanvas");
-    const value = 60;
+    const allDataNum =this.currentAllDataNum ;
+    const errorDataNum = this.currentErrorDataNum;
+    const normalDataNum = allDataNum-errorDataNum;
     const data = {
-      labels:["전체 데이터"," ${this.username} 님 데이터","오류 데이터"],
+      labels:["전체 데이터", `'${this.username}' 님 데이터`,"오류 데이터"],
       datasets:[
         {
-          data : [value, 100-value],
-          backgroundColor:["#e15449", "#ffffff00"],
+          data : [(allDataNum / allDataNum) * 100,(normalDataNum / allDataNum) * 100,(errorDataNum / allDataNum) * 100],
+          backgroundColor:["#FFC573", "#D27C00","FF0000"],
           borderWidth: 0,
         },
       ],
