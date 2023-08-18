@@ -57,6 +57,25 @@ export class DrawShape{
     deletePolyline(polyline){
         polyline.setMap(null);
     }
+
+    drawPath(coords){
+        let pre_position;
+
+        coords.forEach( position => {
+            let cur_lat = position[0];
+            let cur_lon = position[1];
+
+            if(pre_position){
+                let pre_lat = pre_position[0];
+                let pre_lon = pre_position[1];
+
+                this.addPolyline(pre_lat, pre_lon, cur_lat, cur_lon);
+                pre_position = position;
+            }else{
+                pre_position = position;
+            }
+        });
+    }
     
     //사각형
 	addRectangle(maxLat, maxLon, minLat, minLon, strokeWeight, color){

@@ -4,7 +4,6 @@ import { CurrentPos } from "./currentPos.js";
 import { NaviResult } from "./naviResult.js";
 import { RestApiData } from "./restApiData.js";
 
-
 export class Navi {
     constructor() {
         this.drawTool = new DrawShape();
@@ -13,7 +12,7 @@ export class Navi {
         this.naviResult = new NaviResult();
         this.restApiData = new RestApiData();
         this.username = this.getCurrentLoginUser();
-        
+
         this.currentLat, this.currentLon;
         this.map;
         this.marker_SE = "";  
@@ -58,6 +57,7 @@ export class Navi {
         let user = userinfo.dataset.username;
         return user;
     }
+
 
     // 마커 버튼 클릭시 작동
     clickMarkBtn(){
@@ -259,6 +259,7 @@ export class Navi {
         })
         .then(()=>{
             console.log("으아아아",start_str, end_str);
+
 
             //데이터 저장 하기
             const markerStr = this.naviResult.getMarkerStr();

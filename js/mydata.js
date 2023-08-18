@@ -1,14 +1,32 @@
 import { RestApiData } from "./extendsTools/restApiData.js";
 import { NaviResult } from "./extendsTools/naviResult.js";
+import { InitMap } from "./extendsTools/initmap.js";
+import { DrawShape } from "./extendsTools/drawShape.js";
+
 import Chart from 'chart.js/auto';
+
 
 class MyData {
   constructor() {
     this.restApiTool = new RestApiData();
     this.naviResultTool = new NaviResult();
+    this.naviResult = new NaviResult();
+    this.maptool = new InitMap();
+    this.drawtool = new DrawShape();
+
     this.username = this.getCurrentLoginUser();
     this.PrintUserRecordsAllData();
     this.chart();
+
+    this.createMap();
+  }
+
+  createMap(){
+    this.maptool.createTmap(37.468478, 127.039257).then((map)=>{
+      console.log("맵 완성");
+      this.map = map;
+      this.drawtool.setMap(map);
+    })
   }
 
   getCurrentLoginUser() {
@@ -107,7 +125,7 @@ class MyData {
     } else if (selectedSort === 'oldest') {
       records.sort((a, b) => a.info.date.localeCompare(b.info.date));
     }
-
+    console.log("????");
     this.displayRecords(records);
   }
 
@@ -119,6 +137,7 @@ class MyData {
 
     records.forEach(infoData => {
 
+      console.log("???? : ", infoData);
       const recordDate = new Date(infoData.info.date.replace(/\./g, '-'));
       const start = infoData.info.startName;
       const end = infoData.info.endName;
@@ -126,6 +145,11 @@ class MyData {
       const km = infoData.info.distance;
       const credit = infoData.earnedCoin;
       const valid_check = infoData.data_valid;
+      
+      const markers = infoData.info.markings; 
+      const markerStr = infoData.info.markingStr;
+      const coords = infoData.info.coords;
+      
       const listItem = document.createElement('li');
       listItem.style.listStyle = 'none';
       listItem.innerHTML = `
@@ -139,7 +163,7 @@ class MyData {
           <div class="route">
               <div class='start_location'>${start}</div> -> <div class='end_location'>${end}</div>
           </div>
-          </div>
+      
           <div class="etc-data">
               <div>
                   <img src="../static/img/시간.png" alt="시간">
@@ -157,8 +181,11 @@ class MyData {
       </div>
   
       <div class="line"></div>
-    `;
+      `;
       recordsList.appendChild(listItem);
+
+      console.log("여긴 실행 뙜어?");
+      listItem.addEventListener("click",this.clickDataBox.bind(this, time, km, credit, markers, markerStr, coords));
     });
   }
 
@@ -241,7 +268,56 @@ class MyData {
     chartTextContainer.appendChild(chartPercentText);
     chartContainer.appendChild(chartTextContainer);
   }
+
+
+  // 데이터 박스 클릭시 다음 페이지 넘어가는 코드
+  clickDataBox(time, dist, coin, markers, markerStr, coords){
+    console.log("데이터 박스 클릭 : ", time, dist, coin, markers, markerStr, coords);
+    const page01 = document.querySelector(".mydata-page-01");
+    const page02 = document.querySelector(".mydata-page-02");
+
+    console.log(page02);
+    console.log(page02.classList)
+   
+    page02.classList.toggle("unactive", false);
+
+    page01.classList.toggle("unactive", true);
+    
+
+    // 파라미터 속성 : data 유효성(true/false), 시간, 거리, 코인
+    this.naviResult.createResultSummaryBoard(true, time, dist, coin);
+  
+    // 마커 내용 나오는 것
+    this.naviResult.createResultContentBoard(markers);
+    const markString = markerStr.split("|");
+    this.naviResult.setmarkString(markString);
+    this.naviResult.writeTextinStateDiv();
+
+    //맵 그리기
+    this.createDataMap(coords, markers);
+  }
+
+  // 데이터 결과 맵 만들기
+  createDataMap(coords, markers){
+    //길 그리기
+    this.drawtool.drawPath(coords);
+
+    //마커 그리기
+    markers.forEach(ele => {
+      let mark_lat = ele[0];
+      let mark_lon = ele[1];
+
+      this.maptool.createMark(this.map, mark_lat, mark_lon);
+    });
+
+    //map 중심
+    const start_lat = coords[0][0];
+    const start_lon = coords[0][1];
+    this.maptool.setMapCenter(this.map, start_lat, start_lon);
+  }
 }
+
+
 window.onload = () => {
   new MyData();
 }
