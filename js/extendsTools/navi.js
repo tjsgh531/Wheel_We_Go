@@ -11,7 +11,7 @@ export class Navi {
         this.currentPos = new CurrentPos();
         this.naviResult = new NaviResult();
         this.restApiData = new RestApiData();
-        this.username = this.getCurrentLoginUser();
+        //this.username = this.getCurrentLoginUser();
         this.currentLat, this.currentLon;
         this.map;
         this.marker_SE = "";  
@@ -274,6 +274,7 @@ export class Navi {
                     earnedCoin : coin,
                     info : saveJsonData,
                 }
+                console.log(this.username),
 
                 this.restApiData.createSaveRecord(saveData)
             })

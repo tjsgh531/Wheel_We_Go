@@ -8,10 +8,11 @@ class MyPage {
     constructor() {
         this.restApiTool = new RestApiData();
         this.username = this.getCurrentLoginUser();
-
+        this.startName= "진주시 가좌동"
         this.start();
+        getRegionsData()
     }
-
+    
     getCurrentLoginUser() {
         let userinfo = document.getElementById('user-info');
         let user = userinfo.dataset.username;
@@ -30,7 +31,12 @@ class MyPage {
         const userCoin = userRecord ? userRecord.user_coin : 0;
         return userCoin;
     }
-
+    async getRegionsData(){
+        const data = await this.restApiTool.getRegionsData();
+        const userRecord = data.find(record => record.regions ===this.startName);
+        const RecordStacks=userRecord.stacks;
+        console.log(RecordStacks);
+    }
     updateCoinInfo(userCoin) {
         const coinPriceElement = document.querySelector('.price'); 
         coinPriceElement.textContent = `${userCoin} `;

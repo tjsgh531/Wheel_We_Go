@@ -272,15 +272,13 @@ class MyData {
 
   // 데이터 박스 클릭시 다음 페이지 넘어가는 코드
   clickDataBox(time, dist, coin, markers, markerStr, coords){
-    console.log("데이터 박스 클릭 : ", time, dist, coin, markers, markerStr, coords);
     const page01 = document.querySelector(".mydata-page-01");
     const page02 = document.querySelector(".mydata-page-02");
 
     console.log(page02);
     console.log(page02.classList)
    
-    page02.classList.toggle("unactive", false);
-
+    page02.classList.toggle("unactive", false)
     page01.classList.toggle("unactive", true);
     
 
