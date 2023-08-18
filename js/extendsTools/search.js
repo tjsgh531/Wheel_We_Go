@@ -501,8 +501,8 @@ export class Search {
         const functionGetCoinValue = document.querySelector(".functionGetCoinValue");
         
 
-        const funcitonArriveTimeValue = document.querySelector(".funcitonArriveTimeValue");
-        const functionGetCoinValue = document.querySelector(".functionGetCoinValue");
+        // const funcitonArriveTimeValue = document.querySelector(".funcitonArriveTimeValue");
+        // const functionGetCoinValue = document.querySelector(".functionGetCoinValue");
         
 
         bottomBar.classList.toggle("unactive", false); // 하단바 보이게 하기

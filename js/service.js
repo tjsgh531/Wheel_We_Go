@@ -19,12 +19,23 @@ class Area {
         this.start();
 
         this.markers = [];
+        
+        this.fetchedData = [];
+        this.fDataDicKms = {};
+        this.fDataDicStacks = {};
 
         this.user_data = {};
+        this.user_data_kms = {};
 
         document.getElementById('searchBtn').addEventListener('click', () => {
             const searchWord = document.getElementById('searchInput').value;
             this.search(searchWord);
+        });
+        document.getElementById('searchInput').addEventListener('keydown', (event) =>{
+            if(event.key === 'Enter'){
+                const searchWord = searchInput.value;
+                this.search(searchWord);
+            }
         });
 
         setInterval(() => {
@@ -33,13 +44,19 @@ class Area {
     }
 
     start() {
+        fetch("http://127.0.0.1:8000/api/regions/?format=json")
+            .then((response) => response.json())
+            .then((data) => {
+                this.fetchedData = data;
+                this.processFetchedData();
+            })
+        
         this.sideBar();
         this.initTmap();
     }
 
     initTmap() {
         this.currentPos.getCurrentLocation().then((position) => {
-            // console.log("position : ", position);
 
             this.currentLat = position.coords.latitude;
             this.currentLon = position.coords.longitude;
@@ -56,9 +73,25 @@ class Area {
         });
     }
 
+    processFetchedData() {
+        for (let i = 0; i < this.fetchedData.length; i++) {
+            let startName = this.fetchedData[i].regions.split(" ");
+            let parts = startName.length > 1 ? startName[1] : KeyboardEvent;
+
+            let stacksValue = this.fetchedData[i].stacks;
+            let kmsValue = this.fetchedData[i].kms;
+
+            console.log(parts, stacksValue, kmsValue);
+
+            this.fDataDicKms[parts] = kmsValue;
+            this.fDataDicStacks[parts] = stacksValue; 
+        }
+    }
+
+
     startLoadFile() {
         $.ajax({
-            url: "/static/json/jinju_coord_json.json",
+            url: "/static/json/seoul_coords_gu.json",
             type: 'GET',
             dataType: 'json',
             success: (data) => {
@@ -72,14 +105,30 @@ class Area {
 
                     this.name.push(name);
                     this.user_data[name] = 0;
+                    this.user_data_kms[name] = 0;
                 }
-                console.log(this.user_data);
+                
+                for(let key in this.fDataDicStacks){
+                    for (let i = 0; i < this.name.length; i++) {
+                        if(key == this.name[i]){
+                            this.user_data[this.name[i]] = this.fDataDicStacks[this.name[i]];
+                            this.user_data_kms[this.name[i]] = this.fDataDicKms[this.name[i]];
+                        }
+                    }
+                }
 
+                for(let key in this.fDataDicKms){
+                    for(let i = 0;i<this.fDataDicKms;i++){
+                        if(key == this.name[i]){
+                            this.user_data_kms[this.name[i]] = this.fDataDic[this.name[i]];
+                        }
+                    }
+                }
+                
                 for (let i = 0; i < this.data.length; i++) {
                     coordinates = this.data[i].geometry.coordinates;
 
                     this.displayArea(coordinates, this.name[i]);
-
                 }
             }
         });
@@ -135,13 +184,12 @@ class Area {
 
     getPolygonColor(value) {
         if (value >= 0 && value < 3) {
-            return "#FFF000";
-        } else if (value >= 3 && value < 10) {
-            return "#FFFF00";
-        } else if (value > 10) {
+            return "#E65100";
+        } else if (value >= 3 && value < 9) {
+            return "#FFCC80";
+        } else if (value >= 9) {
             return "#FFFFFF";
         }
-
     }
 
     search(search_word) {
@@ -149,7 +197,6 @@ class Area {
 
         this.searchTool.getList(this.currentlat, this.currentLon, search_word).then((result) => {
             const nameList = result.name_list;
-            // const add = result.addr;
 
             for (const coords of result.coords) {
                 const marker = new Tmapv3.Marker({
@@ -158,6 +205,10 @@ class Area {
                     title: nameList,
                 });
                 this.markers.push(marker);
+
+                if (this.markers.length === 1) {
+                    break;
+                }
             }
 
             if (this.markers.length > 0) {
@@ -189,7 +240,6 @@ class Area {
 
     displayMapCenter() {
         let center = this.getMapCenter();
-        // console.log(center.latitude, center.longitude);
 
         let closestDistance = Number.MAX_VALUE;
         let closestIndex = -1;
@@ -207,17 +257,18 @@ class Area {
         }
 
         if (closestIndex !== -1) {
-
-            // console.log("법정동 index :", closestIndex);
-            // console.log(this.polygons[closestIndex].center.lat, this.polygons[closestIndex].center.lng);
-
             const closestNameElement = document.getElementById('closestName');
             const correspondingName = this.name[closestIndex];
-            // console.log("법정동 이름 :", correspondingName);
-
             closestNameElement.textContent = correspondingName + " 데이터 현황";
+        
+            const correspondingValue = this.user_data[correspondingName];
+            const closestStacksNum = document.getElementById('stacksNum');
+            closestStacksNum.textContent = correspondingValue;
+
+            const correspondingKmsData = this.user_data_kms[correspondingName];
+            const closestKmsData = document.getElementById('kmsData');
+            closestKmsData.textContent = correspondingKmsData;
         }
-        // console.log(name[closestIndex]);
     }
 
     calculateDistance(lat1, lng1, lat2, lng2) {
@@ -264,7 +315,3 @@ class Area {
 window.onload = () => {
     new Area();
 }
-
-fetch("http://127.0.0.1:8000/api/regions/?format=json/")
-    .then((response) => response.json())
-    .then((data) => console.log(data))
