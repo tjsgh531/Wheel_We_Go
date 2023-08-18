@@ -16,6 +16,7 @@ export class NaviResult{
 
     }
 
+    // 페이지 초기화
     initResultPage(){
         this.markString = [];
         this.allPageNum = [];
@@ -28,6 +29,7 @@ export class NaviResult{
 
     }
 
+    // 결과 보드 창 끄기
     unactiveResultBoard(){
         const resultBoard = document.querySelector(".resultBoard");
 
@@ -225,6 +227,10 @@ export class NaviResult{
         for(let i = 0; i < all_state_div.length; i++){
             all_state_div[i].textContent = `${this.markString[i]}`;
         }
+    }
+
+    setmarkString(markString){
+        this.markString = [...markString];
     }
 
     getMarkerStr(){

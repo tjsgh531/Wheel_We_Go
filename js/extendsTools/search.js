@@ -29,6 +29,7 @@ export class Search {
         this.currentLat = lat;
         this.currentLon = lon;
         this.naviTool.setPosition(lat, lon);
+        this.naviDataCautionTool.setLocation(lat, lon);
     }
 
     getList(lat, lng, search_word) {
@@ -201,6 +202,7 @@ export class Search {
     }
 
 
+    //수정
     createCurPosSearchBlock(){
         const search_result = document.querySelector('.search_result'); // 검색 결과창
         const sideBarBtn = document.querySelector('.sideBarBtn');
@@ -214,12 +216,24 @@ export class Search {
     
         // 검색 결과를 클릭 한 경우
         searchBlock.addEventListener('click',()=>{
+            const departures = document.querySelector(".departures");
+            const arrivals = document.querySelector(".arrivals");
+
             search_result.innerHTML = ""; //내용 제거
             this.createCurPosSearchBlock(); //내 위치 넣기
 
             sideBarBtn.classList.toggle("unactive", false);
             searchIcon.classList.toggle('unactive', false);
-            search_result.classList.toggle("unactive", true);                
+            search_result.classList.toggle("unactive", true);   
+            
+            const marker = this.mapTool.createMark(this.map, this.currentLat, this.currentLon);
+            
+            if(this.search_navi_info[0] == null && this.search_navi_info[1] != null){
+                departures.value = `내 위치`;
+            }
+            else if(this.search_navi_info[1] == null && this.search_navi_info[0] != null){
+                arrivals.value = `내 위치`;
+            }
 
             // 내위치 관련 블락 클릭 이벤트
             this.naviTool.loadGetLonLatFromAddress(this.currentLat, this.currentLon).then((cur_addr)=>{
@@ -288,7 +302,7 @@ export class Search {
         const search_cancle = document.querySelector(".search_cancle");
 
         //둘다 검색어가 있는 경우
-        if (departures.value && arrivals.value) {
+        if (departures.value && arrivals.value ) {
 
             gnb.classList.toggle("search_gnb", true);
             search_cancle.classList.toggle("unactive", false);
@@ -336,6 +350,8 @@ export class Search {
                 })
 
         }
+        
+
         //아직 길찾기가 아니야
         else {
             const search_navi = document.querySelector(".search_navi");
