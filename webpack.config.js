@@ -7,6 +7,7 @@ module.exports = {
         mydata: "./js/mydata.js",
         shopping: "./js/shopping.js",
         mypage: "./js/mypage.js",
+        firstpage: "./js/first.js",
     },
     output: {
         path: path.resolve(__dirname, "static", "js"),

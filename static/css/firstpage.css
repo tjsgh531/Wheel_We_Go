@@ -1,0 +1,187 @@
+html, body{
+    padding: 0;
+    margin: 0;
+    
+    overflow: hidden;
+}
+.unactive{
+    display: none !important;
+}
+
+a {color: #fff; text-decoration: none; outline: none}
+
+a:hover, a:active {text-decoration: none; color:#fff;}
+
+div{
+    box-sizing: border-box;
+    color: white;
+}
+
+#wrap{
+    position: fixed;
+    top: 0; left: 0;
+
+    width: 100vw;
+    height: 100vh;
+    
+    overflow: hidden;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    background-color: black;
+}
+
+.content{
+    width: 100vw;
+    height: 100vh;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.content_1{
+    color: white;
+
+    font-size: 4rem;
+    font-weight: 900;
+}
+.wheelchair{
+    position: absolute;
+    z-index: -2;
+    width: 80vw;
+
+}
+.background_title{
+    position: relative;
+    left: -2rem;
+    color: white;
+
+    font-size: 6rem;
+    font-weight: 900;
+
+    text-align: center;
+}
+
+.nodata_img{
+    height: 50vh;
+    position: absolute;
+    top: 50%; left: 60%;
+    z-index: -1;
+
+    transform: rotate(30deg) translate(-50%, -50%);
+
+}
+.sub_text{
+    color: white;
+    margin-top: 5rem;
+    
+    font-size: 0.6rem;
+}
+
+.campain_img{
+    width: 50vw;
+
+    border: 1px solid red;
+    overflow: hidden;
+}
+.content_3_title{
+    color: white;
+
+    font-size: 2rem;
+
+    margin-bottom: 1rem;
+}
+.content_3_subtext{
+    color: white;
+
+    font-size: 2rem;
+    margin-top: 1rem;
+}
+
+.moveToCampain, .content_4_start, .start{
+    width: 10rem;
+    height: 2.5rem;
+
+    border-radius: 2rem;
+
+    color: white;
+    font-size: 1rem;
+    font-weight: 900;
+
+    background-color: #f59000;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    margin-top: 1rem;
+
+    cursor: pointer;
+}
+
+.tracking_img{
+    position: absolute;
+    left: 10rem;
+
+    transform: rotate(-10deg);
+    height: 50vh;
+}
+.navi_img{
+    position: absolute;
+    right: 10rem;
+
+    transform: rotate(10deg);
+    height: 50vh;
+}
+.content_4_title{
+    color: #f59000;
+
+    font-size: 4rem;
+    font-weight: 900;
+}
+
+.content_4_sub_text{
+    color: white;
+
+    margin-top: 2rem;
+    font-size: 1rem;
+}
+
+.caution{
+    font-size: 4rem;
+    color: #f59000;
+    font-weight: 900;
+}
+.f12{
+    height: 40vh;
+}
+
+.content_5_subtext{
+    font-size: 1.6rem;
+}
+
+.btns{
+    position: fixed;
+    bottom: 0;
+    padding: 4rem;
+
+    font-size: 2rem;
+    font-weight: 900;
+
+    color: white;
+
+    width: 100vw;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.btns div{
+    cursor: pointer;
+}
