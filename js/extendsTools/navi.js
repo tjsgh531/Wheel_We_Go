@@ -677,25 +677,20 @@ export class Navi {
         myDataBtn.addEventListener("click", ()=>{
             this.createTrackingData().then((saveData)=>{
                 this.restApiData.createSaveRecord(saveData); // 트래킹 데이터 DB 저장
-                console.log("트래킹 데이터", this.trackingData); 
                 this.eraseTrackingLine(); // 트래킹 라인 삭제
-                this.resetMarkers();
+                this.resetMarkers(); // 트래킹 마커들 삭제
                 dataRecordAbortblur.classList.toggle("unactive", true); // 마지막 화면 끄기
                 this.resetGnb(); // main 페이지의 초기 화면으로 세팅
 
                 window.location.href = "http://127.0.0.1:8000/mydata";
-                /*
-                const goMyData = document.querySelector(".goMyData");
-                goMyData.click();
-                */
             }); // 트래킹 데이터 생성
         });
 
         submitResultAbortBtn.addEventListener("click", ()=>{
             this.createTrackingData().then((saveData)=>{
                 // this.restApiData.createSaveRecord(saveData);
-                this.eraseTrackingLine(); //
-                this.resetMarkers(); 
+                this.eraseTrackingLine(); // 트래킹 라인 삭제
+                this.resetMarkers(); // 트래킹 마커들 삭제
                 dataRecordAbortblur.classList.toggle("unactive", true);
                 this.resetGnb(); // main 페이지의 초기 화면으로 전환
             });
