@@ -139,7 +139,7 @@ class MyData {
           <div class="route">
               <div class='start_location'>${start}</div> -> <div class='end_location'>${end}</div>
           </div>
-          </div>
+      
           <div class="etc-data">
               <div>
                   <img src="../static/img/시간.png" alt="시간">

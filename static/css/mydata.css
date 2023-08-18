@@ -28,54 +28,58 @@ div {
 
 
       /* 생략 */
-  font-family: "Noto Sansf KR", sans-serif;
-  font-size: 1rem;
-  font-weight: 400;
-  line-height: 1.5;
 
-  color: #444;
-  background-color: #fff;
+font-family: "Noto Sansf KR", sans-serif;
 
-  padding: 0.6em 1.4em 0.5em 0.8em;
-  margin: 0;
+font-size: 1rem;
 
-  border: 0px solid #aaa;
-  border-radius: 0.5em;
-  box-shadow: 0 1px 10px 2px rgba(0, 0, 0, 0.1);
-  display: flex;
-  justify-content:initial;
+font-weight: 400;
+
+line-height: 1.5;
+
+color: #444;
+
+background-color: #fff;
+
+padding: 0.6em 1.4em 0.5em 0.8em;
+
+margin: 0;
+
+border: 0px solid #aaa;
+
+border-radius: 0.5em;
+
+box-shadow: 0 1px 10px 2px rgba(0, 0, 0, 0.1);
+
+display: flex;
+
+justify-content:initial;
 
   /* 박스 내부 여백과 가운데 정렬 설정 */
-  padding: 0.5rem 1rem; /* 위아래 여백 0.2rem, 좌우 여백 1rem */
-  align-items: center; /* 세로 가운데 정렬 */
 
+padding: 0.5rem 2rem; /* 위아래 여백 0.2rem, 좌우 여백 1rem */
 
+align-items: start; /* 세로 가운데 정렬 */
 }
-.li_box{
-    display: flex;
-}
+
 #dateRangeFilter {
       /* 생략 */
       font-family: "Noto Sansf KR", sans-serif;
       font-size: 1rem;
       font-weight: 400;
       line-height: 1.5;
-    
       color: #444;
       background-color: #fff;
-    
       padding: 0.6em 1.4em 0.5em 0.8em;
       margin: 0;
-    
       border: 0px solid #aaa;
       border-radius: 0.5em;
       box-shadow: 0 1px 10px 2px rgba(0, 0, 0, 0.1);
       justify-content:space-around;
     
       /* 박스 내부 여백과 가운데 정렬 설정 */
-      padding: 0.5rem 1rem; /* 위아래 여백 0.2rem, 좌우 여백 1rem */
+      padding: 0.5rem 0rem; /* 위아래 여백 0.2rem, 좌우 여백 1rem */
       align-items: center; /* 세로 가운데 정렬 */
-
 }
 
 #sortOption {
@@ -84,29 +88,29 @@ div {
       font-size: 1rem;
       font-weight: 400;
       line-height: 1.5;
-    
       color: #444;
       background-color: #fff;
-    
       padding: 0.6em 1.4em 0.5em 0.8em;
       margin: 0;
-    
       border: 0px solid #aaa;
       border-radius: 0.5em;
       box-shadow: 0 1px 10px 2px rgba(0, 0, 0, 0.1);
       justify-content:space-around;
     
       /* 박스 내부 여백과 가운데 정렬 설정 */
-      padding: 0.5rem 1rem; /* 위아래 여백 0.2rem, 좌우 여백 1rem */
+      padding: 0.5rem 0rem; /* 위아래 여백 0.2rem, 좌우 여백 1rem */
       align-items: center; /* 세로 가운데 정렬 */
-
 }
 
 .dateFilter {
     text-align: end;
     margin: 0.5rem;
+    padding: 0.5rem;
     z-index: 999999;
+    display: flex;
+    justify-content: space-between;
 }
+
 
 
 .square-container {
@@ -183,7 +187,7 @@ div {
 
 .circle-route-etc {
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
     align-items: center;
 }
 
@@ -216,6 +220,8 @@ li {
     margin-top: 2rem;
     align-items: center;
 }
+
+
 .chart-text-container {
     position: absolute;
     width: fit-content;
@@ -347,7 +353,20 @@ li {
     width: 100vw;
 
 }
-
+.start_location{
+    overflow : hidden;
+    text-overflow : ellipsis;
+    white-space: nowrap;
+    width: 150;
+    height: 20px;
+}
+.end_location{
+    overflow : hidden;
+    text-overflow : ellipsis;
+    white-space: nowrap;
+    width: 150;
+    height: 20px;
+}
 .route-box {
     width: 90%;
     height: 1.5rem;
