@@ -27,6 +27,8 @@ class Area {
         this.user_data = {};
         this.user_data_kms = {};
 
+        
+
         document.getElementById('searchBtn').addEventListener('click', () => {
             const searchWord = document.getElementById('searchInput').value;
             this.search(searchWord);
@@ -41,9 +43,12 @@ class Area {
         setInterval(() => {
             this.displayMapCenter();
         }, 1000);
+
+        
     }
 
     start() {
+        this.loadingText()
         fetch("http://127.0.0.1:8000/api/regions/?format=json")
             .then((response) => response.json())
             .then((data) => {
@@ -73,6 +78,33 @@ class Area {
         });
     }
 
+    resetLoading(){
+        const loader = document.querySelector(".loader");
+        const loader_text = document.querySelector(".loader_text");
+    
+        
+        loader.classList.toggle("unactive", true);
+        // 시간 지나면 텍스트 변하는 효과 없애기
+        this.loading_timeout_function.forEach(element => {
+            clearTimeout(element); 
+        });
+        
+        loader_text.textContent = "현재 위치 좌표 불러오는 중 ...";
+    
+    }
+
+    loadingText(){
+        // loading 관련 변수
+        this.loading_timeout_function = [];
+
+        const loader_text = document.querySelector(".loader_text");
+        const loading1 = setTimeout(()=>{
+            loader_text.textContent = "혹시 ... 건물 안인가요?? 건물 안에서는 gps가 잘 안잡혀요 ㅜㅜ";
+        }, 5000);
+
+        this.loading_timeout_function.push(loading1);
+    }
+
     processFetchedData() {
         for (let i = 0; i < this.fetchedData.length; i++) {
             let startName = this.fetchedData[i].regions.split(" ");
@@ -90,48 +122,56 @@ class Area {
 
 
     startLoadFile() {
-        $.ajax({
-            url: "/static/json/seoul_coords_gu.json",
-            type: 'GET',
-            dataType: 'json',
-            success: (data) => {
-                this.data = data.features;
-
-                let coordinates = [];
-
-                for (let i = 0; i < this.data.length; i++) {
-                    coordinates = this.data[i].geometry.coordinates;
-                    let name = this.data[i].properties.EMD_NM;
-
-                    this.name.push(name);
-                    this.user_data[name] = 0;
-                    this.user_data_kms[name] = 0;
-                }
-                
-                for(let key in this.fDataDicStacks){
-                    for (let i = 0; i < this.name.length; i++) {
-                        if(key == this.name[i]){
-                            this.user_data[this.name[i]] = this.fDataDicStacks[this.name[i]];
-                            this.user_data_kms[this.name[i]] = this.fDataDicKms[this.name[i]];
+        new Promise ((resolve, reject)=>{
+            $.ajax({
+                url: "/static/json/seoul_coords_gu.json",
+                type: 'GET',
+                dataType: 'json',
+                success: (data) => {
+                    this.data = data.features;
+    
+                    let coordinates = [];
+    
+                    for (let i = 0; i < this.data.length; i++) {
+                        coordinates = this.data[i].geometry.coordinates;
+                        let name = this.data[i].properties.EMD_NM;
+    
+                        this.name.push(name);
+                        this.user_data[name] = 0;
+                        this.user_data_kms[name] = 0;
+                    }
+                    
+                    for(let key in this.fDataDicStacks){
+                        for (let i = 0; i < this.name.length; i++) {
+                            if(key == this.name[i]){
+                                this.user_data[this.name[i]] = this.fDataDicStacks[this.name[i]];
+                                this.user_data_kms[this.name[i]] = this.fDataDicKms[this.name[i]];
+                            }
                         }
                     }
-                }
-
-                for(let key in this.fDataDicKms){
-                    for(let i = 0;i<this.fDataDicKms;i++){
-                        if(key == this.name[i]){
-                            this.user_data_kms[this.name[i]] = this.fDataDic[this.name[i]];
+    
+                    for(let key in this.fDataDicKms){
+                        for(let i = 0;i<this.fDataDicKms;i++){
+                            if(key == this.name[i]){
+                                this.user_data_kms[this.name[i]] = this.fDataDic[this.name[i]];
+                            }
                         }
                     }
+                    
+                    for (let i = 0; i < this.data.length; i++) {
+                        coordinates = this.data[i].geometry.coordinates;
+    
+                        this.displayArea(coordinates, this.name[i]);
+                    }
+                    resolve();
                 }
-                
-                for (let i = 0; i < this.data.length; i++) {
-                    coordinates = this.data[i].geometry.coordinates;
+            });
 
-                    this.displayArea(coordinates, this.name[i]);
-                }
-            }
-        });
+        })
+        .then(()=>{
+            this.resetLoading();
+        })
+        
     }
 
     displayArea(coordinates, emdNm) {
