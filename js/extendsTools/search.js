@@ -29,6 +29,7 @@ export class Search {
         this.currentLat = lat;
         this.currentLon = lon;
         this.naviTool.setPosition(lat, lon);
+        this.naviDataCautionTool.setLocation(lat, lon);
     }
 
     getList(lat, lng, search_word) {
