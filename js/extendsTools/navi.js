@@ -690,7 +690,7 @@ export class Navi {
                 // this.restApiData.createSaveRecord(saveData);
                 this.eraseTrackingLine(); // 트래킹 라인 삭제
                 this.resetMarkers(); // 트래킹 마커들 삭제
-                dataRecordAbortblur.classList.toggle("unactive", true);
+                dataRecordAbortblur.classList.toggle("unactive", true); // 마지막 화면 끄기
                 this.resetGnb(); // main 페이지의 초기 화면으로 전환
             });
         });   
