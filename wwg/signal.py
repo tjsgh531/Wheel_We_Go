@@ -19,26 +19,32 @@ def save_kakao_user(sender, request, user, **kwargs):
 import json
 from django.db import transaction
 from django.db.utils import IntegrityError 
+from django.db.models.signals import post_save
+from django.dispatch import receiver
+from .models import saveRecord, Regions
+
 @receiver(post_save, sender=saveRecord)
 def update_regions(sender, instance, created, **kwargs):
     newSaveRecord = instance.info
     # newSaveRecord = json.loads(newSaveRecord)
-    try: ## 기존 데이터베이스에 있는 부분이면 저장시키기
-        regions_instance = Regions.objects.get(regions=newSaveRecord.get("startName"))
+    try:
+        startName = newSaveRecord.get("startName").split(' ')[:2]  # 앞 두 글자만 추출
+        startName = ' '.join(startName)  # 공백을 포함하여 다시 합침
+        
+        regions_instance = Regions.objects.get(regions=startName)
         regions_instance.kms += newSaveRecord.get("distance")
         regions_instance.stacks += 1
         regions_instance.save()
     except Regions.DoesNotExist:
-        with transaction.atomic(): ## 통째로 저장시키는 것(무결성 문제 피하기 위함)
-            try: ## 새로운(해당 동이 없는) 데이터 저장시키기
+        with transaction.atomic():
+            try:
                 Regions.objects.create(
-                    regions=newSaveRecord.get("startName"),
+                    regions=startName,
                     kms=newSaveRecord.get("distance"),
                     stacks=1
                 )
             except IntegrityError:
                 pass
-
 
 ## 지워도 됨
 # @receiver(post_save, sender=saveRecord)

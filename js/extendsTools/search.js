@@ -16,61 +16,61 @@ export class Search {
         this.search_navi_info = [null, null];
         this.markers = [];
         this.naviMode; // 1 -> "일반 경로 안내"  | 2 -> "이동 경로 기록하기" | 3 -> "기록하면서 경로 안내받기"
-    
+
     }
 
-    setMap(map){
+    setMap(map) {
         this.map = map;
         this.naviTool.setMap(map);
-        
+
     }
 
-    setPosition(lat, lon){
+    setPosition(lat, lon) {
         this.currentLat = lat;
         this.currentLon = lon;
         this.naviTool.setPosition(lat, lon);
     }
-   
-    getList(lat, lng, search_word){
-        return new Promise((resolve, reject)=>{     
+
+    getList(lat, lng, search_word) {
+        return new Promise((resolve, reject) => {
             let searchKeyword = search_word;
             let headers = {};
-            headers["appKey"]="l7xxed2c734830ae4364975ef11e67a76e81";
-            
+            headers["appKey"] = "l7xxed2c734830ae4364975ef11e67a76e81";
+
             $.ajax({
-                method:"GET",
-                headers : headers,
-                url:"https://apis.openapi.sk.com/tmap/pois?version=1&format=json&callback=result",
-                async:false,
-                data:{
-                    "searchKeyword" : searchKeyword,
-                    "centerLat" : lat,
-                    "centerLon" : lng,
-                    "resCoordType" : "WGS84GEO",
-                    "reqCoordType" : "WGS84GEO",
-                    "count" : 10
+                method: "GET",
+                headers: headers,
+                url: "https://apis.openapi.sk.com/tmap/pois?version=1&format=json&callback=result",
+                async: false,
+                data: {
+                    "searchKeyword": searchKeyword,
+                    "centerLat": lat,
+                    "centerLon": lng,
+                    "resCoordType": "WGS84GEO",
+                    "reqCoordType": "WGS84GEO",
+                    "count": 10
                 },
-                success:function(response){
-                    let search_list =[];
+                success: function (response) {
+                    let search_list = [];
                     let search_coords = [];
                     let search_tel = [];
                     let search_addr = [];
 
-                    if(response){
+                    if (response) {
                         let resultpoisData = response.searchPoiInfo.pois.poi;
-                        
-                        for(let k in resultpoisData){
+
+                        for (let k in resultpoisData) {
                             let noorLat = Number(resultpoisData[k].noorLat);
                             let noorLon = Number(resultpoisData[k].noorLon);
                             let coords = {
-                                latitude : noorLat,
-                                longitude : noorLon,
+                                latitude: noorLat,
+                                longitude: noorLon,
                             };
-                            
+
                             let name = resultpoisData[k].name;
 
                             let address = resultpoisData[k].middleAddrName + " " + resultpoisData[k].lowerAddrName + " " + resultpoisData[k].roadName;
-                            
+
                             let tel = resultpoisData[k].telNo;
 
                             search_list.push(name);
@@ -80,42 +80,42 @@ export class Search {
                         }
 
                         const result = {
-                            name_list : search_list,
-                            coords : search_coords,
-                            addr : search_addr,
-                            tel : search_tel,
+                            name_list: search_list,
+                            coords: search_coords,
+                            addr: search_addr,
+                            tel: search_tel,
                         };
-                        
+
                         resolve(result);
                     }
-                    else{
+                    else {
                         const result = {
-                            name_list : search_list,
-                            coords : search_coords,
-                            addr : search_addr,
-                            tel : search_tel,
+                            name_list: search_list,
+                            coords: search_coords,
+                            addr: search_addr,
+                            tel: search_tel,
                         };
-                        
+
                         resolve(result);
                     }
                 },
-                error:function(request,status,error){
-                    console.log("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+                error: function (request, status, error) {
+                    console.log("code:" + request.status + "\n" + "message:" + request.responseText + "\n" + "error:" + error);
                     const result = {
-                        name_list : [],
-                        coords : [],
-                        addr : [],
-                        tel : [],
+                        name_list: [],
+                        coords: [],
+                        addr: [],
+                        tel: [],
                     };
                     resolve(result);
                 }
             });
         });
-      
-    
+
+
     }
 
-    focusSearchBox(){
+    focusSearchBox() {
         const searchBoxs = document.querySelectorAll('.searchBox'); // 서치 input text
         const searchIcon = document.querySelector('.searchIcon'); //돋보기 아이콘
         const search_cancle = document.querySelector('.search_cancle'); // 취소 아이콘
@@ -127,35 +127,36 @@ export class Search {
         // 검색 창 활성화
         searchBoxs.forEach(ele => {
             //검색 창 활성화 된 경우
-            ele.addEventListener("focus", ()=>{
+            ele.addEventListener("focus", () => {
                 sideBarBtn.classList.toggle("unactive", true);
                 searchIcon.classList.toggle('unactive', true);
                 search_cancle.classList.toggle("unactive", false);
                 search_result.classList.toggle("unactive", false);
-    
+
                 gnb.classList.toggle("search_gnb", true);
 
                 search_result.innerHTML = ""; //내용 제거
                 this.createCurPosSearchBlock(); //내 위치 넣기
             });
-            
+
             // 검색어 입력시
-            this.preSearchWord="";
+            this.preSearchWord = "";
             this.searchtime; //setTimeout 함수
             //검색 창에 검색어 입력시
-            ele.addEventListener('input', ()=>{
-            
+            ele.addEventListener('input', () => {
+
                 const value = ele.value;
                 console.log("검색어 : ", value);
-    
-                 // 3초간 입력된 글자가 바뀌지 않은 경우 검색 시작
-                if(this.searchtime){
+
+                // 3초간 입력된 글자가 바뀌지 않은 경우 검색 시작
+                if (this.searchtime) {
                     clearTimeout(this.searchtime);
                 }
-                 
+
                 //검색 결과 표현
-                this.searchtime = setTimeout(()=>{
+                this.searchtime = setTimeout(() => {
                     this.getList(this.currentLat, this.currentLon, value)
+
                     .then((result)=>{
                         const newresult = result;
     
@@ -199,6 +200,7 @@ export class Search {
         search_cancle.addEventListener('click', this.clickSearchCancleBtn.bind(this));
     }
 
+
     createCurPosSearchBlock(){
         const search_result = document.querySelector('.search_result'); // 검색 결과창
         const sideBarBtn = document.querySelector('.sideBarBtn');
@@ -230,7 +232,7 @@ export class Search {
         this.gnbMode = "search";
         const search = document.querySelector('.search');
         const searchBoxs = document.querySelectorAll('.searchBox');
-        
+
         const searchIcon = document.querySelector('.searchIcon');
         const search_cancle = document.querySelector('.search_cancle');
         const sideBarBtn = document.querySelector('.sideBarBtn');
@@ -252,18 +254,18 @@ export class Search {
         search_navi.classList.toggle("unactive", true);
 
         bottomBar.classList.toggle("unactive", true);
-        
+
 
         searchBoxs.forEach(element => {
-            
-            element.value="";
+
+            element.value = "";
         });
-       
+
         search_result.innerHTML = ""; //내용 제거
         this.createCurPosSearchBlock(); //내 위치 넣기
 
         this.search_navi_info = [null, null]; //검색 내용 초기화
-      
+
         this.eraseAllMarkers.bind(this); // 마커 지우기
         this.markers = []; //마커 기록 지우기
 
@@ -275,7 +277,7 @@ export class Search {
     }
 
     //검색 결과중 하나 클릭시
-    clickSearchBlock(lat, lng, name, addr, tel){
+    clickSearchBlock(lat, lng, name, addr, tel) {
         //gnb모드 변경
         this.gnbMode = "navi";
 
@@ -286,8 +288,8 @@ export class Search {
         const search_cancle = document.querySelector(".search_cancle");
 
         //둘다 검색어가 있는 경우
-        if (departures.value && arrivals.value){
-            
+        if (departures.value && arrivals.value) {
+
             gnb.classList.toggle("search_gnb", true);
             search_cancle.classList.toggle("unactive", false);
 
@@ -295,47 +297,47 @@ export class Search {
             this.markers.push(marker);
 
             this.mapTool.setMapCenter(this.map, lat, lng);
-            
+
             // this.displayStoreInfo(lat, lng, name, addr, tel);
 
-            if(this.search_navi_info[0] == null){
+            if (this.search_navi_info[0] == null) {
                 departures.value = `${name}`;
                 this.search_navi_info[0] = {
-                    name : name,
-                    latitude : lat,
-                    longitude : lng,
-                    marker : marker
+                    name: name,
+                    latitude: lat,
+                    longitude: lng,
+                    marker: marker
                 }
             }
-            else{
+            else {
                 arrivals.value = `${name}`;
                 this.search_navi_info[1] = {
-                    name : name,
-                    latitude : lat,
-                    longitude : lng,
-                    marker : marker
+                    name: name,
+                    latitude: lat,
+                    longitude: lng,
+                    marker: marker
                 }
             }
-            
+
             // ------------------------------------------- Navi 시작 -------------------------------------------
             console.log("내비 시작");
             this.eraseAllMarkers();
 
 
             this.naviTool.navi(this.search_navi_info)
-            .then(()=>{
-                console.log("여기 실행 되니?");
-                const expect_coin = this.naviTool.getExpactCoin();
-                this.naviDataCautionTool.setExpectCoin(expect_coin);
-                this.naviDataCautionTool.naviDataCaution(this.search_navi_info)
-                .then(()=>{
-                    this.clickNaviCautionBtn();
+                .then(() => {
+                    console.log("여기 실행 되니?");
+                    const expect_coin = this.naviTool.getExpactCoin();
+                    this.naviDataCautionTool.setExpectCoin(expect_coin);
+                    this.naviDataCautionTool.naviDataCaution(this.search_navi_info)
+                        .then(() => {
+                            this.clickNaviCautionBtn();
+                        })
                 })
-            })
-            
+
         }
         //아직 길찾기가 아니야
-        else{
+        else {
             const search_navi = document.querySelector(".search_navi");
             const search = document.querySelector(".search");
             const placeInfo = document.querySelector('.placeInfo');
@@ -346,20 +348,20 @@ export class Search {
             search.classList.toggle("unactive", false);
             gnb.classList.toggle("search_gnb", false);
             placeInfo.classList.remove("unactive");
-        
+
             searchItem.value = `${name}`;
 
             this.eraseAllMarkers.bind(this);
             this.search_marker = this.mapTool.createMark(this.map, lat, lng);
             this.markers.push(this.search_marker);
-            
+
             this.mapTool.setMapCenter(this.map, lat, lng);
-            
+
             this.displayStoreInfo(lat, lng, name, addr, tel);
         }
     }
 
-    displayStoreInfo(lat, lng, name, addr, tel){
+    displayStoreInfo(lat, lng, name, addr, tel) {
         const palceName = document.querySelector('.placeName');
         const teldiv = document.querySelector('.tel');
         const addrdiv = document.querySelector('.addr');
@@ -368,11 +370,11 @@ export class Search {
 
         palceName.textContent = `${name}`;
 
-        if(tel != ""){
+        if (tel != "") {
             teldiv.textContent += `${tel}`;
         }
-        else{
-            teldiv.textContent +="전화번호 미등록";
+        else {
+            teldiv.textContent += "전화번호 미등록";
         }
 
         addrdiv.textContent += `${addr}`;
@@ -381,13 +383,13 @@ export class Search {
             this.searchNavi.bind(this, false, name, lat, lng)
         );
 
-        endPointBtn.addEventListener("click", 
+        endPointBtn.addEventListener("click",
             this.searchNavi.bind(this, true, name, lat, lng)
         );
     }
 
     // 길찾기 버튼(도착지로 설정, 출발지로 설정 버튼) 눌렀을 때
-    searchNavi(isArrival, name, lat, lng){
+    searchNavi(isArrival, name, lat, lng) {
         const search_result = document.querySelector('.search_result');
         const placeInfo = document.querySelector('.placeInfo');
         const search_navi = document.querySelector('.search_navi');
@@ -408,29 +410,29 @@ export class Search {
         const arrivals = document.querySelector('.arrivals');
 
         //도착지 선택을 눌렀을 경우
-        if(isArrival){
+        if (isArrival) {
             arrivals.value = `${name}`;
             this.search_navi_info[1] = {
-                name : name,
-                latitude : lat,
-                longitude : lng,
-                marker : this.search_marker,
+                name: name,
+                latitude: lat,
+                longitude: lng,
+                marker: this.search_marker,
             }
         }
         //출발지 선택을 눌렀을 경우
-        else{
+        else {
             departures.value = `${name}`;
             this.search_navi_info[0] = {
-                name : name,
-                latitude : lat,
-                longitude : lng,
-                marker : this.search_marker,
+                name: name,
+                latitude: lat,
+                longitude: lng,
+                marker: this.search_marker,
             }
 
         }
     }
 
-    eraseAllMarkers(){
+    eraseAllMarkers() {
         console.log("마커 지우기 함수 실행! 하겠습닸!");
         this.markers.forEach(element => {
             console.log("마커지우기 : ", element);
@@ -438,7 +440,7 @@ export class Search {
         });
     }
 
-    cautionAllUnactive(){ // 경고 페이지 요소들 전부 안보이게 하기
+    cautionAllUnactive() { // 경고 페이지 요소들 전부 안보이게 하기
         const backgroundBlur = document.querySelector(".backgroundBlur");
         const lowData = document.querySelector(".lowData");
         const iffyData = document.querySelector(".iffyData");
@@ -452,21 +454,21 @@ export class Search {
 
     }
 
-    bottomBarAllUnactive(){ // 하단바 요소들 전부 안보이게 하기
+    bottomBarAllUnactive() { // 하단바 요소들 전부 안보이게 하기
         const bottomBar = document.querySelector(".bottomBar");
         const fuctionDataRecord = document.querySelector(".fuctionDataRecord");
         const functionRoadNavi = document.querySelector(".functionRoadNavi");
         const funcitonArriveTime = document.querySelector(".funcitonArriveTime");
         const functionGetCoin = document.querySelector(".functionGetCoin");
 
-        bottomBar.classList.toggle("unactive", true); 
-        fuctionDataRecord.classList.toggle("unactive", true); 
-        functionRoadNavi.classList.toggle("unactive", true); 
-        funcitonArriveTime.classList.toggle("unactive", true); 
-        functionGetCoin.classList.toggle("unactive", true); 
+        bottomBar.classList.toggle("unactive", true);
+        fuctionDataRecord.classList.toggle("unactive", true);
+        functionRoadNavi.classList.toggle("unactive", true);
+        funcitonArriveTime.classList.toggle("unactive", true);
+        functionGetCoin.classList.toggle("unactive", true);
     }
 
-    clickNaviCautionBtn(){
+    clickNaviCautionBtn() {
         // "일반 경로 안내받기" 버튼
         const naviDataCautionBtn_Start1 = document.querySelector(".naviDataCautionBtn_Start1");
         const naviDataCautionBtn_Start2 = document.querySelector(".naviDataCautionBtn_Start2");
@@ -481,47 +483,47 @@ export class Search {
         const naviDataCautionBtn_RecordNavi2 = document.querySelector(".naviDataCautionBtn_RecordNavi2");
 
         console.log("나 여깄다고!!!");
-        naviDataCautionBtn_Start1.addEventListener('click',()=>{
+        naviDataCautionBtn_Start1.addEventListener('click', () => {
             this.naviMode = 1;
             this.cautionAllUnactive();
             this.startNaviBottomBar();
         });
-        naviDataCautionBtn_Start2.addEventListener('click',()=>{
+        naviDataCautionBtn_Start2.addEventListener('click', () => {
             this.naviMode = 1;
             this.cautionAllUnactive();
             this.startNaviBottomBar();
         });
-        naviDataCautionBtn_Start3.addEventListener('click',()=>{
+        naviDataCautionBtn_Start3.addEventListener('click', () => {
             this.naviMode = 1;
             this.cautionAllUnactive();
             this.startNaviBottomBar();
         });
-        naviDataCautionBtn_Record1.addEventListener('click',()=>{
+        naviDataCautionBtn_Record1.addEventListener('click', () => {
             this.naviMode = 2;
             this.naviTool.eraseLineMarks();
             this.cautionAllUnactive();
             this.startNaviBottomBar();
         });
-        naviDataCautionBtn_Record2.addEventListener('click',()=>{
+        naviDataCautionBtn_Record2.addEventListener('click', () => {
             this.naviMode = 2;
             this.naviTool.eraseLineMarks();
             this.cautionAllUnactive();
             this.startNaviBottomBar();
         });
-        naviDataCautionBtn_RecordNavi1.addEventListener('click',()=>{
+        naviDataCautionBtn_RecordNavi1.addEventListener('click', () => {
             this.naviMode = 3;
             this.cautionAllUnactive();
             this.startNaviBottomBar();
         });
-        naviDataCautionBtn_RecordNavi2.addEventListener('click',()=>{
+        naviDataCautionBtn_RecordNavi2.addEventListener('click', () => {
             this.naviMode = 3;
             this.cautionAllUnactive();
             this.startNaviBottomBar();
-        });       
+        });
     }
 
     // 네비게이션 '시작하기'버튼 페이지 관련 함수
-    startNaviBottomBar(){
+    startNaviBottomBar() {
         const bottomBar = document.querySelector(".bottomBar");
 
         const fuctionDataRecord = document.querySelector(".fuctionDataRecord");
@@ -530,51 +532,48 @@ export class Search {
         const functionGetCoin = document.querySelector(".functionGetCoin");
 
         const startBtn = document.querySelector(".startBtn");
-        const search_cancle = document.querySelector(".search_cancle");        
 
-        const funcitonArriveTimeValue = document.querySelector(".funcitonArriveTimeValue");
-        const functionGetCoinValue = document.querySelector(".functionGetCoinValue");
-        
+        const search_cancle = document.querySelector(".search_cancle");        
 
         bottomBar.classList.toggle("unactive", false); // 하단바 보이게 하기
 
-        if(this.naviMode == 1){ // "일반 경로 안내받기" 버튼
+        if (this.naviMode == 1) { // "일반 경로 안내받기" 버튼
             funcitonArriveTime.classList.toggle("unactive", false); // "도착 예상 시간" 보이게 하기
-            console.log("expectTime : " ,this.naviTool.expectTime);
+            console.log("expectTime : ", this.naviTool.expectTime);
             funcitonArriveTimeValue.textContent = `${this.naviTool.expectTime}`;
             functionGetCoinValue.textContent = `${this.naviDataCautionTool.expectCoin}`;
 
-            startBtn.addEventListener('click', ()=>{ // "시작하기" 버튼 클릭
+            startBtn.addEventListener('click', () => { // "시작하기" 버튼 클릭
                 this.bottomBarAllUnactive();
                 this.naviTool.onNaviFooter(this.naviMode);
                 search_cancle.classList.toggle("unactive", true); // 검색창에 "X" 버튼 없애기
             });
         }
-        else if(this.naviMode == 2){ // "이동 경로 기록하기" 버튼 
-            fuctionDataRecord.classList.toggle("unactive", false); 
-            funcitonArriveTime.classList.toggle("unactive", false); 
-            functionGetCoin.classList.toggle("unactive", false); 
-            console.log("expectTime : " ,this.naviTool.expectTime);
+        else if (this.naviMode == 2) { // "이동 경로 기록하기" 버튼 
+            fuctionDataRecord.classList.toggle("unactive", false);
+            funcitonArriveTime.classList.toggle("unactive", false);
+            functionGetCoin.classList.toggle("unactive", false);
+            console.log("expectTime : ", this.naviTool.expectTime);
             funcitonArriveTimeValue.textContent = `${this.naviTool.expectTime}`;
             functionGetCoinValue.textContent = `${this.naviDataCautionTool.expectCoin}`;
 
-            startBtn.addEventListener('click', ()=>{
+            startBtn.addEventListener('click', () => {
                 this.bottomBarAllUnactive();
                 this.naviTool.onNaviFooter(this.naviMode);
                 this.naviTool.trackingPath();
                 search_cancle.classList.toggle("unactive", true);
             });
         }
-        else{ // "기록하면서 경로 안내 받기" 버튼
-            fuctionDataRecord.classList.toggle("unactive", false); 
+        else { // "기록하면서 경로 안내 받기" 버튼
+            fuctionDataRecord.classList.toggle("unactive", false);
             functionRoadNavi.classList.toggle("unactive", false); // "휠체어 경로 안내" 보이게 하기
-            funcitonArriveTime.classList.toggle("unactive", false); 
-            functionGetCoin.classList.toggle("unactive", false); 
-            console.log("expectTime : " ,this.naviTool.expectTime);
+            funcitonArriveTime.classList.toggle("unactive", false);
+            functionGetCoin.classList.toggle("unactive", false);
+            console.log("expectTime : ", this.naviTool.expectTime);
             funcitonArriveTimeValue.textContent = `${this.naviTool.expectTime}`;
             functionGetCoinValue.textContent = `${this.naviDataCautionTool.expectCoin}`;
 
-            startBtn.addEventListener('click', ()=>{
+            startBtn.addEventListener('click', () => {
                 this.bottomBarAllUnactive();
                 this.naviTool.onNaviFooter(this.naviMode);
                 this.naviTool.trackingPath();
