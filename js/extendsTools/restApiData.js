@@ -24,7 +24,7 @@ export class RestApiData{
 
     // 한 건 당(saveRecords) 생성
     async createSaveRecord(saveRecordData) {
-        const apiUrl = 'http://127.0.0.1:8000/api/saveRecords/';
+        const apiUrl = 'http://127.0.0.1:8000/api/saveRecords/post';
 
         return fetch(apiUrl, {
             method: 'POST',

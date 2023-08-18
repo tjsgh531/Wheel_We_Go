@@ -1,12 +1,9 @@
-
-
 export class InitMap {
     constructor() {
       
     }
   
     createTmap(lat, lon) {
-
         try {
             return new Promise((resolve, reject)=>{
                 let map = new Tmapv3.Map("map_div", {
@@ -14,8 +11,10 @@ export class InitMap {
                     width: "100vw",
                     height: "100vh",
                     zoom: 18,
+                    scaleBar: true
                 });
                 
+                console.log("맵 만드는 중 ...");
                 resolve(map);
             });
         } catch (error) {

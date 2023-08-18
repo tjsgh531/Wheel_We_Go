@@ -26,16 +26,28 @@ div {
 
 .search_result{
     position: relative;
+    z-index: 9981;
 
     width: 100vw;
     height: 100vh;
 
-    padding-top: 7rem;
+    padding-top: 10rem;
 
     background-color: white;
     
 }
 
+.search_cur_pos{
+    width: fit-content;
+
+    padding: 0.5rem 1rem;
+    background-color: #FFC573;
+    color: white;
+
+    border-radius: 1rem;
+
+    cursor: pointer;
+}
 .searchBlock{
     width: 100vw;
     height: 4rem;
@@ -645,7 +657,7 @@ div {
 
 .navi_footer{
     position: fixed;
-    bottom: 0; left: 0; z-index: 9990;
+    bottom: 0; left: 0; z-index: 9970;
 
     width: 100vw;
     height: 25vh;

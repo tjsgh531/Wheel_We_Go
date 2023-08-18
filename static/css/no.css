@@ -10,7 +10,23 @@ div {
     box-sizing: border-box;
 }
 
-#wrap {
+/* #wrap {
+    display: flex;
+    width: 100vw;
+    margin-top: 3rem;
+    margin-bottom: 3rem;
+    justify-content: center;
+} */
+.back-button {
+    display: inline-block;
+    padding: 1rem;
+    border: none;
+    text-decoration: none;
+    color: #333;
+    font-weight: bold;
+}
+
+.container {
     display: flex;
     width: 100vw;
     margin-top: 3rem;
@@ -18,7 +34,7 @@ div {
     justify-content: center;
 }
 
-.container {
+.all {
     display: flex;
     flex-direction: column;
     width: 90%;

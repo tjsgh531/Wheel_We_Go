@@ -7,7 +7,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Wheel_We_Go.마이데이터</title>
     <link rel="icon" type="image/x-icon" href="{% static 'img/favicon.png' %}">
+    
+    <!-- Tmap API -->
+    <script
+        src="https://apis.openapi.sk.com/tmap/vectorjs?version=1&appKey=l7xxed2c734830ae4364975ef11e67a76e81"></script>
+
     <link rel="stylesheet" href="{% static 'css/mydata.css' %}">
+    <link rel="stylesheet" href="{% static 'css/searchResult.css' %}">
+    
     <script src="{% static 'js/mydata.js' %}" defer></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js" defer></script>
 </head>
@@ -16,19 +23,14 @@
     <!-- 유저 저장용 삭제금지 수정금지 -->
     <div id="user-info" data-username="{{ user }}"></div>
 
-
     <div id="wrap">
-        <div class="mydata-page-01">
+        <div class="mydata-page-01 ">
             <a href="javascript:history.back()" class="back-button">
                 &lt; 내 데이터
             </a>
             <div class="line"></div>
 
-            <!-- 동 필터링 -->
-            <select id="startNameFilter">
-                <option value="">전체</option>
-                <!-- 유저의 startName 옵션들이 동적으로 추가 -->
-            </select>
+
 
 
             <div class="square-container"> <!--그래프 색깔 구분표 -->
@@ -42,14 +44,28 @@
             </div>
 
             <!-- 그래프 -->
+
             <div class="chart">
-                <div class="chart-container" ,id="doughnutChart">
-                    <canvas id="doughnutChartCanvas"></canvas>
+                <div class="chart-container">
+                <canvas id="doughnutChartCanvas"></canvas>
+                <div class="chart-text-container">
+                    <div class="chart-text"></div>
+                    <div class="chart-percent"></div>
+                </div>
                 </div>
             </div>
+
+
+
             <div class="dateFilter">
+                <!-- 동 필터링 -->
+                <select id="startNameFilter">
+                    <option value="">전체</option>
+                    <!-- 유저의 startName 옵션들이 동적으로 추가 -->
+                </select>
                 <!-- 날짜 범위 필터링 -->
                 <select id="dateRangeFilter">
+                    <option value="0">전체</option>
                     <option value="1">1개월</option>
                     <option value="3">3개월</option>
                     <option value="6">6개월</option>
@@ -70,109 +86,65 @@
                 </ul>
             </div>
         </div>
-    </div>
-    <!--
-        <div class="mydata-page-02">
+
+        <div class="mydata-page-02 unactive">
+            
             <div id="map_div"></div>
-            <div class="choice-route">
-                <a href="javascript:history.back()" class="back-button">
-                    &lt; 내 데이터
-                </a>
-                <div class="all-route">
-                    <div class="start">
-                        <div>출발지</div>
-                        <div class="route-box"></div>
-                    </div>
 
-                    <div class="finish">
-                        <div>도착지</div>
-                        <div class="route-box"></div>
+            <div class="resultBoard">
+                <div class="drag_bar"></div>
+                <div class="result_summary">
+            
+                    <!-- 데이터 상태 -->
+                    <div class="result_summary_item data_valid">
+                        <div class="data_valid_text">데이터 상태</div>
+                        <div class="data_valid_item data_item"></div>
+                    </div>
+            
+                    <!-- 이동시간 -->
+                    <div class="result_summary_item data_time">
+                        <div class="data_time_text">이동 시간</div>
+                        <div class="data_time_item data_item"></div>
+                    </div>
+                    
+                    <!-- 이동 거리 -->
+                    <div class="result_summary_item data_distance">
+                        <div class="data_distance_text">이동 거리</div>
+                        <div class="data_distance_item data_item"></div>
+                    </div>
+            
+                    <!-- 획득 코인 -->
+                    <div class="result_summary_item data_coin">
+                        <div class="data_coin_text">획득 코인</div>
+                        <div class="data_coin_item data_item"></div>
+                    </div>
+                </div>
+            
+                <div class="result_content">
+                    <div class="result_content_title"> 
+                        <div class="result_left_arrow"><i class="fa-solid fa-caret-left"></i></div>
+                        <div class="result_title_text">마킹지역</div> 
+                        <div class="result_right_arrow"><i class="fa-solid fa-caret-right"></i></div>
+                    </div>
+                    
+                    <div class="marking_content">
+                        <div class="marking_state">
+            
+                            
+                        </div>
+                        <div class="marking_state_page">
+                                
+                        </div>
+                    </div>
+            
+                    <div class="submit_result">
+                        데이터 저장하고 종료하기
                     </div>
                 </div>
             </div>
-            <div class="data-container">
-                <div class="bar"></div>-->
-    <!-- 데이터상태&이동시간&이동거리&획득코인 -->
-    <!-- <div class="all-data">
-                    <div class="data-00">
-                        <div>데이터 상태</div>
-                        <div>-</div>
-                    </div>
-                    <div class="data-01">
-                        <div>이동시간</div>
-                        <div>-</div>
-                    </div>
-                    <div class="data-01">
-                        <div>이동거리</div>
-                        <div>-</div>
-                    </div>
-                    <div class="data-01">
-                        <div>획득 코인</div>
-                        <div>-</div>
-                    </div>
-                </div>
-                <div class="container"> -->
-    <!--비장애인과의 이동시간 차이 -->
-    <!-- <div class="important-data"> -->
-
-    <!-- <div class="section gap active">
-
-                        <div class="button-container">
-                            <div>비장애인과의 이동시간 차이</div>
-                            <button class="next-button">&gt;</button>
-                        </div>
-
-
-                        <div class="gap-result">
-                            <div class="time">
-                                <img src="{% static 'img/시간.png' %}" alt="장애인">
-                            </div>
-                            <div class="time">
-                                <img src="{% static 'img/비장애인.png' %}" alt="비장애인">
-                            </div>
-                            <button class="pass">도로 개선안 전달하기</button>
-                        </div>
-                    </div> -->
-
-    <!-- 이 지역 지도 완성도 -->
-    <!--<div class="section complete">
-                        <div class="button-container">
-                            <button class="prev-button">&lt;</button>
-                            <div>완성도</div>
-                            <button class="next-button">&gt;</button>
-                        </div>
-
-                        <div class="all-complete-result">
-                            <div class="complete-result">
-                                이 지역 완성도
-                            </div>
-                            <div class="complete-result">
-                                평균 지역 완성도
-                            </div>
-                        </div>
-                    </div> -->
-    <!-- 마킹 지역 -->
-    <!--  <div class="section marking">
-
-                        <div class="button-container">
-                            <button class="prev-button">&lt;</button>
-                            <div>마킹 지역</div>
-                        </div>
-
-                        <div class="marking-reason">
-                            <div class="location-reason">
-                                <div class="marking-location">
-                                    <img src="{% static 'img/마킹.png' %}" alt="마킹">
-                                    <div>위치</div>
-                                </div>
-                                <div>사유 : </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>-->
+        </div>
     </div>
+
 </body>
 
 </html>

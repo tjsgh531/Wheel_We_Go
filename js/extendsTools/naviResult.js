@@ -16,6 +16,7 @@ export class NaviResult{
 
     }
 
+    // 페이지 초기화
     initResultPage(){
         this.markString = [];
         this.allPageNum = [];
@@ -28,6 +29,7 @@ export class NaviResult{
 
     }
 
+    // 결과 보드 창 끄기
     unactiveResultBoard(){
         const resultBoard = document.querySelector(".resultBoard");
 
@@ -75,7 +77,7 @@ export class NaviResult{
 
         for(let i = 0; i < marker_length; i++){
             this.markString.push("");
-            if(i % 4 == 0){
+            if(i % 3 == 0){
                 if(marking_group){
                     marking_state.appendChild(marking_group);
                     pageNum++;
@@ -104,8 +106,10 @@ export class NaviResult{
             this.allPageNum.push(newPageNum);
             marking_state_page.appendChild(newPageNum);
         }
-        this.allPageNum[0].classList.add("page_num_div_active");
         
+        if(this.allPageNum[0]){
+            this.allPageNum[0].classList.add("page_num_div_active");
+        }
     }
 
     createPageNumDiv(num){
@@ -169,11 +173,18 @@ export class NaviResult{
         marking_write_board.classList.toggle("unactive", false);
         title.textContent =`${num}번 마커`;
 
+        //cancle 버튼 초기화
+        const cancleBtn = document.querySelector(".marking_write_cancle_btn");
+        cancleBtn.replaceWith(cancleBtn.cloneNode(true));
+
+        //submit 버튼 초기화
+        const submitBtn = document.querySelector(".marking_write_submit_btn");
+        submitBtn.replaceWith(submitBtn.cloneNode(true));
+
         this.clickMarkWriteBtns(num);
     }
 
     clickMarkWriteBtns(num){
-        
         const cancleBtn = document.querySelector(".marking_write_cancle_btn");
         const submitBtn = document.querySelector(".marking_write_submit_btn");
         const marking_write_content = document.querySelector(".marking_write_content");
@@ -183,22 +194,31 @@ export class NaviResult{
 
         marking_write_content.value = this.markString[num-1];
 
+        
         cancleBtn.addEventListener("click", ()=>{
-            marking_write_content.value = "";
+            this.markString[num-1] = "";
+            this.writeTextinStateDiv(); 
+
+            console.log("취소 버튼 : ",this.markString);
+
             marking_write_board.classList.toggle("unactive", true);
             resultBoard.classList.toggle("unactive", false);
+            marking_write_content.value = "";
         });
 
+        
         submitBtn.addEventListener("click", ()=>{
-            console.log("제출 버튼 클릭");
-            console.log(marking_write_content.value);
             this.markString[num-1] = marking_write_content.value;
-            this.writeTextinStateDiv();
+            this.writeTextinStateDiv(); //결과창에 마킹 글 쓰기
+
+
+            console.log("작성 버튼 : ",this.markString);
 
             
             marking_write_board.classList.toggle("unactive", true);
             resultBoard.classList.toggle("unactive", false);
             marking_write_content.value = "";
+
         });
     }
 
@@ -208,4 +228,14 @@ export class NaviResult{
             all_state_div[i].textContent = `${this.markString[i]}`;
         }
     }
+
+    setmarkString(markString){
+        this.markString = [...markString];
+    }
+
+    getMarkerStr(){
+        const result = this.markString.join('|');
+        return result;
+    }
+
 }

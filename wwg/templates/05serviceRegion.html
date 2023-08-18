@@ -7,6 +7,10 @@
     <meta name="viewport" content="width=640, user-scalable=yes">
     <title>Document</title>
     <link rel="icon" type="image/x-icon" href="{% static 'img/favicon.png' %}">
+    
+    <!-- Loading window CDN -->
+    <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
+    
     <!-- font awesome CDN -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
         integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
@@ -17,15 +21,19 @@
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
-
     <link rel="stylesheet" href="{% static 'css/service.css' %}">
 
     <script src="{% static 'js/service.js' %}" defer></script>
 </head>
 
 <body>
-    <div id="wrap">
+    <div class="loader">
+        <i class='bx bx-loader bx-spin'></i>
+        <div class="loader_text">현재 위치 좌표 불러오는 중 ...</div>
+    </div>
+      
 
+    <div id="wrap">
         <!--햄버거버튼 시작-->
         <div class="sideBarBtn">
             <i class="fa-solid fa-bars"></i>
@@ -48,8 +56,8 @@
 
                         <div class="sideBar_profile_content">
                             {% if user %}
-                            <span style="font-size: 1.5rem; font-weight: 900;">{{ user.username
-                                }}</span><span>님</span>
+                            <span style="font-size: 1.5rem; font-weight: 900;">{{ user.username}}</span>
+                            <span>님</span>
                             {% else %}
                             <p>지나가는 멋쟁이 호랑이 님</p>
                             {% endif %}
@@ -92,7 +100,7 @@
                 <img src="/static/img/돋보기.png" alt="Search">
             </button>
         </div>
-
+    </div>
 </body>
 
 </html>

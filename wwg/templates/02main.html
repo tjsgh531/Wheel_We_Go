@@ -52,6 +52,8 @@
                 <div class="naviDataCautionBtn1">
                     <div class="naviDataCautionBtn_Start1">일반 경로 안내받기</div>
                     <div class="naviDataCautionBtn_Record1">이동 경로 기록하기</div>
+                    <div class="naviDataCautionBtn_RecordNavi1">기록하면서 경로 안내받기</div>
+                
                 </div>
             </div>
         </div>
@@ -151,6 +153,9 @@
                 <div class="abortRecordSaveAbortBtn">
                     기록 저장하고 중단하기
                 </div>
+                <div class="abortRecordAbortBtn">
+                    중단하기
+                </div>
                 <div class="abortRecordBackBtn">
                     돌아가기
                 </div>
@@ -206,11 +211,31 @@
             </div>
         </div>
 
-        <div class="compare_time">
-
+        <div class="submit_result">
+            데이터 저장하고 종료하기
         </div>
     </div>
 </div>
+
+<!-- "데이터 저장하고 종료하기" 버튼 클릭 시 뜨는 메뉴 창 -->
+<div class="dataRecordAbortblur unactive">
+    <div class="dataRecordAbort">
+        <div class="dataRecordAbortTxt">
+            도로 개선안이 성공적으로 전달되었습니다.
+            <br>감사합니다.
+        </div>
+        <div class="dataRecordAbortBtn">
+            <div class="myDataBtn">
+                내 데이터 보러가기
+                <a class="goMyData" style="display: none;" href="{% url 'mydata' %}"></a>
+            </div>
+            <div class="submitResultAbortBtn">
+                내비게이션 종료하기
+            </div>
+        </div>
+    </div>
+</div>
+
 {% endblock %}
 
 {% block writeMarking %}
@@ -218,7 +243,7 @@
     <div class="marking_write_title"></div>
     <textarea  class="marking_write_content"></textarea>
     <div class="marking_write_btns">
-        <div class="marking_write_cancle_btn">작성 취소</div>
+        <div class="marking_write_cancle_btn">작성 삭제</div>
         <div class="marking_write_submit_btn">작성 완료</div>
     </div>
 </div>
