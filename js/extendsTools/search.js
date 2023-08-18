@@ -532,8 +532,8 @@ export class Search {
         const functionGetCoin = document.querySelector(".functionGetCoin");
 
         const startBtn = document.querySelector(".startBtn");
-
         const search_cancle = document.querySelector(".search_cancle");        
+
 
         bottomBar.classList.toggle("unactive", false); // 하단바 보이게 하기
 
