@@ -21,8 +21,8 @@ class MyData {
     this.createMap();
   }
 
-  createMap(){
-    this.maptool.createTmap(37.468478, 127.039257).then((map)=>{
+  createMap() {
+    this.maptool.createTmap(37.468478, 127.039257).then((map) => {
       console.log("맵 완성");
       this.map = map;
       this.drawtool.setMap(map);
@@ -39,11 +39,11 @@ class MyData {
     const data = await this.restApiTool.getsaveRecordsData();
     const userRecords = data.filter(record => record.user_id === this.username);
     userRecords.sort((a, b) => a.info.date.localeCompare(b.info.date));
-  
+
     const startNameFilter = document.getElementById('startNameFilter');
     const dateFilter = document.getElementById('dateRangeFilter');
     const sortOption = document.getElementById('sortOption');
-  
+
     // 동 별 필터링 옵션 처리
     const startNameOptions = new Set(userRecords.map(record => record.info.startName.split(' ').slice(0, 2).join(' ')));
     startNameOptions.add(""); // Add an empty option for "All"
@@ -53,54 +53,54 @@ class MyData {
       optionElement.textContent = option || "전체";
       startNameFilter.appendChild(optionElement);
     });
-  
+
     const applyFiltersAndSort = () => {
       const selectedStartName = startNameFilter.value;
       const selectedRange = dateFilter.value;
       const selectedSort = sortOption.value;
-  
+
       let filteredRecords = userRecords;
-  
+
       if (selectedStartName !== "") {
         filteredRecords = userRecords.filter(record => {
           const startName = record.info.startName.split(' ').slice(0, 2).join(' ');
           return startName === selectedStartName;
         });
       }
-  
+
       if (selectedRange !== "0") {
         const today = new Date();
         const oneMonthAgo = new Date(today);
         oneMonthAgo.setMonth(oneMonthAgo.getMonth() - selectedRange);
-  
+
         filteredRecords = filteredRecords.filter(record => {
           const recordDate = new Date(record.info.date.replace(/\./g, '-'));
           return recordDate >= oneMonthAgo && recordDate <= today;
         });
       }
-  
+
       if (selectedSort === 'latest') {
         filteredRecords.sort((a, b) => b.info.date.localeCompare(a.info.date));
       } else if (selectedSort === 'oldest') {
         filteredRecords.sort((a, b) => a.info.date.localeCompare(b.info.date));
       }
-  
+
       this.displayRecords(filteredRecords);
     };
-  
+
     startNameFilter.addEventListener('change', applyFiltersAndSort);
     dateFilter.addEventListener('change', applyFiltersAndSort);
     sortOption.addEventListener('change', applyFiltersAndSort);
-  
+
     applyFiltersAndSort();
   }
 
   filterAndDisplayRecords(records, selectedStartName) {
     const filteredRecords = selectedStartName
       ? records.filter(record => {
-          const startName = record.info.startName.split(' ').slice(0, 2).join(' ');
-          return startName === selectedStartName;
-        })
+        const startName = record.info.startName.split(' ').slice(0, 2).join(' ');
+        return startName === selectedStartName;
+      })
       : records;
 
     this.displayRecords(filteredRecords);
@@ -145,54 +145,62 @@ class MyData {
       const km = infoData.info.distance;
       const credit = infoData.earnedCoin;
       const valid_check = infoData.data_valid;
-      
-      const markers = infoData.info.markings; 
+
+      const markers = infoData.info.markings;
       const markerStr = infoData.info.markingStr;
       const coords = infoData.info.coords;
-      
+
       const listItem = document.createElement('li');
       listItem.style.listStyle = 'none';
       listItem.innerHTML = `
-      <div class= "li_box">
-      <div class="route-data-time">${recordDate.toLocaleDateString()}</div>
-      <div class="circle-route-etc">
-          <div class="circle-container">
-              <span class="circle-${valid_check}"></span>
-          </div>
-      
-          <div class="route">
-              <div class='start_location'>${start}</div> -> <div class='end_location'>${end}</div>
-          </div>
-      
-          <div class="etc-data">
-              <div>
-                  <img src="../static/img/시간.png" alt="시간">
-                  <div class='take_time'>${time}분</div>
-              </div>
-              <div>
-                  <img src="../static/img/거리.png" alt="거리">
-                  <div class='kms'>${km}km</div>
-              </div>
-              <div>
-                  <img src="../static/img/코인.png" alt="코인">
-                  <div class='coins'>${credit}</div>
-              </div>
-          </div>
-      </div>
-  
-      <div class="line"></div>
+      <div class="li_box">
+
+    <div class="date-route-etc">
+
+        <div class="date-route">
+            <div class="date">${recordDate.toLocaleDateString()}</div>
+            <div class="circle-route">
+                <div class="circle-container">
+                    <span class="circle-${valid_check}"></span>
+                </div>
+
+                <div class="route">
+                    <div class='start_location'>${start}</div> -> <div class='end_location'>${end}</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="etc-data">
+        <div>
+            <img src="../static/img/시간.png" alt="시간">
+            <div class='take_time'>${time}분</div>
+        </div>
+        <div>
+            <img src="../static/img/거리.png" alt="거리">
+            <div class='kms'>${km}km</div>
+        </div>
+        <div>
+            <img src="../static/img/코인.png" alt="코인">
+            <div class='coins'>${credit}</div>
+        </div>
+    </div>
+</div>
+
+<div class="line"></div>
       `;
       recordsList.appendChild(listItem);
 
       console.log("여긴 실행 뙜어?");
-      listItem.addEventListener("click",this.clickDataBox.bind(this, time, km, credit, markers, markerStr, coords));
+      listItem.addEventListener("click", this.clickDataBox.bind(this, time, km, credit, markers, markerStr, coords));
     });
   }
 
 
   async getFilteredDataCount(selectedStartName) {
     const data = await this.restApiTool.getsaveRecordsData();
-    
+
     const totalDataCount = data.length;
 
     // 필터링된 데이터 개수 계산
@@ -214,10 +222,10 @@ class MyData {
   async chart() {
     const canvas = document.getElementById("doughnutChartCanvas");
     const [filteredDataCount, userFilteredDataCount, errorUserFilteredDataCount] = await this.getFilteredDataCount("전체");
-    
+
     const totalFilteredDataCount = filteredDataCount - userFilteredDataCount - errorUserFilteredDataCount;
     const userpercent = ((userFilteredDataCount / filteredDataCount) * 100).toFixed(1);
-    
+
     const data = {
       labels: [`'${this.username}' 님 데이터`, "오류 데이터", "나머지 데이터"],
       datasets: [
@@ -232,7 +240,7 @@ class MyData {
         },
       ],
     };
-      
+
     const options = {
       cutout: '70%',
       hover: { model: null },
@@ -241,7 +249,7 @@ class MyData {
         tooltip: { enabled: false },
       },
     };
-    
+
     // 도넛 차트 생성
     const doughnutChartCanvas = document.getElementById("doughnutChartCanvas");
     const doughnutChartCtx = doughnutChartCanvas.getContext("2d");
@@ -250,20 +258,20 @@ class MyData {
       data: data,
       options: options,
     });
-  
+
     // 텍스트와 퍼센트 값을 추가할 요소 생성
     const chartContainer = document.querySelector(".chart-container");
     const chartTextContainer = document.createElement("div");
     chartTextContainer.classList.add("chart-text-container");
-    
+
     const chartText = document.createElement("div");
     chartText.textContent = "내 데이터 기여도";
     chartText.classList.add("chart-text");
-    
+
     const chartPercentText = document.createElement("div");
     chartPercentText.textContent = `${userpercent}%`;
     chartPercentText.classList.add("chart-percent");
-    
+
     chartTextContainer.appendChild(chartText);
     chartTextContainer.appendChild(chartPercentText);
     chartContainer.appendChild(chartTextContainer);
@@ -271,22 +279,22 @@ class MyData {
 
 
   // 데이터 박스 클릭시 다음 페이지 넘어가는 코드
-  clickDataBox(time, dist, coin, markers, markerStr, coords){
+  clickDataBox(time, dist, coin, markers, markerStr, coords) {
     console.log("데이터 박스 클릭 : ", time, dist, coin, markers, markerStr, coords);
     const page01 = document.querySelector(".mydata-page-01");
     const page02 = document.querySelector(".mydata-page-02");
 
     console.log(page02);
     console.log(page02.classList)
-   
+
     page02.classList.toggle("unactive", false);
 
     page01.classList.toggle("unactive", true);
-    
+
 
     // 파라미터 속성 : data 유효성(true/false), 시간, 거리, 코인
     this.naviResult.createResultSummaryBoard(true, time, dist, coin);
-  
+
     // 마커 내용 나오는 것
     this.naviResult.createResultContentBoard(markers);
     const markString = markerStr.split("|");
@@ -298,7 +306,7 @@ class MyData {
   }
 
   // 데이터 결과 맵 만들기
-  createDataMap(coords, markers){
+  createDataMap(coords, markers) {
     //길 그리기
     this.drawtool.drawPath(coords);
 

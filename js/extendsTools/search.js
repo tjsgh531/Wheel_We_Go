@@ -29,6 +29,7 @@ export class Search {
         this.currentLat = lat;
         this.currentLon = lon;
         this.naviTool.setPosition(lat, lon);
+        this.naviDataCautionTool.setLocation(lat, lon);
     }
 
     getList(lat, lng, search_word) {
@@ -386,13 +387,13 @@ export class Search {
         palceName.textContent = `${name}`;
 
         if (tel != "") {
-            teldiv.textContent += `${tel}`;
+            teldiv.textContent = `${tel}`;
         }
         else {
-            teldiv.textContent += "전화번호 미등록";
+            teldiv.textContent = "전화번호 미등록";
         }
 
-        addrdiv.textContent += `${addr}`;
+        addrdiv.textContent = `${addr}`;
 
         startPointBtn.addEventListener('click',
             this.searchNavi.bind(this, false, name, lat, lng)
@@ -545,6 +546,8 @@ export class Search {
         const functionRoadNavi = document.querySelector(".functionRoadNavi");
         const funcitonArriveTime = document.querySelector(".funcitonArriveTime");
         const functionGetCoin = document.querySelector(".functionGetCoin");
+        const funcitonArriveTimeValue = document.querySelector(".funcitonArriveTimeValue");
+        const functionGetCoinValue = document.querySelector(".functionGetCoinValue");
 
         const startBtn = document.querySelector(".startBtn");
         const search_cancle = document.querySelector(".search_cancle");        

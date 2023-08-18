@@ -12,6 +12,7 @@ export class Navi {
         this.naviResult = new NaviResult();
         this.restApiData = new RestApiData();
         this.username = this.getCurrentLoginUser();
+
         this.currentLat, this.currentLon;
         this.map;
         this.marker_SE = "";  
@@ -50,11 +51,14 @@ export class Navi {
         this.currentLat = lat;
         this.currentLon = lon;
     }
+
     getCurrentLoginUser() {
         let userinfo = document.getElementById('user-info');
         let user = userinfo.dataset.username;
         return user;
-      }
+    }
+
+
     // 마커 버튼 클릭시 작동
     clickMarkBtn(){
         const marker = this.mapTool.createMark(this.map, this.currentLat, this.currentLon);
@@ -241,42 +245,53 @@ export class Navi {
         const startpoint = this.trackingCoords[0];
         const endpoint = this.trackingCoords[this.trackingCoords.length -1];
 
+        let start_str="";
+        let end_str ="";
         return this.loadGetLonLatFromAddress(startpoint[0], startpoint[1])
         .then((start_addr_str)=>{
-            const start_str = start_addr_str;
+            start_str = start_addr_str;
+
+            //끝나는 지점 이름 받기
             this.loadGetLonLatFromAddress(endpoint[0], endpoint[1])
             .then((end_addr_str)=>{
-                const end_str = end_addr_str;
+                end_str = end_addr_str;
+            });   
+        })
+        .then(()=>{
+            console.log("으아아아",start_str, end_str);
 
-                //데이터 저장 하기
-                const markerStr = this.naviResult.getMarkerStr();
-                this.trackingData = {
-                    startpoint: startpoint,
-                    endpoint : endpoint,
 
-                    startName : start_str, 
-                    endName : end_str,
+            //데이터 저장 하기
+            const markerStr = this.naviResult.getMarkerStr();
+            this.trackingData = {
+                startpoint: startpoint,
+                endpoint : endpoint,
 
-                    AtTime : this.costTime, //int
-                    distance : this.tracking_dis, //float
-                    coin : coin,//int
-                    coords: this.trackingCoords,//[[lat,lon],[...]....]
-                    data_valid : 0,//int 0~1
-                    markings : this.trackingMarkersCoords, //coords 동일
-                    markingStr : markerStr, //string
-                    date : currentDate, //날짜
-                }
+                startName : start_str, 
+                endName : end_str,
 
-                const saveJsonData = JSON.stringify(this.trackingData);
-                
-                const saveData = {
-                    user_id : this.username,
-                    earnedCoin : coin,
-                    info : saveJsonData,
-                }
+                AtTime : this.costTime, //int
+                distance : this.tracking_dis, //float
+                coin : coin,//int
+                coords: this.trackingCoords,//[[lat,lon],[...]....]
+                data_valid : 0,//int 0~1
+                markings : this.trackingMarkersCoords, //coords 동일
+                markingStr : markerStr, //string
+                date : currentDate, //날짜
+            }
 
-                this.restApiData.createSaveRecord(saveData)
-            })
+            const saveJsonData = JSON.stringify(this.trackingData);
+            
+            console.log(saveJsonData);
+            
+            let saveData = {
+                user_id : this.username,
+                earnedCoin : coin,
+                info : saveJsonData,
+            }
+            saveData = JSON.stringify(saveData);
+
+            return saveData;
         })
     }
 
@@ -661,7 +676,7 @@ export class Navi {
 
         myDataBtn.addEventListener("click", ()=>{
             this.createTrackingData().then((saveData)=>{
-                // this.restApiData.createSaveRecord(saveData); // 트래킹 데이터 DB 저장
+                this.restApiData.createSaveRecord(saveData); // 트래킹 데이터 DB 저장
                 console.log("트래킹 데이터", this.trackingData); 
                 this.eraseTrackingLine(); // 트래킹 라인 삭제
                 this.resetMarkers();
@@ -678,9 +693,7 @@ export class Navi {
 
         submitResultAbortBtn.addEventListener("click", ()=>{
             this.createTrackingData().then((saveData)=>{
-                this.restApiData.createSaveRecord(saveData);
-                console.log("트래킹 데이터", this.trackingData);
-                console.log("트래킹 데이터 마커 스트링", this.trackingData.markingStr);
+                // this.restApiData.createSaveRecord(saveData);
                 this.eraseTrackingLine(); //
                 this.resetMarkers(); 
                 dataRecordAbortblur.classList.toggle("unactive", true);
