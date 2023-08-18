@@ -68,6 +68,7 @@ class MapBase{
         this.loading.loadAppear();
 
         this.currentPos.getCurrentLocation().then((position)=>{
+            console.log(position);
             this.currentLat = position.coords.latitude;
             this.currentLon = position.coords.longitude;
             console.log("받아온 좌표 : ",this.currentLat, this.currentLon);
