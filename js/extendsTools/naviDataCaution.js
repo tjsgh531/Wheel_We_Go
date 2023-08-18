@@ -25,7 +25,7 @@ export class NaviDataCaution{
             .then((data) => {
                 console.log("region", data);
                 // 가져온 데이터 활용
-                console.log(data[2]["kms"]);
+                console.log(data[1]["kms"]);
                 
                 const backgroundBlur = document.querySelector(".backgroundBlur");
                 const lowData = document.querySelector(".lowData");
@@ -39,24 +39,25 @@ export class NaviDataCaution{
                 const dataCount3 = document.querySelector(".dataCount3");
         
                 backgroundBlur.classList.toggle("unactive", false);
-                console.log(data[2]["kms"]);
+                console.log(data[1]["kms"]);
+                console.log("아무거나쳐",data);
 
                 // 데이터의 총 km를 기준으로 출력 화면 변화
-                if( data[2]["kms"] <= 10) {
+                if( data[1]["kms"] <= 10) {
                     lowData.classList.toggle("unactive", false); // low O
                     iffyData.classList.toggle("unactive", true); // iffy X
                     enoughData.classList.toggle("unactive", true); // enough X
                     
-                    dataCount1.textContent = `${data[2]["stacks"]}`;
+                    dataCount1.textContent = `${data[1]["stacks"]}`;
                     coin1.textContent = `${this.expectCoin}`;
 
                 }
-                else if((10 < data[2]["kms"]) && (data[2]["kms"] < 100)) {
+                else if((10 < data[1]["kms"]) && (data[1]["kms"] < 100)) {
                     lowData.classList.toggle("unactive", true); // low X
                     iffyData.classList.toggle("unactive", false); // iffy O
                     enoughData.classList.toggle("unactive", true); // enough X
 
-                    dataCount2.textContent = `${data[2]["stacks"]}`;
+                    dataCount2.textContent = `${data[1]["stacks"]}`;
                     coin2.textContent = `${this.expectCoin}`;
                 }
                 else {
@@ -64,7 +65,7 @@ export class NaviDataCaution{
                     iffyData.classList.toggle("unactive", true); // iffy X
                     enoughData.classList.toggle("unactive", false); // enough O
                     
-                    dataCount3.textContent = `${data[2]["stacks"]}`;
+                    dataCount3.textContent = `${data[1]["stacks"]}`;
                     coin3.textContent = `${this.expectCoin}`;
                 }
                 console.log("나 끝났어 경고창..");

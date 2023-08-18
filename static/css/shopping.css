@@ -10,24 +10,43 @@ div {
     box-sizing: border-box;
 }
 
+/* .product img {
+    background-color: #ffffff;
+    width: 8.5rem;
+    height: 8.5rem;
+} */
 .product img,
 .company img {
-    background-color: #D9D9D9;
-    width: 6rem;
-    height: 6rem;
+    width: 100%;
+    height: 100%;
+    margin-bottom: 0.5rem;
 }
 
 .img-product {
-    width: 6rem;
+    width: 100%;
     margin: 0 auto;
     text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
+
+/* .company img {
+    background-color: #ffffff;
+    width: 8.5rem;
+
+}
+
+.img-product {
+    width: 8.5rem;
+    margin: 0 auto;
+    text-align: center;
+} */
 
 .product-name {
     display: flex;
-    width: 6rem;
+    width: 100%;
     justify-content: space-between;
-
 }
 
 .back-button {
@@ -49,19 +68,45 @@ div {
 }
 
 .price {
-    width: 6rem;
+    width: 100%;
     text-align: left;
+}
+
+/* .all-product,
+.all-company {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 0.5rem;
+    margin: 1rem;
+    align-items: end;
+} */
+
+/* 수정된 CSS */
+.product-container,
+.company-container {
+    width: 100%;
+    padding: 1rem;
+    box-sizing: border-box;
 }
 
 .all-product,
 .all-company {
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     grid-gap: 1rem;
-    /* padding: 0.5rem; */
+    align-items: stretch;
+    margin: 0 auto;
 }
 
-.product-container,
+.product,
+.company {
+    padding: 1rem;
+    text-align: center;
+    /* 개별 아이템 간의 구분을 위한 테두리 추가 */
+}
+
+
+/* .product-container,
 .company-container {
     width: 100vw;
     margin-top: 2rem;
@@ -72,7 +117,7 @@ div {
     padding: 0.5rem;
     width: 100%;
     text-align: center;
-}
+} */
 
 .product-list,
 .company-list {
@@ -86,4 +131,54 @@ div {
     height: 0.1rem;
     margin-bottom: 1rem;
     background-color: #FFC573;
+}
+
+.ad-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    width: 100vw;
+    margin-bottom: 2rem;
+}
+
+.ad-container img {
+    width: 90%;
+    max-height: 15rem;
+    background-color: #fff;
+    border-radius: 1rem;
+    margin-top: 3rem;
+    margin-bottom: 1rem;
+}
+
+
+.slider-container {
+    width: 100vw;
+    max-height: 20rem;
+    margin: 0 auto;
+    overflow: hidden;
+}
+
+.slider {
+    display: flex;
+    transition: transform 0.5s ease-in-out;
+}
+
+.slide {
+    flex: 0 0 100%;
+    max-width: 100%;
+}
+
+.slide img {
+    width: 100%;
+    height: auto;
+}
+
+@media screen and (max-width: 768px) {
+
+    .all-product,
+    .all-company {
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+        /* 작은 화면에서 더 많은 컬럼 */
+    }
 }

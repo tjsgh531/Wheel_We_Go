@@ -1,12 +1,9 @@
 body,
 html {
-    overflow-x: hidden;
+    overflow: hidden;
     margin: 0;
     padding: 0;
-}
-
-div {
-    box-sizing: border-box;
+    font-size: 12px;
 }
 
 a,
@@ -22,7 +19,14 @@ a:hover {
     cursor: pointer;
 }
 
+div {
+    box-sizing: border-box;
+}
 
+
+.unactive {
+    display: none !important;
+}
 
 .shop-container {
     width: 100vw;
@@ -31,6 +35,7 @@ a:hover {
     align-items: center;
     justify-content: center;
     background-color: #FFC573;
+    padding: 1rem;
 
 }
 
@@ -38,7 +43,7 @@ a:hover {
     width: 80%;
     display: flex;
     margin: 1rem;
-    align-items: center;
+    align-items: flex-end;
     justify-content: space-between;
 }
 
@@ -46,7 +51,12 @@ a:hover {
     display: flex;
     align-items: center;
     margin-top: 1rem;
+    align-items: baseline;
+}
 
+.name {
+    font-size: 2rem;
+    font-weight: bold;
 }
 
 .shop-ing img {
@@ -60,6 +70,7 @@ a:hover {
     align-items: center;
     justify-content: center;
     text-align: center;
+    margin: 1rem;
 }
 
 .coin {
@@ -83,6 +94,11 @@ a:hover {
 
 }
 
+.price {
+    font-size: 2rem;
+    font-weight: bold;
+}
+
 
 .coin-img img {
     display: fixed;
@@ -93,6 +109,7 @@ a:hover {
 .price-unit {
     display: flex;
     width: fit-content;
+    align-items: baseline;
 }
 
 .unit {
@@ -100,15 +117,15 @@ a:hover {
 }
 
 .main-container {
+    width: 100vw;
+    position: relative;
     display: grid;
-    /* 그리드 레이아웃으로 변경 */
     grid-template-columns: repeat(2, 1fr);
-    /* 두 개의 열로 설정 */
     gap: 1rem;
-    /* 아이템 사이의 간격 */
     align-items: center;
     justify-items: center;
-    margin: 1rem;
+    /* margin: 2rem; */
+    justify-content: space-evenly;
 }
 
 .my-data,
@@ -121,6 +138,7 @@ a:hover {
     display: flex;
     flex-direction: column;
     align-items: center;
+    margin: 1rem;
 }
 
 .my-data img,
@@ -150,16 +168,10 @@ a:hover {
 
 .ad-container img {
     width: 90%;
-    height: 10rem;
     background-color: #fff;
     border-radius: 1rem;
     margin-top: 1rem;
     margin-bottom: 1rem;
-}
-
-a {
-    text-decoration: none;
-    color: black;
 }
 
 .etc-container {
@@ -182,10 +194,6 @@ a {
 }
 
 
-.unactive {
-    display: none !important;
-}
-
 .sideBarBtn {
     width: 3rem;
     height: 3rem;
@@ -206,6 +214,7 @@ a {
     left: 0;
     top: 0;
     z-index: 9999;
+
     width: 100vw;
     height: 100vh;
 
