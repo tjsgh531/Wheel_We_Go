@@ -25,7 +25,10 @@ SECRET_KEY = 'django-insecure-xejf8499)5(5%jx@t9j^e1***n9b0su7c=^e6k2rz=l-0p@f3x
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    '101.101.161.156',
+    '118.67.132.135',
+]
 # Application definition
 
 INSTALLED_APPS = [
@@ -151,8 +154,9 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 SITE_ID = 1
 
 SOCIALACCOUNT_LOGIN_ON_GET = True
-LOGIN_REDIRECT_URL = 'http://127.0.0.1:8000/main/'
-ACCOUNT_LOGOUT_REDIRECT_URL = 'http://127.0.0.1:8000/login/'
+
+LOGIN_REDIRECT_URL = 'http://118.67.132.135:8000/main/'
+ACCOUNT_LOGOUT_REDIRECT_URL = 'http://118.67.132.135:8000/'
 ACCOUNT_LOGOUT_ON_GET = True 
 
 SOCIALACCOUNT_PROVIDERS = {
