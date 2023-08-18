@@ -22,7 +22,8 @@ class MyData {
   }
 
   createMap(){
-    this.maptool.createTmap().then((map)=>{
+    this.maptool.createTmap(37.468478, 127.039257).then((map)=>{
+      console.log("맵 완성");
       this.map = map;
       this.drawtool.setMap(map);
     })
@@ -124,7 +125,7 @@ class MyData {
     } else if (selectedSort === 'oldest') {
       records.sort((a, b) => a.info.date.localeCompare(b.info.date));
     }
-
+    console.log("????");
     this.displayRecords(records);
   }
 
@@ -136,6 +137,7 @@ class MyData {
 
     records.forEach(infoData => {
 
+      console.log("???? : ", infoData);
       const recordDate = new Date(infoData.info.date.replace(/\./g, '-'));
       const start = infoData.info.startName;
       const end = infoData.info.endName;
@@ -179,9 +181,10 @@ class MyData {
       </div>
   
       <div class="line"></div>
-    `;
+      `;
       recordsList.appendChild(listItem);
 
+      console.log("여긴 실행 뙜어?");
       listItem.addEventListener("click",this.clickDataBox.bind(this, time, km, credit, markers, markerStr, coords));
     });
   }
@@ -273,8 +276,13 @@ class MyData {
     const page01 = document.querySelector(".mydata-page-01");
     const page02 = document.querySelector(".mydata-page-02");
 
+    console.log(page02);
+    console.log(page02.classList)
+   
+    page02.classList.toggle("unactive", false);
+
     page01.classList.toggle("unactive", true);
-    page02.classList.toggle("unacitve", false);
+    
 
     // 파라미터 속성 : data 유효성(true/false), 시간, 거리, 코인
     this.naviResult.createResultSummaryBoard(true, time, dist, coin);
