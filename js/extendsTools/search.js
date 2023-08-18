@@ -267,7 +267,7 @@ export class Search {
         search.classList.toggle("unactive", false);
         search_navi.classList.toggle("unactive", true);
 
-        bottomBar.classList.toggle("unactive", true);
+        bottomBar.classList.toggle("unactive", false);
 
 
         searchBoxs.forEach(element => {
@@ -584,7 +584,7 @@ export class Search {
         }
         else { // "기록하면서 경로 안내 받기" 버튼
             fuctionDataRecord.classList.toggle("unactive", false);
-            functionRoadNavi.classList.toggle("unactive", false); // "휠체어 경로 안내" 보이게 하기
+            functionRoadNavi.classList.toggle("unactive", false); // "휠체어 경로 안내" 하기
             funcitonArriveTime.classList.toggle("unactive", false);
             functionGetCoin.classList.toggle("unactive", false);
             console.log("expectTime : ", this.naviTool.expectTime);
