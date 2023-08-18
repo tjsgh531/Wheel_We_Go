@@ -82,7 +82,7 @@ class Area {
         const loader = document.querySelector(".loader");
         const loader_text = document.querySelector(".loader_text");
     
-        
+        console.log("여기가 실행 되야해");
         loader.classList.toggle("unactive", true);
         // 시간 지나면 텍스트 변하는 효과 없애기
         this.loading_timeout_function.forEach(element => {
@@ -169,6 +169,7 @@ class Area {
 
         })
         .then(()=>{
+            console.log("제발");
             this.resetLoading();
         })
         
