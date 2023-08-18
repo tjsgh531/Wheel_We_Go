@@ -7,14 +7,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Wheel_We_Go.마이데이터</title>
     <link rel="icon" type="image/x-icon" href="{% static 'img/favicon.png' %}">
-    
+
     <!-- Tmap API -->
     <script
         src="https://apis.openapi.sk.com/tmap/vectorjs?version=1&appKey=l7xxed2c734830ae4364975ef11e67a76e81"></script>
 
     <link rel="stylesheet" href="{% static 'css/mydata.css' %}">
     <link rel="stylesheet" href="{% static 'css/searchResult.css' %}">
-    
+
     <script src="{% static 'js/mydata.js' %}" defer></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js" defer></script>
 </head>
@@ -47,11 +47,11 @@
 
             <div class="chart">
                 <div class="chart-container">
-                <canvas id="doughnutChartCanvas"></canvas>
-                <div class="chart-text-container">
-                    <div class="chart-text"></div>
-                    <div class="chart-percent"></div>
-                </div>
+                    <canvas id="doughnutChartCanvas"></canvas>
+                    <div class="chart-text-container">
+                        <div class="chart-text"></div>
+                        <div class="chart-percent"></div>
+                    </div>
                 </div>
             </div>
 
@@ -63,20 +63,23 @@
                     <option value="">전체</option>
                     <!-- 유저의 startName 옵션들이 동적으로 추가 -->
                 </select>
-                <!-- 날짜 범위 필터링 -->
-                <select id="dateRangeFilter">
-                    <option value="0">전체</option>
-                    <option value="1">1개월</option>
-                    <option value="3">3개월</option>
-                    <option value="6">6개월</option>
-                    <option value="12">12개월</option>
-                </select>
 
-                <!-- 정렬 옵션 -->
-                <select id="sortOption">
-                    <option value="latest">최신순</option>
-                    <option value="oldest">오래된 순</option>
-                </select>
+                <div class="timeFilter">
+                    <!-- 날짜 범위 필터링 -->
+                    <select id="dateRangeFilter">
+                        <option value="0">전체</option>
+                        <option value="1">1개월</option>
+                        <option value="3">3개월</option>
+                        <option value="6">6개월</option>
+                        <option value="12">12개월</option>
+                    </select>
+
+                    <!-- 정렬 옵션 -->
+                    <select id="sortOption">
+                        <option value="latest">최신순</option>
+                        <option value="oldest">오래된 순</option>
+                    </select>
+                </div>
             </div>
 
 
@@ -88,55 +91,60 @@
         </div>
 
         <div class="mydata-page-02 unactive">
-            
+
+            <a href="javascript:history.back()" class="back-button">
+                &lt; 내 데이터
+            </a>
+            <div class="line"></div>
+
             <div id="map_div"></div>
 
             <div class="resultBoard">
                 <div class="drag_bar"></div>
                 <div class="result_summary">
-            
+
                     <!-- 데이터 상태 -->
                     <div class="result_summary_item data_valid">
                         <div class="data_valid_text">데이터 상태</div>
                         <div class="data_valid_item data_item"></div>
                     </div>
-            
+
                     <!-- 이동시간 -->
                     <div class="result_summary_item data_time">
                         <div class="data_time_text">이동 시간</div>
                         <div class="data_time_item data_item"></div>
                     </div>
-                    
+
                     <!-- 이동 거리 -->
                     <div class="result_summary_item data_distance">
                         <div class="data_distance_text">이동 거리</div>
                         <div class="data_distance_item data_item"></div>
                     </div>
-            
+
                     <!-- 획득 코인 -->
                     <div class="result_summary_item data_coin">
                         <div class="data_coin_text">획득 코인</div>
                         <div class="data_coin_item data_item"></div>
                     </div>
                 </div>
-            
+
                 <div class="result_content">
-                    <div class="result_content_title"> 
+                    <div class="result_content_title">
                         <div class="result_left_arrow"><i class="fa-solid fa-caret-left"></i></div>
-                        <div class="result_title_text">마킹지역</div> 
+                        <div class="result_title_text">마킹지역</div>
                         <div class="result_right_arrow"><i class="fa-solid fa-caret-right"></i></div>
                     </div>
-                    
+
                     <div class="marking_content">
                         <div class="marking_state">
-            
-                            
+
+
                         </div>
                         <div class="marking_state_page">
-                                
+
                         </div>
                     </div>
-            
+
                     <div class="submit_result">
                         데이터 저장하고 종료하기
                     </div>

@@ -1,34 +1,43 @@
-html, body{
+html,
+body {
     overflow-x: hidden;
     padding: 0;
     margin: 0;
 }
 
-a, a:visited, a:active {
-    color: inherit; /* 상속된 색상 사용 */
-    text-decoration: none; /* 밑줄 제거 */
+a,
+a:visited,
+a:active {
+    color: inherit;
+    /* 상속된 색상 사용 */
+    text-decoration: none;
+    /* 밑줄 제거 */
 }
 
 a:hover {
     cursor: pointer;
 }
-  
+
 div {
     box-sizing: border-box;
 }
 
-.resultBoard{
+.resultBoard {
     position: fixed;
-    bottom: 0; left: 0; z-index: 9990;
+    bottom: 0;
+    left: 0;
+    z-index: 9990;
 
     min-height: 45vh;
     width: 100vw;
 
-    border-radius: 2rem;
+    border-radius: 2rem 2rem 0rem 0rem;
+    text-align: center;
 
     background-color: white;
 }
-.drag_bar{
+
+.drag_bar {
     width: 20%;
     height: 0.4rem;
 
@@ -39,13 +48,13 @@ div {
     background-color: #ccc;
 }
 
-.result_summary{
+.result_summary {
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-.result_summary_item{
+.result_summary_item {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -55,7 +64,8 @@ div {
 
     border-right: 1px solid #ccc;
 }
-.result_content_title{
+
+.result_content_title {
     display: flex;
     justify-content: space-around;
     align-items: center;
@@ -64,54 +74,63 @@ div {
     margin: 0.5rem 0;
 }
 
-.data_coin{
+.data_coin {
     border-right: none;
 }
-.data_item{
+
+.data_item {
     font-size: 1.5rem;
     font-weight: 700;
 }
 
 /* 결과 창 마킹  */
-.marking_state{
+.marking_state {
     display: flex;
     align-items: center;
     justify-content: center;
 
     transition: transform 0.5s ease-in-out;
 }
-.marking_group{
+
+.marking_group {
     width: 100vw;
     padding: 1rem;
 }
-.marking_div{
+
+.marking_div {
     display: flex;
     justify-content: center;
     align-items: center;
 }
-.number_div{
+
+.number_div {
     font-size: 1.2rem;
     margin: 1rem;
 }
-.pin_div{
+
+.pin_div {
     font-size: 1.2rem;
     margin-right: 0.6rem;
 }
-.state_div{
+
+.state_div {
     width: 80%;
     height: 2rem;
 
     margin: 0 0.5rem;
-    
+
     border-bottom: 2px solid #ccc;
-    
-    white-space: nowrap; /* 줄 바꿈 방지 */
-    overflow: hidden; /* 넘치는 부분 감춤 */
-    text-overflow: ellipsis; /
+
+    white-space: nowrap;
+    /* 줄 바꿈 방지 */
+    overflow: hidden;
+    /* 넘치는 부분 감춤 */
+    text-overflow: ellipsis;/
 }
-.write_state_btn{
+
+.write_state_btn {
     padding: 0.2rem 0.5rem;
-    
+
     background-color: #ccc;
 
     border-radius: 1rem;
@@ -120,11 +139,14 @@ div {
 
     cursor: pointer;
 }
-.marking_content{
+
+.marking_content {
     width: 100vw;
     overflow: hidden;
+    text-align: left;
 }
-.marking_state_page{
+
+.marking_state_page {
     position: relative;
     bottom: 1.5rem;
 
@@ -134,8 +156,9 @@ div {
     justify-content: center;
     align-items: center;
 }
-.submit_result{
-    position: fixed;
+
+.submit_result {
+    /* position: fixed; */
     left: 25%;
     bottom: 1.5rem;
 
@@ -151,22 +174,27 @@ div {
     color: white;
     background-color: #FFC573;
     cursor: pointer;
+
+    margin-bottom: 2rem;
 }
 
-.page_num_div{
+.page_num_div {
     padding: 1rem;
 
     border-radius: 50%;
     color: #ccc;
 }
-.page_num_div_active{
+
+.page_num_div_active {
     color: black;
 }
 
 /* marking write board CSS */
-.marking_write_board{
+.marking_write_board {
     position: fixed;
-    left: 0; top: 0; z-index: 9980;
+    left: 0;
+    top: 0;
+    z-index: 9980;
 
     width: 100vw;
     height: 100vh;
@@ -178,7 +206,7 @@ div {
     align-items: center;
 }
 
-.marking_write_title{
+.marking_write_title {
     font-size: 2rem;
 
     display: flex;
@@ -187,7 +215,8 @@ div {
 
     margin: 1rem 0;
 }
-.marking_write_content{
+
+.marking_write_content {
     width: 80vw;
     height: 50vh;
 
@@ -198,7 +227,8 @@ div {
 
     background-color: white;
 }
-.marking_write_btns{
+
+.marking_write_btns {
     width: 80vw;
     margin-top: 1rem;
 
@@ -207,7 +237,7 @@ div {
     align-items: center;
 }
 
-.marking_write_cancle_btn{
+.marking_write_cancle_btn {
     color: #FFC573;
     border: 1px solid #FFC573;
 
@@ -215,7 +245,8 @@ div {
     padding: 0.8rem 1rem;
     border-radius: 2rem;
 }
-.marking_write_submit_btn{
+
+.marking_write_submit_btn {
     color: white;
     border: 1px solid #FFC573;
     background-color: #FFC573;
@@ -227,9 +258,11 @@ div {
 }
 
 /*--------------------- "데이터 저장하고 종료하기" 버튼 클릭 시 뜨는 메뉴 창 ---------------------*/
-.dataRecordAbortblur{
+.dataRecordAbortblur {
     position: fixed;
-    top: 0; left: 0; z-index: 9990;
+    top: 0;
+    left: 0;
+    z-index: 9990;
 
     display: flex;
     justify-content: center;
@@ -237,11 +270,11 @@ div {
 
     width: 100vw;
     height: 100vh;
-    
+
     background-color: rgba(0, 0, 0, 0.4);
 }
 
-.dataRecordAbort{
+.dataRecordAbort {
     position: relative;
     top: 5%;
 
@@ -258,7 +291,7 @@ div {
     background-color: white;
 }
 
-.dataRecordAbortTxt{
+.dataRecordAbortTxt {
     position: relative;
     top: 0;
 
@@ -266,11 +299,13 @@ div {
     align-items: center;
     text-align: center;
 
-    margin-bottom: 2rem;;
+    margin-bottom: 2rem;
+    ;
 
     font-size: 0.9rem;
 }
-.dataRecordAbortBtn{
+
+.dataRecordAbortBtn {
     position: relative;
     top: 0.5rem;
 
@@ -284,16 +319,16 @@ div {
     height: 60%;
 }
 
-.myDataBtn{
+.myDataBtn {
     position: relative;
-    
+
     display: flex;
     justify-content: center;
     align-items: center;
 
     width: 100%;
     height: 3.5rem;
-    
+
     border: 0;
     border-radius: 1rem;
     margin-bottom: 1rem;
@@ -302,16 +337,16 @@ div {
     cursor: pointer;
 }
 
-.submitResultAbortBtn{
+.submitResultAbortBtn {
     position: relative;
-    
+
     display: flex;
     justify-content: center;
     align-items: center;
 
     width: 100%;
     height: 3.5rem;
-    
+
     border: 0;
     border-radius: 1rem;
 

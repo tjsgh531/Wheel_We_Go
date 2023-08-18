@@ -27,7 +27,8 @@ urlpatterns = [
     path('api/',include('wwg.urls')),
     
     #페이지 url
-    path('',views.index,name="index"),
+    path('',views.rending,name="rending"),
+    path('login/',views.index,name="login"),
     path('main/' ,views.main,name="main" ),
     path('mydata/' ,views.mydata,name="mydata" ),
     path('mypage/' ,views.mypage,name="mypage" ),

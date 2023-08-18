@@ -18,6 +18,8 @@ from rest_framework.pagination import LimitOffsetPagination
 
 
 ### 페이지-html 매핑 views ###
+def rending(request):
+    return render(request,"10.firstPage.html")
 def index(request):
     return render(request,"01index.html")
 

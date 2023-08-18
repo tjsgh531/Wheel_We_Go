@@ -1,0 +1,36 @@
+<div class="li_box">
+
+    <div class="date-route-etc">
+
+        <div class="date-route">
+            <div class="date">${recordDate.toLocaleDateString()}</div>
+            <div class="circle-route">
+                <div class="circle-container">
+                    <span class="circle-${valid_check}"></span>
+                </div>
+
+                <div class="route">
+                    <div class='start_location'>${start}</div> -> <div class='end_location'>${end}</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="etc-data">
+        <div>
+            <img src="../static/img/시간.png" alt="시간">
+            <div class='take_time'>${time}분</div>
+        </div>
+        <div>
+            <img src="../static/img/거리.png" alt="거리">
+            <div class='kms'>${km}km</div>
+        </div>
+        <div>
+            <img src="../static/img/코인.png" alt="코인">
+            <div class='coins'>${credit}</div>
+        </div>
+    </div>
+</div>
+
+<div class="line"></div>
