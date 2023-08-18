@@ -164,7 +164,7 @@ class Area {
 
         let polygon = new Tmapv3.Polygon({
             paths: path,
-            fillColor: this.getPolygonColor(this.user_data[emdNm]),
+            fillColor: this.getPolygonColor(this.fDataDicKms[emdNm]),
             strokeColor: "#99ccff",
             strokeWeight: 1,
             map: this.map,
@@ -183,12 +183,12 @@ class Area {
     }
 
     getPolygonColor(value) {
-        if (value >= 0 && value < 3) {
-            return "#E65100";
-        } else if (value >= 3 && value < 9) {
-            return "#FFCC80";
-        } else if (value >= 9) {
-            return "#FFFFFF";
+        if (value >= 10 && value < 100) {
+            return "#FFB973";
+        } else if (value >= 100) {
+            return "#F1F8E9";
+        } else{
+            return "#FF9326";
         }
     }
 
