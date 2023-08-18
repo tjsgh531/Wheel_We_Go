@@ -4,7 +4,6 @@ import { CurrentPos } from "./currentPos.js";
 import { NaviResult } from "./naviResult.js";
 import { RestApiData } from "./restApiData.js";
 
-
 export class Navi {
     constructor() {
         this.drawTool = new DrawShape();
@@ -12,7 +11,7 @@ export class Navi {
         this.currentPos = new CurrentPos();
         this.naviResult = new NaviResult();
         this.restApiData = new RestApiData();
-        
+        this.username = this.getCurrentLoginUser();
         this.currentLat, this.currentLon;
         this.map;
         this.marker_SE = "";  
@@ -51,7 +50,11 @@ export class Navi {
         this.currentLat = lat;
         this.currentLon = lon;
     }
-
+    getCurrentLoginUser() {
+        let userinfo = document.getElementById('user-info');
+        let user = userinfo.dataset.username;
+        return user;
+      }
     // 마커 버튼 클릭시 작동
     clickMarkBtn(){
         const marker = this.mapTool.createMark(this.map, this.currentLat, this.currentLon);
@@ -267,11 +270,12 @@ export class Navi {
                 const saveJsonData = JSON.stringify(this.trackingData);
                 
                 const saveData = {
+                    user_id : this.username,
                     earnedCoin : coin,
                     info : saveJsonData,
                 }
 
-                return saveData;
+                this.restApiData.createSaveRecord(saveData)
             })
         })
     }
