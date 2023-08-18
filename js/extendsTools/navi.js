@@ -289,7 +289,7 @@ export class Navi {
                 info : saveJsonData,
             }
             saveData = JSON.stringify(saveData);
-            
+
             return saveData;
         })
     }
@@ -692,10 +692,7 @@ export class Navi {
 
         submitResultAbortBtn.addEventListener("click", ()=>{
             this.createTrackingData().then((saveData)=>{
-                console.log("savedata :", saveData);
-                this.restApiData.createSaveRecord(saveData);
-                console.log("트래킹 데이터", this.trackingData);
-                console.log("트래킹 데이터 마커 스트링", this.trackingData.markingStr);
+                // this.restApiData.createSaveRecord(saveData);
                 this.eraseTrackingLine(); //
                 this.resetMarkers(); 
                 dataRecordAbortblur.classList.toggle("unactive", true);
