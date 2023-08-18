@@ -25,8 +25,6 @@ div {
 }
 
 #startNameFilter {
-
-
       /* 생략 */
 
 font-family: "Noto Sansf KR", sans-serif;
@@ -60,6 +58,11 @@ justify-content:initial;
 padding: 0.5rem 2rem; /* 위아래 여백 0.2rem, 좌우 여백 1rem */
 
 align-items: start; /* 세로 가운데 정렬 */
+}
+
+
+.li_box{
+    display: flex;
 }
 
 #dateRangeFilter {
