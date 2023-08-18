@@ -14,6 +14,7 @@ export class InitMap {
                     scaleBar: true
                 });
                 
+                console.log("맵 만드는 중 ...");
                 resolve(map);
             });
         } catch (error) {
